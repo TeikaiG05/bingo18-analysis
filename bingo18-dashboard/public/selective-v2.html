@@ -340,6 +340,10 @@
         return 'decision skip'
       }
 
+      function safeSources(value) {
+        return Array.isArray(value) && value.length ? value.join(', ') : '--'
+      }
+
       function labelReason(value) {
         return ({
           all_signals_align: 'Tất cả tín hiệu cùng hướng',
@@ -359,8 +363,10 @@
 
       async function loadV2() {
         const res = await fetch('/predict-v2')
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const data = await res.json()
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          throw new Error(data.message || `HTTP ${res.status}`)
+        }
 
         const baseDecision = data.selectiveStrategy?.currentDecision || {}
         const v2 = data.selectiveStrategy?.v2?.currentDecision || {}
@@ -415,7 +421,7 @@
         renderList(
           'recommendedTotalsList',
           baseDecision.recommendedTotals || [],
-          (item) => `<div><strong>Tổng ${item.total}</strong><div class="tiny">${labelResult(item.result)} | ${Array.isArray(item.sources) ? item.sources.join(', ') : '--'}</div></div><strong>${item.score}</strong>`,
+          (item) => `<div><strong>Tổng ${item.total}</strong><div class="tiny">${labelResult(item.result)} | ${safeSources(item.sources)}</div></div><strong>${item.score}</strong>`,
           'Chưa có tổng nên theo.'
         )
 
@@ -461,7 +467,7 @@
         renderList(
           'portfolioList',
           portfolio.highHit?.totals || [],
-          (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="tiny">${labelResult(item.result)} | ${Array.isArray(item.sources) ? item.sources.join(', ') : '--'}</div></div><strong>${item.score}</strong>`,
+          (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="tiny">${labelResult(item.result)} | ${safeSources(item.sources)}</div></div><strong>${item.score}</strong>`,
           'Chưa có portfolio V1.'
         )
 
@@ -484,7 +490,13 @@
         ws.onerror = () => { if (ws) ws.close() }
       }
 
-      loadV2().catch(console.error)
+      loadV2().catch((error) => {
+        console.error(error)
+        document.getElementById('v2Summary').textContent = 'Backend đang khởi động hoặc chưa sẵn cache V2. Trang sẽ tự thử lại.'
+        setTimeout(() => {
+          loadV2().catch(() => {})
+        }, 5000)
+      })
       connectWebSocket()
     </script>
   </body>

@@ -513,11 +513,21 @@
         document.getElementById('retuneConfig').textContent = '--'
       }
 
+      function safeSources(value) {
+        return Array.isArray(value) && value.length ? value.join(', ') : '--'
+      }
+
       async function loadSelective() {
         const res = await fetch('/predict')
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          if (res.status === 503) {
+            setDataWarning(data.message || 'Backend đang khởi động và build cache. Hãy chờ vài giây rồi tải lại.')
+            return
+          }
+          throw new Error(data.message || `HTTP ${res.status}`)
+        }
 
-        const data = await res.json()
         const strategy = data.selectiveStrategy || {}
         const portfolio = data.betPortfolio || {}
         const current = strategy.currentDecision || {}
@@ -568,14 +578,14 @@
           : buildFallbackRecommendedTotals(current)
 
         renderList('resultBreakdownList', current.resultBreakdown || [], (item, index) => `<div><strong>#${index + 1} ${labelResult(item.result)}</strong><div class="small-note">Tín hiệu lớp kết quả</div></div><strong>${item.probability}%</strong>`, 'Chưa có phân bổ kết quả.')
-        renderList('recommendedTotalsList', recommendedTotals, (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${item.sources.join(', ')}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng ưu tiên.')
+        renderList('recommendedTotalsList', recommendedTotals, (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${safeSources(item.sources)}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng ưu tiên.')
         renderList('totalSignalsList', current.totalSignals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)}</div></div><strong>${item.probability}%</strong>`, 'Chưa có flow theo tổng.')
         renderList('consensusList', current.consensusTotals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | tổng ${item.fromTotal}% | pattern ${item.fromPattern}%</div></div><strong>${item.averageProbability}%</strong>`, 'Chưa có tổng đồng thuận.')
 
         document.getElementById('highHitSummary').textContent = portfolio.highHit?.summary || 'Chưa có portfolio ưu tiên trúng cao.'
         document.getElementById('highPayoutSummary').textContent = portfolio.highPayout?.summary || 'Chưa có portfolio ưu tiên ăn nhân cao.'
 
-        renderList('portfolioTotalsList', portfolio.highHit?.totals || [], (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${item.sources.join(', ')}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng nên theo.')
+        renderList('portfolioTotalsList', portfolio.highHit?.totals || [], (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${safeSources(item.sources)}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng nên theo.')
         renderList('portfolioSingleFacesList', portfolio.highHit?.singleFaces || [], (item) => `<div><strong>#${item.rank} Số ${item.face}</strong><div class="small-note">Gần đây ${item.recentRate ?? '--'}% | Hôm nay ${item.todayRate ?? '--'}%</div></div><strong>${item.score}</strong>`, 'Chưa có số nên theo.')
         renderList('portfolioDoubleList', portfolio.highHit?.exactDoubles || [], (item) => `<div><strong>#${item.rank} ${item.pattern}</strong><div class="small-note">Gần đây ${item.recentRate}% | Hôm nay ${item.todayRate}%</div></div><strong>${item.score}</strong>`, 'Chưa có 2 số trùng nên theo.')
         renderList('portfolioAnyTripleList', portfolio.highPayout?.anyTriple ? [portfolio.highPayout.anyTriple] : [], (item) => `<div><strong>${item.status === 'BET' ? 'THEO' : 'BỎ QUA'} tam hoa bất kỳ</strong><div class="small-note">Tổng ${item.overallRate}% | Gần đây ${item.recentRate}% | Hôm nay ${item.todayRate}%${item.hotHour ? ` | Giờ ${item.hotHour}` : ''}</div></div><strong>${item.score}</strong>`, 'Chưa có tín hiệu tam hoa bất kỳ.')
@@ -630,6 +640,9 @@
       loadSelective().catch((error) => {
         console.error(error)
         setDataWarning('Không tải được dữ liệu từ backend. Hãy kiểm tra server hoặc refresh lại trang.')
+        setTimeout(() => {
+          loadSelective().catch(() => {})
+        }, 5000)
       })
       connectWebSocket()
     </script>

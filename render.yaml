@@ -15,7 +15,11 @@ services:
         value: production
       - key: HOST
         value: 0.0.0.0
+      - key: BOOTSTRAP_DELAY_MS
+        value: 3000
       - key: POLL_INTERVAL_MS
-        value: 6000
+        value: 30000
+      - key: ENABLE_POLLING
+        value: true
       - key: FULL_SYNC_ON_STARTUP
         value: false

@@ -14,6 +14,17 @@ const app = express()
 const server = http.createServer(app)
 const wss = new WebSocketServer({ server })
 
+process.on('unhandledRejection', (reason) => {
+  startupError =
+    reason instanceof Error ? reason : new Error(String(reason || 'Unknown rejection'))
+  console.error('[process] unhandledRejection:', startupError.message)
+})
+
+process.on('uncaughtException', (error) => {
+  startupError = error
+  console.error('[process] uncaughtException:', error.message)
+})
+
 const HOST = process.env.HOST || '0.0.0.0'
 const PORT = Number(process.env.PORT || 3000)
 const DATA_DIR = process.env.DATA_DIR
@@ -24,8 +35,11 @@ const DATA_FILE = process.env.DATA_FILE
   : path.join(DATA_DIR, 'data.json')
 const SOURCE_URL = 'https://18.xidnas.site/data/json'
 const POLL_INTERVAL_MS = Number(process.env.POLL_INTERVAL_MS || 6000)
+const BOOTSTRAP_DELAY_MS = Number(process.env.BOOTSTRAP_DELAY_MS || 3000)
 const FULL_SYNC_ON_STARTUP =
   String(process.env.FULL_SYNC_ON_STARTUP || 'false').toLowerCase() === 'true'
+const ENABLE_POLLING =
+  String(process.env.ENABLE_POLLING || 'true').toLowerCase() === 'true'
 let predictionCache = null
 let predictionCacheV2 = null
 let startupPhase = 'booting'
@@ -503,18 +517,21 @@ async function bootstrapServer() {
 
   startupPhase = 'ready'
 
-  if (!pollTimer) {
+  if (ENABLE_POLLING && !pollTimer) {
     pollTimer = setInterval(pollLatestRound, POLL_INTERVAL_MS)
   }
 }
 
 server.listen(PORT, HOST, () => {
   console.log(`Server running at http://${HOST}:${PORT}`)
+  console.log(
+    `[startup] bootstrapDelay=${BOOTSTRAP_DELAY_MS}ms polling=${ENABLE_POLLING ? `on/${POLL_INTERVAL_MS}ms` : 'off'} fullSync=${FULL_SYNC_ON_STARTUP}`,
+  )
   setTimeout(() => {
     bootstrapServer().catch((err) => {
       startupError = err
       startupPhase = 'ready'
       console.error('[startup] bootstrap crashed:', err.message)
     })
-  }, 50)
+  }, BOOTSTRAP_DELAY_MS)
 })
