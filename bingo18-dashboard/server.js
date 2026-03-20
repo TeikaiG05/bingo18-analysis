@@ -39,12 +39,14 @@ const BOOTSTRAP_DELAY_MS = Number(process.env.BOOTSTRAP_DELAY_MS || 3000)
 const FULL_SYNC_ON_STARTUP =
   String(process.env.FULL_SYNC_ON_STARTUP || 'false').toLowerCase() === 'true'
 const ENABLE_POLLING =
-  String(process.env.ENABLE_POLLING || 'true').toLowerCase() === 'true'
+  String(process.env.ENABLE_POLLING || 'false').toLowerCase() === 'true'
 let predictionCache = null
 let predictionCacheV2 = null
 let startupPhase = 'booting'
 let startupError = null
 let pollTimer = null
+let cacheBuildState = 'idle'
+let cacheBuildTimer = null
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -122,14 +124,28 @@ function refreshPredictionCache(store = readData()) {
 
 function safeRefreshPredictionCache(store = readData()) {
   try {
+    cacheBuildState = 'building'
     const cache = refreshPredictionCache(store)
     startupError = null
+    cacheBuildState = 'ready'
     return cache
   } catch (err) {
     startupError = err
+    cacheBuildState = 'error'
     console.error('[predict] refresh failed:', err.message)
     return null
   }
+}
+
+function scheduleCacheBuild(delayMs = 50, store = null) {
+  if (cacheBuildState === 'building') return
+  if (cacheBuildTimer) return
+
+  cacheBuildState = 'scheduled'
+  cacheBuildTimer = setTimeout(() => {
+    cacheBuildTimer = null
+    safeRefreshPredictionCache(store || readData())
+  }, delayMs)
 }
 
 function broadcastReload() {
@@ -306,7 +322,7 @@ async function syncAllRoundsFromSource() {
     rounds: mapped,
     updatedAt: new Date().toISOString(),
   })
-  refreshPredictionCache({
+  safeRefreshPredictionCache({
     rounds: mapped,
     updatedAt: new Date().toISOString(),
   })
@@ -369,7 +385,11 @@ async function pollLatestRound() {
         store.rounds[existingIndex] = merged
         store.updatedAt = new Date().toISOString()
         writeData(store)
-        refreshPredictionCache(store)
+        if (predictionCache) {
+          safeRefreshPredictionCache(store)
+        } else {
+          scheduleCacheBuild(1000, store)
+        }
         broadcastReload()
         console.log('[crawler] refreshed existing round:', latest.id)
       } else {
@@ -382,7 +402,11 @@ async function pollLatestRound() {
     store.updatedAt = new Date().toISOString()
 
     writeData(store)
-    refreshPredictionCache(store)
+    if (predictionCache) {
+      safeRefreshPredictionCache(store)
+    } else {
+      scheduleCacheBuild(1000, store)
+    }
     broadcastReload()
 
     console.log('[crawler] added new round:', latest)
@@ -432,6 +456,7 @@ app.get('/healthz', (req, res) => {
     ok: true,
     service: 'bingo18-dashboard',
     phase: startupPhase,
+    cacheBuildState,
     startupError: startupError ? startupError.message : null,
     updatedAt: store.updatedAt,
     totalRounds: Array.isArray(store.rounds) ? store.rounds.length : 0,
@@ -440,13 +465,14 @@ app.get('/healthz', (req, res) => {
 
 app.get('/predict', (req, res) => {
   if (!predictionCache) {
-    safeRefreshPredictionCache()
+    scheduleCacheBuild(50)
   }
   if (!predictionCache) {
     return res.status(503).json({
       ok: false,
       message: 'Prediction cache is warming up. Retry shortly.',
       phase: startupPhase,
+      cacheBuildState,
       error: startupError ? startupError.message : null,
     })
   }
@@ -455,13 +481,14 @@ app.get('/predict', (req, res) => {
 
 app.get('/predict-v2', (req, res) => {
   if (!predictionCache || !predictionCacheV2) {
-    safeRefreshPredictionCache()
+    scheduleCacheBuild(50)
   }
   if (!predictionCacheV2) {
     return res.status(503).json({
       ok: false,
       message: 'Prediction V2 cache is warming up. Retry shortly.',
       phase: startupPhase,
+      cacheBuildState,
       error: startupError ? startupError.message : null,
     })
   }
@@ -502,13 +529,10 @@ async function bootstrapServer() {
       writeData(normalizedStore)
     }
 
-    startupPhase = 'building_cache'
-    safeRefreshPredictionCache(normalizedStore)
-
     if (FULL_SYNC_ON_STARTUP) {
       startupPhase = 'syncing_source'
       await syncAllRoundsFromSource()
-      safeRefreshPredictionCache(readData())
+      scheduleCacheBuild(250, readData())
     }
   } catch (err) {
     startupError = err

@@ -20,6 +20,6 @@ services:
       - key: POLL_INTERVAL_MS
         value: 30000
       - key: ENABLE_POLLING
-        value: true
+        value: false
       - key: FULL_SYNC_ON_STARTUP
         value: false
