@@ -1,0 +1,22 @@
+{
+  "name": "bingo18-dashboard",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "analyze": "node analyze.js",
+    "analyze:v2": "node analyze-v2.js",
+    "benchmark": "node benchmark.js",
+    "benchmark:v2": "node benchmark-v2.js",
+    "benchmark:v2:quick": "node benchmark-v2-runner.js 12",
+    "benchmark:v2:standard": "node benchmark-v2-runner.js 30",
+    "benchmark:core": "node benchmark-core.js",
+    "benchmark:quick": "node benchmark-runner.js 30",
+    "benchmark:standard": "node benchmark-runner.js 120"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,640 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Chế Độ Chọn Lọc</title>
+    <style>
+      :root {
+        --bg: #eff4f7;
+        --bg2: #dde8ee;
+        --panel: rgba(255, 255, 255, 0.88);
+        --line: rgba(16, 32, 51, 0.1);
+        --text: #102033;
+        --muted: #62768c;
+        --teal: #0d7a85;
+        --amber: #c46c20;
+        --danger: #be465f;
+        --ok: #157347;
+        --shadow: 0 20px 60px rgba(17, 35, 54, 0.12);
+        --r1: 28px;
+        --r2: 18px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(13, 122, 133, 0.12), transparent 28%),
+          radial-gradient(circle at top right, rgba(196, 108, 32, 0.12), transparent 22%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+
+      .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer {
+        position: fixed;
+        top: 18px;
+        left: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: flex-start;
+        transform: translateX(calc(-100% + 54px));
+        transition: transform 0.24s ease;
+      }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 54px;
+        min-height: 54px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: var(--shadow);
+        color: var(--text);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .tabs-menu {
+        display: grid;
+        gap: 10px;
+        min-width: 220px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: var(--shadow);
+      }
+      .brand-badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 6px 14px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 4px;
+      }
+      .brand-badge img {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(17, 35, 54, 0.14);
+      }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 38px; padding: 0 14px; border-radius: 999px;
+        border: 1px solid var(--line); background: rgba(255, 255, 255, 0.72);
+        color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700;
+      }
+      .tab-link.active { color: var(--teal); border-color: rgba(13, 122, 133, 0.22); background: rgba(13, 122, 133, 0.1); }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: var(--r1);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        overflow: hidden;
+      }
+      .card-body { padding: 20px; }
+      .hero, .grid, .triple-grid, .history-grid { display: grid; gap: 16px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr); }
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .triple-grid { grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr); }
+      .history-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .title { margin: 8px 0 0; font-size: clamp(34px, 5vw, 52px); line-height: 0.95; letter-spacing: -0.04em; }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      .subtitle, .muted { color: var(--muted); }
+      .subtitle { margin-top: 12px; max-width: 760px; line-height: 1.6; font-size: 15px; }
+      .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .pill, .decision-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .decision-pill.bet { color: var(--ok); border-color: rgba(21, 115, 71, 0.22); background: rgba(21, 115, 71, 0.1); }
+      .decision-pill.skip { color: var(--amber); border-color: rgba(196, 108, 32, 0.22); background: rgba(196, 108, 32, 0.1); }
+      .decision-pill.safe { color: var(--danger); border-color: rgba(190, 70, 95, 0.22); background: rgba(190, 70, 95, 0.1); }
+      .panel, .hero-panel {
+        border: 1px solid rgba(16, 32, 51, 0.08);
+        border-radius: var(--r2);
+        background: rgba(255, 255, 255, 0.68);
+        padding: 16px;
+      }
+      .hero-panel strong.big {
+        display: block;
+        margin-top: 10px;
+        font-size: clamp(48px, 7vw, 84px);
+        line-height: 0.9;
+        letter-spacing: -0.06em;
+      }
+      .kpis, .list, .gate-list { display: grid; gap: 10px; }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
+      .kpi, .item {
+        border: 1px solid rgba(16, 32, 51, 0.08);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.72);
+        padding: 12px 14px;
+      }
+      .kpi .value { margin-top: 6px; font-size: 22px; font-weight: 900; letter-spacing: -0.04em; }
+      .item { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+      .item strong:last-child { color: var(--teal); }
+      .gate {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid rgba(16, 32, 51, 0.08);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+      .gate.pass { border-color: rgba(21, 115, 71, 0.22); }
+      .gate.fail { border-color: rgba(190, 70, 95, 0.22); }
+      .gate-status { font-weight: 900; }
+      .gate.pass .gate-status { color: var(--ok); }
+      .gate.fail .gate-status { color: var(--danger); }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td {
+        padding: 10px 8px;
+        border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+        text-align: left;
+        vertical-align: top;
+      }
+      th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+      .hit { color: var(--ok); font-weight: 800; }
+      .miss { color: var(--danger); font-weight: 800; }
+      .small-note { font-size: 12px; color: var(--muted); }
+      @media (max-width: 1040px) {
+        .hero, .triple-grid, .history-grid, .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Selective V1</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Dashboard V1</a>
+          <a class="tab-link active" href="/selective">Selective V1</a>
+          <a class="tab-link" href="/selective-v2">Selective V2</a>
+          <a class="tab-link" href="/predict" target="_blank" rel="noreferrer">JSON V1</a>
+          <a class="tab-link" href="/predict-v2" target="_blank" rel="noreferrer">JSON V2</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Chế Độ Chọn Lọc</div>
+              <h1 class="title">Chỉ vào khi tín hiệu đủ mạnh</h1>
+              <div class="subtitle">
+                Trang này tách khỏi dashboard chính. Hệ thống không ép dự đoán mọi kỳ,
+                mà chỉ lọc các kỳ đủ mạnh để vào lệnh và bỏ qua các kỳ edge thấp.
+              </div>
+            </div>
+            <div class="hero-panel">
+              <div class="label">Quy Tắc Vận Hành</div>
+              <div class="list" style="margin-top: 12px;">
+                <div class="item"><div><strong>VÀO LỆNH</strong><div class="small-note">Chỉ hiện khi xác suất, spread và support đủ tốt</div></div><strong>Cho phép</strong></div>
+                <div class="item"><div><strong>BỎ QUA AN TOÀN</strong><div class="small-note">Drift cao thì đứng ngoài dù ngưỡng vẫn đạt</div></div><strong>Phòng thủ</strong></div>
+                <div class="item"><div><strong>SOI LẠI</strong><div class="small-note">Xem lại lệnh trượt để tune đúng cửa đặt</div></div><strong>Học lại</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triple-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Quyết Định Hiện Tại</div>
+            <div class="pill-row">
+              <div class="decision-pill" id="decisionBadge">Đang tải</div>
+              <div class="pill" id="latestRoundPill">--</div>
+            </div>
+            <div class="hero-panel" style="margin-top: 16px;">
+              <div class="label">Hướng Nên Theo</div>
+              <strong class="big" id="decisionResult">--</strong>
+              <div class="subtitle" id="decisionSummary">Đang nạp bộ lọc chọn lọc...</div>
+              <div class="kpis">
+                <div class="kpi"><div class="label">Xác Suất Top</div><div class="value" id="topProbabilityValue">--</div></div>
+                <div class="kpi"><div class="label">Spread</div><div class="value" id="spreadValue">--</div></div>
+                <div class="kpi"><div class="label">Đồng Thuận</div><div class="value" id="consensusValue">--</div></div>
+                <div class="kpi"><div class="label">Độ Dày Lớp</div><div class="value" id="supportValue">--</div></div>
+              </div>
+              <div class="label" style="margin-top: 16px;">Tổng Nên Theo</div>
+              <div class="list" id="recommendedTotalsList" style="margin-top: 12px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Điều Kiện Vào Lệnh</div>
+            <div class="gate-list" id="gateList" style="margin-top: 16px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Phân Bổ Kết Quả</div>
+            <div class="list" id="resultBreakdownList" style="margin-top: 16px;"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Sau Tổng Vừa Ra</div>
+            <div class="list" id="totalSignalsList" style="margin-top: 16px;"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Tổng Đồng Thuận</div>
+            <div class="list" id="consensusList" style="margin-top: 16px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Danh Mục Ưu Tiên Trúng Cao</div>
+            <div class="subtitle" id="highHitSummary" style="margin-top: 12px;">--</div>
+            <div class="grid" style="grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px;">
+              <div class="panel">
+                <div class="label">Tổng</div>
+                <div class="list" id="portfolioTotalsList" style="margin-top: 12px;"></div>
+              </div>
+              <div class="panel">
+                <div class="label">1 Số</div>
+                <div class="list" id="portfolioSingleFacesList" style="margin-top: 12px;"></div>
+              </div>
+              <div class="panel">
+                <div class="label">2 Số Trùng</div>
+                <div class="list" id="portfolioDoubleList" style="margin-top: 12px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Danh Mục Ưu Tiên Ăn Nhân Cao</div>
+            <div class="subtitle" id="highPayoutSummary" style="margin-top: 12px;">--</div>
+            <div class="grid" style="grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px;">
+              <div class="panel">
+                <div class="label">3 Số Trùng Bất Kỳ</div>
+                <div class="list" id="portfolioAnyTripleList" style="margin-top: 12px;"></div>
+              </div>
+              <div class="panel">
+                <div class="label">3 Số Trùng Đúng Mặt</div>
+                <div class="list" id="portfolioExactTripleList" style="margin-top: 12px;"></div>
+              </div>
+              <div class="panel">
+                <div class="label">Giờ Nóng Tam Hoa</div>
+                <div class="list" id="portfolioTripleHoursList" style="margin-top: 12px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Độ Lệch Pha / Chế Độ An Toàn</div>
+            <div class="subtitle" id="driftSummary" style="margin-top: 14px;">--</div>
+            <div class="kpis" style="margin-top: 16px;">
+              <div class="kpi"><div class="label">Mức Độ</div><div class="value" id="driftLevel">--</div></div>
+              <div class="kpi"><div class="label">Áp Lực</div><div class="value" id="driftPressure">--</div></div>
+              <div class="kpi"><div class="label">Tỷ Lệ Gần Đây</div><div class="value" id="driftRecentHit">--</div></div>
+              <div class="kpi"><div class="label">Cấu Hình</div><div class="value" id="retuneConfig">--</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Soi Lại Lệnh Trượt</div>
+            <div style="margin-top: 16px; overflow: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Kỳ</th>
+                    <th>Dự Kiến</th>
+                    <th>Thực Tế</th>
+                    <th>Tổng</th>
+                    <th>Lý Do</th>
+                  </tr>
+                </thead>
+                <tbody id="missReviewTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Kiểm Định</div>
+            <div class="kpis" style="margin-top: 16px;">
+              <div class="kpi"><div class="label">Tỷ Lệ Trúng</div><div class="value" id="backtestHitRate">--</div></div>
+              <div class="kpi"><div class="label">Top 2 Trúng</div><div class="value" id="backtestTop2Rate">--</div></div>
+              <div class="kpi"><div class="label">Độ Phủ</div><div class="value" id="backtestCoverage">--</div></div>
+              <div class="kpi"><div class="label">Tỷ Lệ Bỏ Qua</div><div class="value" id="backtestSkipRate">--</div></div>
+              <div class="kpi"><div class="label">Hiệu Dụng</div><div class="value" id="backtestUtility">--</div></div>
+            </div>
+            <div class="subtitle" id="backtestSummary" style="margin-top: 14px;">--</div>
+            <div class="small-note" id="thresholdSummary" style="margin-top: 10px;">--</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các Kỳ Đủ Điều Kiện Gần Đây</div>
+            <div class="small-note" style="margin-top: 10px;">Danh sách này được nới ngưỡng nhẹ để tăng số kỳ tham khảo. Không làm thay đổi quyết định BET/SKIP chính.</div>
+            <div style="margin-top: 16px; overflow: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Kỳ</th>
+                    <th>Dự Kiến</th>
+                    <th>Thực Tế</th>
+                    <th>KQ</th>
+                    <th>Edge</th>
+                  </tr>
+                </thead>
+                <tbody id="recentQualifiedTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function renderList(containerId, items, renderItem, emptyText) {
+        const container = document.getElementById(containerId)
+        container.innerHTML = ''
+        if (!items || items.length === 0) {
+          container.innerHTML = `<div class="small-note">${emptyText}</div>`
+          return
+        }
+        items.forEach((item, index) => {
+          const div = document.createElement('div')
+          div.className = 'item'
+          div.innerHTML = renderItem(item, index)
+          container.appendChild(div)
+        })
+      }
+
+      function labelResult(value) {
+        return ({ Big: 'Lớn', Small: 'Nhỏ', Draw: 'Hòa' }[value]) || value || '--'
+      }
+
+      function labelDecision(value) {
+        return ({
+          BET: 'VÀO LỆNH',
+          SKIP: 'BỎ QUA',
+          SAFE_SKIP: 'BỎ QUA AN TOÀN',
+        }[value]) || value || '--'
+      }
+
+      function labelGate(value) {
+        return ({
+          'Top probability': 'Xác suất top',
+          Spread: 'Độ chênh',
+          'Class support': 'Độ dày lớp',
+          'Total support': 'Độ dày tổng',
+          'Pattern support': 'Độ dày pattern',
+          'Consensus count': 'Số điểm đồng thuận',
+          'Agreement count': 'Số tín hiệu cùng hướng',
+          'Consensus strength': 'Sức mạnh đồng thuận',
+          'Total-pattern gap': 'Độ lệch tổng-pattern',
+          'Consensus lead match': 'Khớp giữa lead và consensus',
+          'Alternative result pressure': 'Áp lực từ kết quả cạnh tranh',
+          'Draw pressure': 'Áp lực cửa Hòa',
+          'Drift pressure': 'Áp lực drift',
+        }[value]) || value
+      }
+
+      function labelReason(code) {
+        return ({
+          runner_up_reversal: 'Đảo sang cửa á quân',
+          class_break: 'Vỡ lớp kết quả chính',
+          total_outside_priority_cluster: 'Tổng thực tế nằm ngoài cụm ưu tiên',
+          weak_consensus: 'Đồng thuận yếu',
+          weak_agreement: 'Tín hiệu cùng hướng yếu',
+          pattern_total_gap: 'Lệch giữa flow tổng và flow pattern',
+          consensus_lead_mismatch: 'Lead class không khớp consensus',
+          alternative_result_pressure: 'Kết quả cạnh tranh bám quá sát',
+          draw_pressure: 'Cửa Hòa đang gây nhiễu mạnh',
+        }[code]) || code
+      }
+
+      function labelDriftLevel(level) {
+        return ({
+          stable: 'Ổn định',
+          elevated: 'Cảnh báo',
+          severe: 'Nguy hiểm',
+        }[level]) || level || '--'
+      }
+
+      function buildFallbackRecommendedTotals(current) {
+        const target = current.recommendedResult
+        if (!target) return []
+        const map = new Map()
+
+        const add = (item, score, source) => {
+          if (!item || item.result !== target) return
+          const existing = map.get(item.total) || { total: item.total, result: item.result, score: 0, sources: [] }
+          existing.score += score
+          if (!existing.sources.includes(source)) existing.sources.push(source)
+          map.set(item.total, existing)
+        }
+
+        ;(current.consensusTotals || []).forEach((item, index) => add(item, Number(item.averageProbability || 0) * (index === 0 ? 1.2 : 1), 'consensus'))
+        ;(current.patternSignals || []).forEach((item, index) => add(item, Number(item.probability || 0) * (index === 0 ? 1 : 0.7), 'after_pattern'))
+        ;(current.totalSignals || []).forEach((item, index) => add(item, Number(item.probability || 0) * (index === 0 ? 1 : 0.7), 'after_total'))
+
+        return [...map.values()]
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 3)
+          .map((item, index) => ({
+            rank: index + 1,
+            total: item.total,
+            result: item.result,
+            score: Number(item.score.toFixed(2)),
+            sources: item.sources,
+          }))
+      }
+
+      function setDataWarning(message) {
+        document.getElementById('driftSummary').textContent = message
+        document.getElementById('driftLevel').textContent = '--'
+        document.getElementById('driftPressure').textContent = '--'
+        document.getElementById('driftRecentHit').textContent = '--'
+        document.getElementById('retuneConfig').textContent = '--'
+      }
+
+      async function loadSelective() {
+        const res = await fetch('/predict')
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+
+        const data = await res.json()
+        const strategy = data.selectiveStrategy || {}
+        const portfolio = data.betPortfolio || {}
+        const current = strategy.currentDecision || {}
+        const backtest = strategy.backtest || {}
+        const drift = strategy.drift || {}
+        const review = strategy.review || {}
+        const latestRound = current.latestRound || {}
+        const decisionBadge = document.getElementById('decisionBadge')
+
+        if (!strategy.currentDecision) {
+          setDataWarning('Không đọc được dữ liệu selective từ backend. Hãy kiểm tra route /predict.')
+          return
+        }
+
+        if (!strategy.drift || !strategy.review) {
+          setDataWarning('Backend đang chạy bản cũ nên chưa trả dữ liệu độ lệch pha hoặc soi lệnh trượt. Hãy restart server.')
+        }
+
+        decisionBadge.textContent = labelDecision(current.decision)
+        decisionBadge.className = `decision-pill ${current.decision === 'SAFE_SKIP' ? 'safe' : (current.shouldBet ? 'bet' : 'skip')}`
+
+        document.getElementById('latestRoundPill').textContent = `Kỳ ${latestRound.id || '--'} | ${latestRound.total ?? '--'} | ${labelResult(latestRound.result)}`
+        document.getElementById('decisionResult').textContent = labelResult(current.recommendedResult)
+        if (current.decision === 'SAFE_SKIP') {
+          document.getElementById('decisionSummary').textContent = `Chế độ an toàn đang bật do độ lệch pha ở mức ${labelDriftLevel(current.driftLevel)}. Nên đứng ngoài dù thông số ngưỡng vẫn ổn.`
+        } else if (current.shouldBet) {
+          document.getElementById('decisionSummary').textContent = `Bộ lọc hiện cho phép vào lệnh. Pattern gần nhất: ${latestRound.pattern || 'không có'}.`
+        } else {
+          document.getElementById('decisionSummary').textContent = `Không đủ lợi thế để vào lệnh. Pattern gần nhất: ${latestRound.pattern || 'không có'}.`
+        }
+
+        document.getElementById('topProbabilityValue').textContent = `${Number(current.topProbability || 0).toFixed(2)}%`
+        document.getElementById('spreadValue').textContent = `${Number(current.spread || 0).toFixed(2)}%`
+        document.getElementById('consensusValue').textContent = current.consensusTotals?.[0]?.total ?? '--'
+        document.getElementById('supportValue').textContent = `${current.gateChecks?.find((item) => item.label === 'Class support')?.value ?? '--'}`
+
+        const gateList = document.getElementById('gateList')
+        gateList.innerHTML = ''
+        ;(current.gateChecks || []).forEach((item) => {
+          const div = document.createElement('div')
+          div.className = `gate ${item.pass ? 'pass' : 'fail'}`
+          div.innerHTML = `<div><strong>${labelGate(item.label)}</strong><div class="small-note">Ngưỡng ${item.threshold}</div></div><div class="gate-status">${item.value} ${item.pass ? 'ĐẠT' : 'TRƯỢT'}</div>`
+          gateList.appendChild(div)
+        })
+
+        const recommendedTotals = (current.recommendedTotals && current.recommendedTotals.length > 0)
+          ? current.recommendedTotals
+          : buildFallbackRecommendedTotals(current)
+
+        renderList('resultBreakdownList', current.resultBreakdown || [], (item, index) => `<div><strong>#${index + 1} ${labelResult(item.result)}</strong><div class="small-note">Tín hiệu lớp kết quả</div></div><strong>${item.probability}%</strong>`, 'Chưa có phân bổ kết quả.')
+        renderList('recommendedTotalsList', recommendedTotals, (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${item.sources.join(', ')}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng ưu tiên.')
+        renderList('totalSignalsList', current.totalSignals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)}</div></div><strong>${item.probability}%</strong>`, 'Chưa có flow theo tổng.')
+        renderList('consensusList', current.consensusTotals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | tổng ${item.fromTotal}% | pattern ${item.fromPattern}%</div></div><strong>${item.averageProbability}%</strong>`, 'Chưa có tổng đồng thuận.')
+
+        document.getElementById('highHitSummary').textContent = portfolio.highHit?.summary || 'Chưa có portfolio ưu tiên trúng cao.'
+        document.getElementById('highPayoutSummary').textContent = portfolio.highPayout?.summary || 'Chưa có portfolio ưu tiên ăn nhân cao.'
+
+        renderList('portfolioTotalsList', portfolio.highHit?.totals || [], (item) => `<div><strong>#${item.rank} Tổng ${item.total}</strong><div class="small-note">${labelResult(item.result)} | ${item.sources.join(', ')}</div></div><strong>${item.score}</strong>`, 'Chưa có tổng nên theo.')
+        renderList('portfolioSingleFacesList', portfolio.highHit?.singleFaces || [], (item) => `<div><strong>#${item.rank} Số ${item.face}</strong><div class="small-note">Gần đây ${item.recentRate ?? '--'}% | Hôm nay ${item.todayRate ?? '--'}%</div></div><strong>${item.score}</strong>`, 'Chưa có số nên theo.')
+        renderList('portfolioDoubleList', portfolio.highHit?.exactDoubles || [], (item) => `<div><strong>#${item.rank} ${item.pattern}</strong><div class="small-note">Gần đây ${item.recentRate}% | Hôm nay ${item.todayRate}%</div></div><strong>${item.score}</strong>`, 'Chưa có 2 số trùng nên theo.')
+        renderList('portfolioAnyTripleList', portfolio.highPayout?.anyTriple ? [portfolio.highPayout.anyTriple] : [], (item) => `<div><strong>${item.status === 'BET' ? 'THEO' : 'BỎ QUA'} tam hoa bất kỳ</strong><div class="small-note">Tổng ${item.overallRate}% | Gần đây ${item.recentRate}% | Hôm nay ${item.todayRate}%${item.hotHour ? ` | Giờ ${item.hotHour}` : ''}</div></div><strong>${item.score}</strong>`, 'Chưa có tín hiệu tam hoa bất kỳ.')
+        renderList('portfolioExactTripleList', portfolio.highPayout?.exactTriples || [], (item) => `<div><strong>#${item.rank} ${item.exact}</strong><div class="small-note">Gần đây ${item.recentRate}% | Hôm nay ${item.todayRate}%${item.hotHourLabel ? ` | Giờ ${item.hotHourLabel}` : ''}</div></div><strong>${item.score}</strong>`, 'Chưa có tín hiệu tam hoa đúng mặt.')
+        renderList('portfolioTripleHoursList', portfolio.highPayout?.tripleHotHours || [], (item, index) => `<div><strong>#${index + 1} ${item.label}</strong><div class="small-note">${item.count} lần tam hoa | ${item.rate}%</div></div><strong>${item.score}</strong>`, 'Chưa có giờ nóng tam hoa.')
+
+        document.getElementById('driftSummary').textContent = drift.note || 'Chưa có phân tích độ lệch pha.'
+        document.getElementById('driftLevel').textContent = labelDriftLevel(drift.level)
+        document.getElementById('driftPressure').textContent = `${Number((drift.pressure || 0) * 100).toFixed(2)}`
+        document.getElementById('driftRecentHit').textContent = drift.recentHitRate == null ? '--' : `${Number(drift.recentHitRate).toFixed(2)}%`
+        document.getElementById('retuneConfig').textContent = backtest.config?.label || backtest.config?.id || '--'
+
+        document.getElementById('backtestHitRate').textContent = `${Number(backtest.hitRate || 0).toFixed(2)}%`
+        document.getElementById('backtestTop2Rate').textContent = `${Number(backtest.top2HitRate || 0).toFixed(2)}%`
+        document.getElementById('backtestCoverage').textContent = `${Number(backtest.coverage || 0).toFixed(2)}%`
+        document.getElementById('backtestSkipRate').textContent = `${Number(backtest.skipRate || 0).toFixed(2)}%`
+        document.getElementById('backtestUtility').textContent = `${Number(backtest.utility || 0).toFixed(2)}`
+        document.getElementById('backtestSummary').textContent = `Kiểm định trên ${backtest.sampleSize || 0} kỳ, bộ lọc chọn lọc vào lệnh ở ${backtest.qualifyingBets || 0} kỳ.`
+
+        const t = backtest.thresholds || {}
+        const cfg = backtest.config || {}
+        document.getElementById('thresholdSummary').textContent = `Cấu hình ${cfg.label || cfg.id || '--'} | topProb >= ${t.minTopProbability ?? '--'} | spread >= ${t.minSpread ?? '--'} | classSupport >= ${t.minClassSupport ?? '--'} | totalSupport >= ${t.minTotalSupport ?? '--'} | patternSupport >= ${t.minPatternSupport ?? '--'} | agreement >= ${t.minAgreementCount ?? '--'} | consensusCount >= ${t.minConsensusCount ?? '--'} | consensusStrength >= ${t.minConsensusStrength ?? '--'} | totalPatternGap <= ${t.maxTotalPatternGap ?? '--'}`
+
+        const tbody = document.getElementById('recentQualifiedTable')
+        tbody.innerHTML = ''
+        ;(strategy.recentQualified || []).forEach((item) => {
+          const tr = document.createElement('tr')
+          tr.innerHTML = `<td>${item.roundId}</td><td>${labelResult(item.expected)}</td><td>${labelResult(item.actual)}</td><td class="${item.hit ? 'hit' : 'miss'}">${item.hit ? 'Trúng' : 'Trượt'}${item.softQualified ? ' | Nới nhẹ' : ''}</td><td>${Number(item.topProbability || 0).toFixed(2)} / ${Number(item.spread || 0).toFixed(2)}</td>`
+          tbody.appendChild(tr)
+        })
+
+        const missBody = document.getElementById('missReviewTable')
+        missBody.innerHTML = ''
+        ;(review.missedBets || []).forEach((item) => {
+          const tr = document.createElement('tr')
+          tr.innerHTML = `<td>${item.roundId}</td><td>${labelResult(item.expected)}</td><td>${labelResult(item.actual)}</td><td>${item.actualTotal ?? '--'}</td><td>${(item.reasons || []).map(labelReason).join(', ') || '--'}</td>`
+          missBody.appendChild(tr)
+        })
+      }
+
+      let ws = null
+
+      function connectWebSocket() {
+        if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return
+        const proto = location.protocol === 'https:' ? 'wss://' : 'ws://'
+        ws = new WebSocket(proto + location.host)
+        ws.onmessage = () => { loadSelective().catch(console.error) }
+        ws.onclose = () => { setTimeout(connectWebSocket, 3000) }
+        ws.onerror = () => { if (ws) ws.close() }
+      }
+
+      loadSelective().catch((error) => {
+        console.error(error)
+        setDataWarning('Không tải được dữ liệu từ backend. Hãy kiểm tra server hoặc refresh lại trang.')
+      })
+      connectWebSocket()
+    </script>
+  </body>
+</html>
+
+
+

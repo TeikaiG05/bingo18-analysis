@@ -1,0 +1,709 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Diagnostic Dashboard</title>
+    <style>
+      :root {
+        --bg: #ecf2f6; --bg2: #dfe8ef; --panel: rgba(255,255,255,.78); --panel2: rgba(255,255,255,.92);
+        --line: rgba(16,32,51,.1); --line2: rgba(16,32,51,.18); --text: #102033; --muted: #62768c;
+        --teal: #0d7a85; --teal-soft: rgba(13,122,133,.12); --amber: #c46c20; --amber-soft: rgba(196,108,32,.12);
+        --danger: #be465f; --shadow: 0 20px 60px rgba(17,35,54,.12); --r1: 28px; --r2: 20px;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh; padding: 18px; color: var(--text);
+        font-family: Bahnschrift, "Segoe UI Variable", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(13,122,133,.14), transparent 28%),
+          radial-gradient(circle at top right, rgba(196,108,32,.12), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      body::before {
+        content: ""; position: fixed; inset: 0; pointer-events: none;
+        background-image:
+          linear-gradient(rgba(16,32,51,.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16,32,51,.03) 1px, transparent 1px);
+        background-size: 26px 26px;
+      }
+      .app { position: relative; width: min(1560px, 100%); margin: 0 auto; }
+      .tabs-drawer {
+        position: fixed;
+        top: 18px;
+        left: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: flex-start;
+        transform: translateX(calc(-100% + 54px));
+        transition: transform 0.24s ease;
+      }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 54px;
+        min-height: 54px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255,255,255,.9);
+        box-shadow: var(--shadow);
+        color: var(--text);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .tabs-menu {
+        display: grid;
+        gap: 10px;
+        min-width: 220px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255,255,255,.9);
+        box-shadow: var(--shadow);
+      }
+      .brand-badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 6px 14px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 4px;
+      }
+      .brand-badge img {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(17,35,54,.14);
+      }
+      .brand-mark {
+        display: grid;
+        gap: 2px;
+      }
+      .brand-mark strong {
+        font-size: 13px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .brand-mark span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .tab-link {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76);
+        color: var(--text); text-decoration: none; font-size: 12px; font-weight: 800;
+      }
+      .tab-link:hover { border-color: var(--line2); transform: translateY(-1px); }
+      .tab-link.active {
+        color: var(--teal); border-color: rgba(13,122,133,.2); background: var(--teal-soft);
+      }
+      .layout { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(340px,.8fr); gap: 18px; align-items: start; }
+      .main-column { display: grid; gap: 18px; }
+      .card, .bet-card {
+        position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--r1);
+        background: linear-gradient(180deg, var(--panel2), var(--panel)); box-shadow: var(--shadow); backdrop-filter: blur(18px);
+      }
+      .card::after, .bet-card::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 30%, transparent 70%, rgba(13,122,133,.06));
+      }
+      .card-body, .bet-card, .hero-card { padding: 20px; }
+      .hero-grid, .random-layout, .prediction-layout { display: grid; gap: 16px; }
+      .hero-grid { grid-template-columns: minmax(0,1.2fr) minmax(320px,.8fr); }
+      .random-layout, .prediction-layout { grid-template-columns: minmax(0,1.1fr) minmax(320px,.9fr); }
+      .eyebrow, .block-label, .stat-label {
+        font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+      }
+      .hero-title { margin: 8px 0 10px; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .section-title, .bet-title { margin: 0; font-size: 21px; letter-spacing: -.03em; }
+      .hero-subtitle, .section-subtitle, .muted, .info-note, .headline-sub { color: var(--muted); }
+      .hero-subtitle { max-width: 760px; font-size: 15px; line-height: 1.6; }
+      .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+      .tiny { font-size: 12px; }
+      .status-strip, .pill-row, .quick-links, .hero-metric-grid, .kpi-row { display: grid; gap: 10px; }
+      .status-strip, .pill-row, .quick-links { display: flex; flex-wrap: wrap; }
+      .hero-metric-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 18px; }
+      .summary-grid, .analysis-grid, .bet-grid, .result-grid { display: grid; gap: 12px; }
+      .summary-grid, .analysis-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .bet-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .result-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .pill, .rule-pill, .mini-link, .status-pill {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.66);
+        color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700;
+      }
+      .status-pill strong { margin-left: 6px; color: var(--teal); }
+      .rule-pill { color: var(--amber); border-color: rgba(196,108,32,.18); background: var(--amber-soft); }
+      .mini-link:hover, .btn:hover { border-color: var(--line2); transform: translateY(-1px); }
+      .hero-summary, .list, .stream, .result-panel { display: grid; gap: 10px; }
+      .item, .round-item, .kpi, .stat-box, .hero-metric, .prediction-focus, .dice-panel, .result-panel, .summary-panel, .analysis-panel, .bet-hero {
+        border: 1px solid rgba(16,32,51,.08); border-radius: var(--r2); background: rgba(255,255,255,.62); backdrop-filter: blur(14px);
+      }
+      .hero-metric, .dice-panel, .result-panel, .summary-panel, .analysis-panel, .bet-hero, .prediction-focus { padding: 16px; }
+      .hero-metric strong { display: block; margin-top: 8px; font-size: 24px; letter-spacing: -.04em; }
+      .hero-metric span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+      .dice-panel { position: relative; overflow: hidden; }
+      .dice-panel::before {
+        content: ""; position: absolute; inset: auto -10% -35% auto; width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(13,122,133,.18), transparent 70%);
+      }
+      .dice-row { position: relative; display: grid; grid-template-columns: repeat(3, minmax(92px,1fr)); gap: 14px; }
+      .die {
+        display: grid; place-items: center; min-height: 130px; border-radius: 26px; border: 1px solid rgba(13,122,133,.16);
+        background: radial-gradient(circle at 25% 20%, rgba(255,255,255,.95), transparent 28%), linear-gradient(145deg, rgba(13,122,133,.12), rgba(196,108,32,.12)), #fff;
+        color: #13324d; font-size: clamp(42px,5vw,58px); font-weight: 900; box-shadow: inset 0 -10px 22px rgba(16,32,51,.06);
+      }
+      .die.rolling { animation: shake .42s ease-in-out infinite; box-shadow: 0 0 28px rgba(13,122,133,.2); }
+      .stat-box { padding: 14px; }
+      .stat-value { margin-top: 8px; font-size: 32px; font-weight: 900; letter-spacing: -.04em; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border-radius: 14px;
+        border: 1px solid var(--line); background: rgba(255,255,255,.88); color: var(--text); cursor: pointer; font: inherit; font-weight: 800;
+      }
+      .btn:disabled { opacity: .6; cursor: not-allowed; }
+      .btn-primary { background: linear-gradient(135deg, rgba(13,122,133,.18), rgba(196,108,32,.18)); box-shadow: 0 12px 24px rgba(13,122,133,.12); }
+      .rolling-note { min-height: 18px; color: var(--teal); font-size: 13px; }
+      .headline-value { margin-top: 12px; font-size: clamp(56px,7vw,96px); line-height: .88; font-weight: 900; letter-spacing: -.06em; }
+      .kpi-row { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: 14px; }
+      .kpi { padding: 12px 14px; font-size: 11px; color: var(--muted); }
+      .kpi strong { display: block; margin-top: 6px; color: var(--text); font-size: 15px; }
+      .item, .round-item { padding: 12px 14px; }
+      .item { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+      .item strong:last-child, .round-item strong, .bet-hero strong { color: var(--teal); }
+      .stream-card { position: sticky; top: 16px; }
+      .stream { max-height: calc(100vh - 104px); overflow: auto; padding-right: 4px; }
+      .stream::-webkit-scrollbar { width: 8px; }
+      .stream::-webkit-scrollbar-thumb { background: rgba(16,32,51,.14); border-radius: 999px; }
+      .round-item { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+      .round-badge {
+        display: inline-flex; margin-bottom: 8px; padding: 5px 10px; border-radius: 999px; color: var(--teal);
+        border: 1px solid rgba(13,122,133,.18); background: var(--teal-soft); font-size: 11px; font-weight: 700;
+      }
+      .round-dice { margin-top: 6px; font-size: 19px; font-weight: 900; color: #143554; letter-spacing: .04em; }
+      .bet-title { margin: 0 0 12px; }
+      .bet-hero strong { display: block; margin: 8px 0; font-size: 38px; letter-spacing: -.04em; }
+      .analysis-note { grid-column: 1 / -1; }
+      .empty, .prediction-error { font-size: 13px; color: var(--muted); }
+      .prediction-error { color: var(--danger); }
+      @keyframes shake { 0%{transform:translateY(0) rotate(0)}25%{transform:translateY(-6px) rotate(-7deg)}50%{transform:translateY(5px) rotate(8deg)}75%{transform:translateY(-3px) rotate(-5deg)}100%{transform:translateY(0) rotate(0)} }
+      @media (max-width: 1320px) { .layout { grid-template-columns: 1fr; } .stream-card { position: static; } .stream { max-height: 460px; } }
+      @media (max-width: 1024px) { .hero-grid, .random-layout, .prediction-layout, .bet-grid { grid-template-columns: 1fr; } }
+      @media (max-width: 760px) {
+        body { padding: 12px; } .card, .bet-card { border-radius: 22px; } .card-body, .bet-card, .hero-card { padding: 16px; }
+        .hero-metric-grid, .summary-grid, .analysis-grid, .kpi-row, .result-grid { grid-template-columns: 1fr; }
+        .dice-row { grid-template-columns: repeat(3, minmax(72px,1fr)); } .die { min-height: 92px; font-size: 38px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Diagnostic Console</span>
+            </div>
+          </div>
+          <a class="tab-link active" href="/">Dashboard V1</a>
+          <a class="tab-link" href="/selective">Selective V1</a>
+          <a class="tab-link" href="/selective-v2">Selective V2</a>
+          <a class="tab-link" href="/predict" target="_blank" rel="noreferrer">JSON V1</a>
+          <a class="tab-link" href="/predict-v2" target="_blank" rel="noreferrer">JSON V2</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+      <div class="main-column" style="margin-bottom:18px;">
+        <div class="card hero-card">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">Bingo18 Diagnostic Console</div>
+              <h1 class="hero-title">Bảng điều phối trực quan cho chẩn đoán dữ liệu xúc xắc</h1>
+              <div class="hero-subtitle">Giao diện ưu tiên đọc nhanh tín hiệu, phân tách rõ vùng dự đoán, dữ liệu vận hành và chuỗi phiên gần nhất để phù hợp với một dashboard theo dõi số liệu liên tục.</div>
+              <div class="status-strip" style="margin-top:16px;">
+                <div class="status-pill">Nguồn dữ liệu <strong>Realtime Polling</strong></div>
+                <div class="status-pill">Mô hình <strong>Hybrid Profile</strong></div>
+                <div class="rule-pill">3-9 Nhỏ | 10-11 Hòa | 12-18 Lớn</div>
+              </div>
+              <div class="hero-metric-grid">
+                <div class="hero-metric"><div class="block-label">Khuyến nghị chính</div><strong id="heroPrediction">Đang tải</strong><span>Kết quả ưu tiên cao nhất từ mô hình hiện tại</span></div>
+                <div class="hero-metric"><div class="block-label">Lần cập nhật</div><strong id="heroUpdatedAt">--</strong><span>Dấu thời gian lần đồng bộ dữ liệu gần nhất</span></div>
+                <div class="hero-metric"><div class="block-label">Dung lượng mẫu</div><strong id="heroSampleSize">0 phiên</strong><span>Tổng số phiên đang được lưu để phân tích</span></div>
+              </div>
+            </div>
+            <div class="hero-summary">
+              <div class="summary-panel">
+                <div class="block-label">Nhịp chẩn đoán</div>
+                <div class="headline-sub" style="margin-top:8px;">Cụm hiển thị này gom các chỉ dấu vận hành cốt lõi để người xem định vị trạng thái hệ thống trước khi đi vào từng bảng con.</div>
+                <div class="quick-links" style="margin-top:16px;">
+                  <a class="mini-link" href="/stats" target="_blank" rel="noreferrer">Mở Stats</a>
+                  <a class="mini-link" href="/export/csv">Tải CSV</a>
+                </div>
+              </div>
+              <div class="summary-panel">
+                <div class="block-label">Khung đọc nhanh</div>
+                <div class="list">
+                  <div class="item"><div><strong>Prediction</strong><div class="muted tiny">Tín hiệu Top 1 và độ chênh so với Top 2</div></div><strong>Ưu tiên</strong></div>
+                  <div class="item"><div><strong>Analytics</strong><div class="muted tiny">Tách riêng pattern và đồng xuất hiện</div></div><strong>Sạch tầng</strong></div>
+                  <div class="item"><div><strong>Recent stream</strong><div class="muted tiny">Sidebar riêng cho 50 phiên gần nhất</div></div><strong>Dễ rà</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout">
+        <div class="main-column">
+          <div class="card">
+            <div class="card-body">
+              <div class="section-head"><div><h2 class="section-title">Bảng thử xúc xắc</h2><div class="section-subtitle tiny">Khối thao tác mô phỏng tách biệt khỏi dữ liệu thật nhưng vẫn giữ ngôn ngữ thị giác chung</div></div></div>
+              <div class="random-layout">
+                <div class="dice-panel"><div class="dice-row" id="randomDice"><div class="die">1</div><div class="die">1</div><div class="die">1</div></div></div>
+                <div class="result-panel">
+                  <div class="result-grid">
+                    <div class="stat-box"><div class="stat-label">Tổng điểm</div><div class="stat-value" id="randomTotalValue">--</div></div>
+                    <div class="stat-box"><div class="stat-label">Phân loại</div><div class="stat-value" id="randomResultValue">--</div></div>
+                  </div>
+                  <button class="btn btn-primary" id="rollDiceBtn" type="button">Quay thử</button>
+                  <div class="stat-box"><div class="block-label">Trạng thái</div><div class="rolling-note" id="rollingNote"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="section-head"><div><h2 class="section-title">Khối dự đoán trọng tâm</h2><div class="section-subtitle tiny">Ưu tiên nhãn kết quả chính, xác suất tổng hợp và các lựa chọn có trọng số cao nhất</div></div></div>
+              <div class="prediction-layout">
+                <div class="prediction-focus">
+                  <div class="block-label">Dự đoán nổi bật</div>
+                  <div class="headline-value" id="predictionHeadline">Đang phân tích...</div>
+                  <div class="headline-sub" id="predictionSubline"></div>
+                  <div class="pill-row" id="predictionPills" style="margin-top:14px;"></div>
+                  <div class="kpi-row" id="modelKpis"></div>
+                  <div class="info-note" id="predictionMeta" style="margin-top:14px;"></div>
+                </div>
+                <div class="summary-panel">
+                  <div class="block-label">Logic hiển thị</div>
+                  <div class="list" style="margin-top:10px;">
+                    <div class="item"><div><strong>Tầng 1</strong><div class="muted tiny">Headline kết quả ưu tiên</div></div><strong>Top 1</strong></div>
+                    <div class="item"><div><strong>Tầng 2</strong><div class="muted tiny">Pill xác suất Lớn, Nhỏ, Hòa</div></div><strong>Phân bổ</strong></div>
+                    <div class="item"><div><strong>Tầng 3</strong><div class="muted tiny">KPI mô hình, regime và backtest</div></div><strong>Giải thích</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div class="summary-grid">
+                <div class="summary-panel"><div class="block-label">Tổng điểm sáng giá</div><div class="list" id="topTotalsList"></div></div>
+                <div class="summary-panel"><div class="block-label">Tổng lệch pha gần đây</div><div class="list" id="surpriseTotalsList"></div></div>
+                <div class="summary-panel"><div class="block-label">Chốt cuối cùng</div><div class="list" id="finalPicksList"></div></div>
+                <div class="summary-panel"><div class="block-label">Bộ 3 xúc xắc mạnh</div><div class="list" id="topDiceList"></div></div>
+                <div class="summary-panel"><div class="block-label">Xu hướng phiên kế tiếp</div><div class="list" id="afterSignalsList"></div></div>
+                <div class="summary-panel"><div class="block-label">Mặt số ưu tiên</div><div class="list" id="topFacesList"></div></div>
+                <div class="summary-panel"><div class="block-label">Kỷ luật vào lệnh</div><div class="list" id="systemDisciplineList"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="section-head"><div><h2 class="section-title">Phân tích bổ sung</h2><div class="section-subtitle tiny">Các bảng con được gom theo hành vi dữ liệu để giảm nhiễu khi đọc tín hiệu chính</div></div></div>
+              <div class="analysis-grid">
+                <div class="analysis-panel"><div class="block-label">Mặt số nóng</div><div class="list" id="hotFacesList"></div></div>
+                <div class="analysis-panel"><div class="block-label">Cặp số nổi bật</div><div class="list" id="pairPatternsList"></div></div>
+                <div class="analysis-panel"><div class="block-label">Đi cùng nhau</div><div class="list" id="coOccurrenceList"></div></div>
+                <div class="analysis-panel"><div class="block-label">Giờ hay ra tam hoa</div><div class="list" id="tripleHotHoursList"></div></div>
+                <div class="analysis-panel"><div class="block-label">Tam hoa theo mặt</div><div class="list" id="exactTripleHotHoursList"></div></div>
+                <div class="analysis-panel analysis-note"><div class="block-label">Ghi chú mô hình</div><div class="info-note" id="analyticsNote"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="section-head"><div><h2 class="section-title">Bet Types</h2><div class="section-subtitle tiny">Nhóm kèo được giữ trong một cụm riêng để thuận tiện rà xác suất theo kiểu đặt cược</div></div></div>
+              <div class="bet-grid">
+                <div class="bet-card"><h3 class="bet-title">3 số giống nhau</h3><div class="list" id="exactTripleList"></div></div>
+                <div class="bet-card"><h3 class="bet-title">Bất kỳ bộ ba</h3><div class="bet-hero"><span class="muted tiny">Điểm trọng số</span><strong id="anyTripleScore">--</strong><span class="muted tiny" id="anyTripleMeta">Đang phân tích...</span></div></div>
+                <div class="bet-card"><h3 class="bet-title">2 số giống nhau</h3><div class="list" id="exactDoubleList"></div></div>
+                <div class="bet-card"><h3 class="bet-title">1 số</h3><div class="list" id="singleFaceList"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card stream-card">
+          <div class="card-body">
+            <div class="section-head"><div><h2 class="section-title">50 phiên gần nhất</h2><div class="section-subtitle tiny" id="meta">Đang tải dữ liệu...</div></div></div>
+            <div class="stream" id="tiles"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function formatTime(value) {
+        if (!value) return 'Không rõ thời gian'
+        const d = new Date(value)
+        if (!Number.isNaN(d.getTime())) return d.toLocaleString('vi-VN')
+        return String(value)
+      }
+      function classifyTotal(total) {
+        if (total >= 12) return 'Lớn'
+        if (total >= 10) return 'Hòa'
+        return 'Nhỏ'
+      }
+      function rollThreeDice() { return Array.from({ length: 3 }, () => Math.floor(Math.random() * 6) + 1) }
+      function renderRandomDice(values) {
+        const total = values.reduce((sum, value) => sum + value, 0)
+        document.getElementById('randomDice').innerHTML = values.map((value) => `<div class="die">${value}</div>`).join('')
+        document.getElementById('randomTotalValue').textContent = total
+        document.getElementById('randomResultValue').textContent = classifyTotal(total)
+      }
+      function setRollingState(isRolling) {
+        const button = document.getElementById('rollDiceBtn')
+        const dice = document.querySelectorAll('#randomDice .die')
+        button.disabled = isRolling
+        button.textContent = isRolling ? 'Đang quay...' : 'Quay thử'
+        document.getElementById('rollingNote').textContent = isRolling ? 'Xúc xắc đang xoay, chờ một chút...' : 'Sẵn sàng.'
+        dice.forEach((die) => die.classList.toggle('rolling', isRolling))
+      }
+      async function animateDiceRoll() {
+        const durationMs = 1500, frameMs = 120, steps = Math.floor(durationMs / frameMs)
+        setRollingState(true)
+        for (let i = 0; i < steps; i += 1) {
+          renderRandomDice(rollThreeDice())
+          await new Promise((resolve) => setTimeout(resolve, frameMs))
+        }
+        renderRandomDice(rollThreeDice())
+        setRollingState(false)
+      }
+      function renderList(containerId, items, renderItem, emptyText) {
+        const container = document.getElementById(containerId)
+        container.innerHTML = ''
+        if (!items || items.length === 0) {
+          container.innerHTML = `<div class="empty">${emptyText}</div>`
+          return
+        }
+        items.forEach((item, index) => {
+          const div = document.createElement('div')
+          div.className = 'item'
+          div.innerHTML = renderItem(item, index)
+          container.appendChild(div)
+        })
+      }
+      function formatPercent(value, digits = 2) {
+        return `${Number(value || 0).toFixed(digits)}%`
+      }
+      function formatTotalSummary(items, labelResult, limit = 2) {
+        return (items || [])
+          .slice(0, limit)
+          .map((item) => `${item.total} ${labelResult(item.result)} ${formatPercent(item.probability)}`)
+          .join(' | ')
+      }
+      function buildConsensusTotals(afterLatest) {
+        const totalMap = new Map()
+        ;(afterLatest.topTotalsAfterLatestTotal || []).forEach((item) => {
+          totalMap.set(item.total, { ...item, fromTotal: item.probability, fromPattern: null })
+        })
+        ;(afterLatest.topTotalsAfterLatestPattern?.topTotals || []).forEach((item) => {
+          const existing = totalMap.get(item.total)
+          if (existing) totalMap.set(item.total, { ...existing, fromPattern: item.probability })
+        })
+        return [...totalMap.values()]
+          .filter((item) => item.fromTotal != null && item.fromPattern != null)
+          .map((item) => ({
+            total: item.total,
+            result: item.result,
+            averageProbability: Number(((item.fromTotal + item.fromPattern) / 2).toFixed(2)),
+            gap: Number(Math.abs(item.fromTotal - item.fromPattern).toFixed(2)),
+          }))
+          .sort((a, b) => b.averageProbability - a.averageProbability || a.gap - b.gap)
+      }
+      function buildNextRoundSignals({ diagnosis, analytics, labelResult }) {
+        const afterLatest = analytics.afterLatestRound || {}
+        const classFlowEntries = Object.entries(afterLatest.classFlow || {})
+          .map(([result, probability]) => ({ result, probability: Number(probability || 0) }))
+          .sort((a, b) => b.probability - a.probability)
+        const leadClass = classFlowEntries[0]
+        const secondClass = classFlowEntries[1]
+        const totalSignals = afterLatest.topTotalsAfterLatestTotal || []
+        const patternSignals = afterLatest.topTotalsAfterLatestPattern?.topTotals || []
+        const consensusTotals = buildConsensusTotals(afterLatest)
+        const items = []
+
+        if (leadClass) {
+          items.push({
+            label: 'Xung lực chính',
+            detail: `Nghiêng ${labelResult(leadClass.result)} | Big ${formatPercent(afterLatest.classFlow?.Big)} | Draw ${formatPercent(afterLatest.classFlow?.Draw)} | Small ${formatPercent(afterLatest.classFlow?.Small)}`,
+            meta: secondClass ? `Biên so với nhì bảng: ${formatPercent(leadClass.probability - secondClass.probability)}` : '',
+            value: labelResult(leadClass.result),
+          })
+        }
+
+        if (totalSignals.length > 0) {
+          items.push({
+            label: `Sau tổng ${afterLatest.latestTotal ?? 'n/a'}`,
+            detail: formatTotalSummary(totalSignals, labelResult, 3),
+            meta: 'Chuyển trạng thái theo tổng vừa ra',
+            value: totalSignals[0] ? `${totalSignals[0].total}` : '',
+          })
+        }
+
+        if (patternSignals.length > 0) {
+          items.push({
+            label: `Sau pattern ${afterLatest.latestPattern || 'n/a'}`,
+            detail: formatTotalSummary(patternSignals, labelResult, 3),
+            meta: 'Chuyển trạng thái theo pattern phiên vừa rồi',
+            value: patternSignals[0] ? `${patternSignals[0].total}` : '',
+          })
+        }
+
+        if (consensusTotals.length > 0) {
+          items.push({
+            label: 'Tổng đồng thuận',
+            detail: consensusTotals.slice(0, 3).map((item) => `${item.total} ${labelResult(item.result)} ${formatPercent(item.averageProbability)}`).join(' | '),
+            meta: 'Các tổng cùng mạnh ở cả nhánh tổng và pattern',
+            value: consensusTotals[0] ? `${consensusTotals[0].total}` : '',
+          })
+        }
+
+        if ((diagnosis.topTotals || []).length > 0) {
+          items.push({
+            label: 'Neo vào model chính',
+            detail: formatTotalSummary(diagnosis.topTotals, labelResult, 3),
+            meta: `Headline hiện tại: ${labelResult(diagnosis.mostLikelyResult)}`,
+            value: diagnosis.topTotals[0] ? `${diagnosis.topTotals[0].total}` : '',
+          })
+        }
+
+        return items
+      }
+      function localizeContextExpert(value) {
+        const labels = {
+          context_strict: 'Ngữ cảnh nghiêm ngặt',
+          context_balanced: 'Ngữ cảnh cân bằng',
+          context_loose: 'Ngữ cảnh linh hoạt',
+        }
+        return labels[value] || value || 'Không rõ'
+      }
+      function applyAdvancedPredictionUi(data, labelResult) {
+        const diagnosis = data.diagnosis || {}
+        const methodology = data.methodology || {}
+        const backtest = methodology.backtest || {}
+        const regime = methodology.regime || {}
+        const regimeBreak = methodology.regimeBreak || {}
+        const confidenceModel = diagnosis.confidenceModel || {}
+        const recommendations = diagnosis.recommendations || {}
+        const familyBlend = methodology.familyBlend || {}
+        const localizedContextExpert = localizeContextExpert(backtest.bestContextExpert)
+        const localizedRecommendedResult = labelResult(recommendations.recommendedResult)
+        const resolvedConfidenceScore = Number.isFinite(confidenceModel.confidenceScore)
+          ? confidenceModel.confidenceScore
+          : Number((((diagnosis.confidenceSpread || 0) * 100) * 5).toFixed(2))
+        const resolvedShouldAbstain =
+          typeof confidenceModel.shouldAbstain === 'boolean'
+            ? confidenceModel.shouldAbstain
+            : resolvedConfidenceScore < 10
+        const resolvedAction =
+          confidenceModel.action || (resolvedShouldAbstain ? 'observe' : 'medium_conviction')
+        const localizedAction =
+          resolvedAction === 'high_conviction'
+            ? 'Tín hiệu mạnh'
+            : resolvedAction === 'medium_conviction'
+              ? 'Tín hiệu vừa'
+              : 'Quan sát'
+        const localizedDecision = resolvedShouldAbstain ? 'Không vào lệnh' : 'Có thể vào lệnh'
+
+        document.getElementById('predictionSubline').textContent = `Độ chênh Top 1 và Top 2: ${((diagnosis.confidenceSpread || 0) * 100).toFixed(2)}% | Độ tin cậy ${resolvedConfidenceScore}% | ${localizedAction}`
+        document.getElementById('predictionMeta').textContent = `Profile: ${methodology.selectedProfile?.label || 'n/a'} | Ngữ cảnh tốt nhất: ${localizedContextExpert} | Áp lực gãy cầu: ${(((regimeBreak.pressure || 0) * 100)).toFixed(2)}%`
+        document.getElementById('modelKpis').innerHTML = `<div class="kpi">Profile đang chọn<strong>${methodology.selectedProfile?.label || 'n/a'}</strong></div><div class="kpi">Chuyên gia ngữ cảnh<strong>${localizedContextExpert}</strong></div><div class="kpi">Tỷ trọng ngữ cảnh<strong>${(((familyBlend.context || 0) * 100)).toFixed(2)}%</strong></div><div class="kpi">Độ dài chuỗi<strong>${regime.classRun || 0}</strong></div><div class="kpi">Khuyến nghị hành động<strong>${localizedDecision}</strong></div><div class="kpi">Gãy cầu<strong>${regimeBreak.isBreaking ? 'Có' : 'Không'}</strong></div>`
+        renderList('topFacesList', diagnosis.topFaces || [], (item, index) => `<div><strong>#${index + 1} Mặt ${item.face}</strong><div class="muted tiny">Gợi ý ${item.probabilityHint}%</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu mặt số.')
+        const disciplineItems = [
+          { label: 'Vào lệnh', detail: resolvedShouldAbstain ? 'Ưu tiên đứng ngoài' : 'Có thể cân nhắc', value: `${resolvedConfidenceScore}%` },
+          { label: 'Hành động', detail: localizedAction, value: localizedDecision },
+          { label: 'Gãy cầu', detail: regimeBreak.isBreaking ? 'Cầu đang gãy' : 'Cầu chưa gãy rõ', value: `${(((regimeBreak.pressure || 0) * 100)).toFixed(2)}%` },
+          { label: 'Phối trộn mô hình', detail: `Profile ${(((familyBlend.profile || 0) * 100)).toFixed(1)}% | Ngữ cảnh ${(((familyBlend.context || 0) * 100)).toFixed(1)}%`, value: localizedContextExpert },
+        ]
+        renderList('systemDisciplineList', disciplineItems, (item) => `<div><strong>${item.label}</strong><div class="muted tiny">${item.detail}</div></div><strong>${item.value}</strong>`, 'Chưa có kỷ luật hệ thống.')
+        document.getElementById('analyticsNote').textContent = `Máy chấm điểm tự cân chỉnh. Regime ưu tiên: ${regime.preferredProfileId || 'n/a'} | Backtest profile tốt nhất: ${backtest.bestByBacktest || 'n/a'} | Ngữ cảnh tốt nhất: ${localizedContextExpert} | No-bet: ${resolvedShouldAbstain ? 'có' : 'không'}`
+      }
+      function renderRecommendationOverlay(data, labelResult) {
+        const diagnosis = data.diagnosis || {}
+        const recommendations = diagnosis.recommendations || {}
+        const systemDisciplineList = document.getElementById('systemDisciplineList')
+        const analyticsNote = document.getElementById('analyticsNote')
+
+        if (recommendations.recommendationText && systemDisciplineList) {
+          const div = document.createElement('div')
+          div.className = 'item'
+          div.innerHTML = `<div><strong>Khuyến nghị</strong><div class="muted tiny">${recommendations.recommendationText}</div></div><strong>${recommendations.stakePlan || '0%'}</strong>`
+          systemDisciplineList.prepend(div)
+        }
+
+        const recommendationItems = [
+          ...((recommendations.followTotals || []).slice(0, 2).map((item, index) => ({
+            label: `Theo tổng #${index + 1}`,
+            detail: `Tổng ${item.total} | ${labelResult(item.result)}`,
+            value: `${item.probability}%`,
+            meta: 'Khuyến nghị hệ thống',
+          })) || []),
+          ...((recommendations.followFaces || []).slice(0, 2).map((item, index) => ({
+            label: `Theo mặt #${index + 1}`,
+            detail: `Mặt ${item.face}`,
+            value: `${item.score}`,
+            meta: `Gợi ý ${item.probabilityHint}%`,
+          })) || []),
+          ...((recommendations.watchExactDice || []).slice(0, 1).map((item) => ({
+            label: 'Bộ nên canh',
+            detail: `${item.dice.join(' - ')} | Tổng ${item.total}`,
+            value: `${item.probability}%`,
+            meta: 'Theo dõi phụ',
+          })) || []),
+        ]
+
+        if (recommendationItems.length > 0) {
+          renderList('finalPicksList', recommendationItems, (item) => `<div><strong>${item.label}</strong><div class="muted tiny">${item.detail}</div><div class="muted tiny">${item.meta}</div></div><strong>${item.value}</strong>`, 'Chưa có danh sách chốt.')
+        }
+
+        if (analyticsNote && recommendations.recommendedResult) {
+          analyticsNote.textContent = `${analyticsNote.textContent} | Hướng nên theo: ${labelResult(recommendations.recommendedResult)}`
+        }
+      }
+      function updateHeroMeta({ updatedAt = null, rounds = [] } = {}, headline = 'Đang tải') {
+        document.getElementById('heroPrediction').textContent = headline
+        document.getElementById('heroUpdatedAt').textContent = updatedAt ? formatTime(updatedAt) : '--'
+        document.getElementById('heroSampleSize').textContent = `${rounds.length || 0} phiên`
+      }
+      async function loadData() {
+        const res = await fetch('/data/json')
+        const data = await res.json()
+        const tiles = document.getElementById('tiles')
+        const previousScrollTop = tiles.scrollTop
+        const previousScrollHeight = tiles.scrollHeight
+        const wasScrolled = previousScrollTop > 0
+        document.getElementById('meta').textContent = `Cập nhật ${data.updatedAt ? formatTime(data.updatedAt) : 'chưa có'} | Lưu ${data.rounds.length} phiên | Hiển thị ${Math.min(50, data.rounds.length)}`
+        updateHeroMeta(data, document.getElementById('predictionHeadline').textContent || 'Đang tải')
+        tiles.innerHTML = ''
+        const latest50 = data.rounds.slice(0, 50)
+        if (latest50.length === 0) {
+          tiles.innerHTML = '<div class="empty">Chưa có phiên nào.</div>'
+          return
+        }
+        latest50.forEach((round) => {
+          const displayTime = round.processTime || round.time
+          const div = document.createElement('div')
+          div.className = 'round-item'
+          div.innerHTML = `<div><div class="round-badge">${classifyTotal(round.total)}</div><div class="muted tiny">${formatTime(displayTime)}</div><div class="muted tiny">${round.sourceDate || ''}</div><div class="round-dice">${round.dice.join(' - ')}</div></div><div style="text-align:right"><div class="muted tiny">Tổng</div><strong>${round.total}</strong></div>`
+          tiles.appendChild(div)
+        })
+        if (wasScrolled) {
+          const newScrollHeight = tiles.scrollHeight
+          tiles.scrollTop = previousScrollTop + (newScrollHeight - previousScrollHeight)
+        }
+      }
+      async function loadPrediction() {
+        const res = await fetch('/predict')
+        if (!res.ok) throw new Error(`Prediction API returned HTTP ${res.status}`)
+        const data = await res.json()
+        const diagnosis = data.diagnosis || {}
+        const methodology = data.methodology || {}
+        const dataset = data.dataset || {}
+        const analytics = data.analytics || {}
+        const backtest = methodology.backtest || {}
+        const regime = methodology.regime || {}
+        const regimeBreak = methodology.regimeBreak || {}
+        const confidenceModel = diagnosis.confidenceModel || {}
+        const familyBlend = methodology.familyBlend || {}
+        const resultProbabilities = diagnosis.resultProbabilities || {}
+        const localizedResult = { Big: 'Lớn', Small: 'Nhỏ', Draw: 'Hòa' }
+        const labelResult = (value) => localizedResult[value] || value || 'Không rõ'
+        const headline = labelResult(diagnosis.mostLikelyResult)
+        document.getElementById('predictionHeadline').textContent = headline
+        document.getElementById('predictionSubline').textContent = `Độ chênh Top 1 và Top 2: ${((diagnosis.confidenceSpread || 0) * 100).toFixed(2)}%`
+        document.getElementById('predictionMeta').textContent = `Profile: ${methodology.selectedProfile?.label || 'n/a'} | Ngày gần nhất: ${dataset.latestDayKey || 'n/a'} | Số phiên trong ngày: ${dataset.latestDayRounds || 0}`
+        document.getElementById('predictionPills').innerHTML = `<div class="pill">Lớn ${((resultProbabilities.Big || 0) * 100).toFixed(2)}%</div><div class="pill">Nhỏ ${((resultProbabilities.Small || 0) * 100).toFixed(2)}%</div><div class="pill">Hòa ${((resultProbabilities.Draw || 0) * 100).toFixed(2)}%</div>`
+        document.getElementById('modelKpis').innerHTML = `<div class="kpi">Profile đang chọn<strong>${methodology.selectedProfile?.label || 'n/a'}</strong></div><div class="kpi">Thiên hướng regime<strong>${regime.preferredProfileId || 'n/a'}</strong></div><div class="kpi">Backtest tốt nhất<strong>${backtest.bestByBacktest || 'n/a'}</strong></div><div class="kpi">Độ dài chuỗi<strong>${regime.classRun || 0}</strong></div>`
+        document.getElementById('heroPrediction').textContent = headline
+        renderList('topTotalsList', diagnosis.topTotals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="muted tiny">${labelResult(item.result)}</div></div><strong>${(item.probability * 100).toFixed(2)}%</strong>`, 'Không có dữ liệu tổng điểm.')
+        renderList('surpriseTotalsList', analytics.surpriseTotals || [], (item, index) => `<div><strong>#${index + 1} Tổng ${item.total}</strong><div class="muted tiny">${labelResult(item.result)} | nền ${item.historicalRate}%</div></div><strong>${item.score}%</strong>`, 'Chưa có tổng lệch pha.')
+        renderList('topDiceList', (diagnosis.topExactDice || []).slice(0, 6), (item, index) => `<div><strong>#${index + 1} ${item.dice.join(' - ')}</strong><div class="muted tiny">Tổng ${item.total} | ${item.pattern}</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu bộ số.')
+        const finalPicks = [
+          ...((analytics.finalPicks?.totals || []).slice(0, 3).map((item) => ({ label: `Tổng #${item.rank}`, detail: `${item.total} (${labelResult(item.result)})`, value: `${item.score}`, meta: `${item.probability}%` })) || []),
+          ...((analytics.finalPicks?.exactDice || []).slice(0, 3).map((item) => ({ label: `Bộ số #${item.rank}`, detail: `${item.dice.join(' - ')} | ${item.pattern}`, value: `${item.score}`, meta: `${item.probability}%` })) || []),
+        ]
+        renderList('finalPicksList', finalPicks, (item) => `<div><strong>${item.label}</strong><div class="muted tiny">${item.detail}</div><div class="muted tiny">${item.meta}</div></div><strong>${item.value}</strong>`, 'Chưa có danh sách chốt.')
+        renderList('hotFacesList', analytics.hotFaces || [], (item, index) => `<div><strong>#${index + 1} Mặt ${item.face}</strong><div class="muted tiny">Hôm nay ${item.todayRate}% | Gần đây ${item.recentRate}%</div></div><strong>${item.score}</strong>`, 'Không có phân tích mặt số.')
+        renderList('pairPatternsList', analytics.pairPatterns || [], (item, index) => {
+          const today = (analytics.pairPatternsToday || []).find((pattern) => pattern.pattern === item.pattern)
+          return `<div><strong>#${index + 1} ${item.pattern}</strong><div class="muted tiny">Tổng ${item.rate}%${today ? ` | Hôm nay ${today.rate}%` : ''}</div></div><strong>${item.count}</strong>`
+        }, 'Không có dữ liệu cặp số.')
+        renderList('coOccurrenceList', analytics.coOccurrencePairs || [], (item, index) => `<div><strong>#${index + 1} ${item.pair}</strong><div class="muted tiny">Tỷ lệ đi cùng ${item.rate}%</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu đồng xuất hiện.')
+        renderList('tripleHotHoursList', analytics.betTypes?.tripleHotHours || [], (item, index) => `<div><strong>#${index + 1} ${item.label}</strong><div class="muted tiny">${item.count} lần | ${item.rate}% tam hoa</div></div><strong>${item.score}</strong>`, 'Chưa có thống kê khung giờ tam hoa.')
+        renderList('exactTripleHotHoursList', analytics.betTypes?.exactTripleHotHours || [], (item, index) => {
+          const topHours = (item.hours || []).slice(0, 2).map((hour) => `${hour.label} ${hour.count}l`).join(' | ')
+          return `<div><strong>#${index + 1} ${item.face}${item.face}${item.face}</strong><div class="muted tiny">${topHours || 'Chưa có khung giờ nổi bật'}</div></div><strong>${item.totalCount || 0}</strong>`
+        }, 'Chưa có thống kê tam hoa theo mặt.')
+        const afterLatest = analytics.afterLatestRound || {}
+        const signalItems = [
+          ...((afterLatest.topTotalsAfterLatestTotal || []).slice(0, 2).map((item) => ({ label: `Sau tổng ${afterLatest.latestTotal}`, detail: `${item.total} (${labelResult(item.result)})`, value: `${item.probability}%` })) || []),
+          ...((afterLatest.topTotalsAfterLatestPattern?.topTotals || []).slice(0, 2).map((item) => ({ label: `Sau pattern ${afterLatest.latestPattern || 'n/a'}`, detail: `${item.total} (${labelResult(item.result)})`, value: `${item.probability}%` })) || []),
+          ...(afterLatest.classFlow ? [{ label: `Luồng từ ${labelResult(afterLatest.latestClass)}`, detail: `Nhỏ ${afterLatest.classFlow.Small}% | Hòa ${afterLatest.classFlow.Draw}% | Lớn ${afterLatest.classFlow.Big}%`, value: '' }] : []),
+        ]
+        renderList('afterSignalsList', signalItems, (item) => `<div><strong>${item.label}</strong><div class="muted tiny">${item.detail}</div></div><strong>${item.value || ''}</strong>`, 'Chưa có tín hiệu chuyển trạng thái.')
+        renderList('afterSignalsList', buildNextRoundSignals({ diagnosis, analytics, labelResult }), (item) => `<div><strong>${item.label}</strong><div class="muted tiny">${item.detail}</div><div class="muted tiny">${item.meta || ''}</div></div><strong>${item.value || ''}</strong>`, 'Chưa có tín hiệu chuyển trạng thái.')
+        document.getElementById('analyticsNote').textContent = `Máy chấm điểm tự cân chỉnh. Regime ưu tiên: ${regime.preferredProfileId || 'n/a'} | Backtest tốt nhất: ${backtest.bestByBacktest || 'n/a'}`
+        renderList('exactTripleList', (analytics.betTypes?.exactTriples || []).slice(0, 6), (item, index) => `<div><strong>#${index + 1} ${item.face}${item.face}${item.face}</strong><div class="muted tiny">Hôm nay ${item.todayRate}% | Gần đây ${item.recentRate}%</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu bộ ba trùng.')
+        const anyTriple = analytics.betTypes?.anyTriple || {}
+        document.getElementById('anyTripleScore').textContent = anyTriple.score ?? '--'
+        document.getElementById('anyTripleMeta').textContent = `Hôm nay ${anyTriple.todayRate ?? 0}% | Gần đây ${anyTriple.recentRate ?? 0}% | Tổng thể ${anyTriple.overallRate ?? 0}%`
+        renderList('exactDoubleList', (analytics.betTypes?.exactDoubles || []).slice(0, 6), (item, index) => `<div><strong>#${index + 1} ${item.pattern}</strong><div class="muted tiny">Hôm nay ${item.todayRate}% | Gần đây ${item.recentRate}%</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu bộ đôi.')
+        renderList('singleFaceList', (analytics.betTypes?.singleFaces || []).slice(0, 6), (item, index) => `<div><strong>#${index + 1} Mặt ${item.face}</strong><div class="muted tiny">Hôm nay ${item.todayRate}% | Gần đây ${item.recentRate}%</div></div><strong>${item.score}</strong>`, 'Không có dữ liệu một mặt.')
+        applyAdvancedPredictionUi(data, labelResult)
+        renderRecommendationOverlay(data, labelResult)
+      }
+      function showPredictionError(error) {
+        document.getElementById('predictionHeadline').textContent = 'Không tải được dự đoán'
+        document.getElementById('predictionSubline').textContent = 'Dashboard không lấy được dữ liệu từ /predict.'
+        document.getElementById('predictionMeta').innerHTML = `<span class="prediction-error">${error.message}. Hãy kiểm tra lại server nếu cần.</span>`
+        document.getElementById('heroPrediction').textContent = 'Lỗi dữ liệu'
+        ;['topTotalsList', 'surpriseTotalsList', 'topDiceList', 'topFacesList', 'systemDisciplineList', 'finalPicksList', 'hotFacesList', 'pairPatternsList', 'coOccurrenceList', 'tripleHotHoursList', 'exactTripleHotHoursList', 'afterSignalsList', 'exactTripleList', 'exactDoubleList', 'singleFaceList'].forEach((id) => {
+          document.getElementById(id).innerHTML = '<div class="prediction-error">Không khả dụng.</div>'
+        })
+        document.getElementById('modelKpis').innerHTML = ''
+        document.getElementById('predictionPills').innerHTML = ''
+        document.getElementById('analyticsNote').textContent = ''
+        document.getElementById('anyTripleScore').textContent = '--'
+        document.getElementById('anyTripleMeta').textContent = 'Không tải được dữ liệu.'
+      }
+      let liveRefreshInFlight = false
+      async function refreshLiveData() {
+        if (liveRefreshInFlight) return
+        liveRefreshInFlight = true
+        try { await Promise.all([loadData(), loadPrediction()]) } catch (error) { console.error(error); showPredictionError(error) } finally { liveRefreshInFlight = false }
+      }
+      let ws = null, reconnectTimer = null, heartbeatTimer = null
+      function connectWebSocket() {
+        if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return
+        const proto = location.protocol === 'https:' ? 'wss://' : 'ws://'
+        ws = new WebSocket(proto + location.host)
+        ws.onopen = () => { clearTimeout(reconnectTimer); clearInterval(heartbeatTimer); heartbeatTimer = setInterval(() => { if (ws && ws.readyState === WebSocket.OPEN) ws.send('ping') }, 20000) }
+        ws.onmessage = () => { refreshLiveData() }
+        ws.onclose = () => { clearInterval(heartbeatTimer); reconnectTimer = setTimeout(connectWebSocket, 3000) }
+        ws.onerror = () => { if (ws) ws.close() }
+      }
+      document.getElementById('rollDiceBtn').addEventListener('click', async () => { await animateDiceRoll() })
+      renderRandomDice([1, 1, 1]); setRollingState(false); updateHeroMeta(); refreshLiveData(); connectWebSocket()
+    </script>
+  </body>
+</html>
+

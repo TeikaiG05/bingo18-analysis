@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Bingo18 Logo</title>
+  <desc id="desc">Logo monogram B18 with dice-inspired marks</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d7a85"/>
+      <stop offset="100%" stop-color="#c46c20"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="140" height="140" rx="34" fill="url(#bg)"/>
+  <rect x="24" y="24" width="112" height="112" rx="26" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.28)" />
+  <circle cx="48" cy="48" r="6" fill="#f7fbfc"/>
+  <circle cx="112" cy="48" r="6" fill="#f7fbfc"/>
+  <circle cx="48" cy="112" r="6" fill="#f7fbfc"/>
+  <circle cx="112" cy="112" r="6" fill="#f7fbfc"/>
+  <path d="M52 52h24c14 0 23 7 23 18 0 7-4 12-10 15 9 2 14 8 14 17 0 14-11 22-28 22H52V52zm20 28c7 0 11-3 11-8s-4-8-11-8h-6v16h6zm3 32c8 0 13-4 13-10 0-7-5-10-13-10h-9v20h9z" fill="#f7fbfc"/>
+  <path d="M108 53h18v69h-14V69l-12 7V63l8-10z" fill="#f7fbfc"/>
+</svg>
