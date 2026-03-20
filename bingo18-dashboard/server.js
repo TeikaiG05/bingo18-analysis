@@ -14,6 +14,7 @@ const app = express()
 const server = http.createServer(app)
 const wss = new WebSocketServer({ server })
 
+const HOST = process.env.HOST || '0.0.0.0'
 const PORT = Number(process.env.PORT || 3000)
 const DATA_DIR = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
@@ -23,8 +24,13 @@ const DATA_FILE = process.env.DATA_FILE
   : path.join(DATA_DIR, 'data.json')
 const SOURCE_URL = 'https://18.xidnas.site/data/json'
 const POLL_INTERVAL_MS = Number(process.env.POLL_INTERVAL_MS || 6000)
+const FULL_SYNC_ON_STARTUP =
+  String(process.env.FULL_SYNC_ON_STARTUP || 'false').toLowerCase() === 'true'
 let predictionCache = null
 let predictionCacheV2 = null
+let startupPhase = 'booting'
+let startupError = null
+let pollTimer = null
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -98,6 +104,18 @@ function refreshPredictionCache(store = readData()) {
   predictionCache = buildPrediction(normalizeStoredRounds(store).rounds)
   predictionCacheV2 = buildPredictionFromBase(predictionCache)
   return predictionCache
+}
+
+function safeRefreshPredictionCache(store = readData()) {
+  try {
+    const cache = refreshPredictionCache(store)
+    startupError = null
+    return cache
+  } catch (err) {
+    startupError = err
+    console.error('[predict] refresh failed:', err.message)
+    return null
+  }
 }
 
 function broadcastReload() {
@@ -399,6 +417,8 @@ app.get('/healthz', (req, res) => {
   res.json({
     ok: true,
     service: 'bingo18-dashboard',
+    phase: startupPhase,
+    startupError: startupError ? startupError.message : null,
     updatedAt: store.updatedAt,
     totalRounds: Array.isArray(store.rounds) ? store.rounds.length : 0,
   })
@@ -406,14 +426,30 @@ app.get('/healthz', (req, res) => {
 
 app.get('/predict', (req, res) => {
   if (!predictionCache) {
-    refreshPredictionCache()
+    safeRefreshPredictionCache()
+  }
+  if (!predictionCache) {
+    return res.status(503).json({
+      ok: false,
+      message: 'Prediction cache is warming up. Retry shortly.',
+      phase: startupPhase,
+      error: startupError ? startupError.message : null,
+    })
   }
   res.json(predictionCache)
 })
 
 app.get('/predict-v2', (req, res) => {
   if (!predictionCache || !predictionCacheV2) {
-    refreshPredictionCache()
+    safeRefreshPredictionCache()
+  }
+  if (!predictionCacheV2) {
+    return res.status(503).json({
+      ok: false,
+      message: 'Prediction V2 cache is warming up. Retry shortly.',
+      phase: startupPhase,
+      error: startupError ? startupError.message : null,
+    })
   }
   res.json(predictionCacheV2)
 })
@@ -442,20 +478,43 @@ wss.on('connection', (ws) => {
   })
 })
 
-server.listen(PORT, async () => {
-  console.log(`Server running at http://localhost:${PORT}`)
-
-  const normalizedStore = backfillMissingRoundFields(readData())
-  if (JSON.stringify(normalizedStore) !== JSON.stringify(readData())) {
-    writeData(normalizedStore)
-  }
-  refreshPredictionCache(normalizedStore)
+async function bootstrapServer() {
+  startupPhase = 'preparing_local_data'
 
   try {
-    await syncAllRoundsFromSource()
+    const initialStore = readData()
+    const normalizedStore = backfillMissingRoundFields(initialStore)
+    if (JSON.stringify(normalizedStore) !== JSON.stringify(initialStore)) {
+      writeData(normalizedStore)
+    }
+
+    startupPhase = 'building_cache'
+    safeRefreshPredictionCache(normalizedStore)
+
+    if (FULL_SYNC_ON_STARTUP) {
+      startupPhase = 'syncing_source'
+      await syncAllRoundsFromSource()
+      safeRefreshPredictionCache(readData())
+    }
   } catch (err) {
-    console.error('[startup] sync failed:', err.message)
+    startupError = err
+    console.error('[startup] bootstrap failed:', err.message)
   }
 
-  setInterval(pollLatestRound, POLL_INTERVAL_MS)
+  startupPhase = 'ready'
+
+  if (!pollTimer) {
+    pollTimer = setInterval(pollLatestRound, POLL_INTERVAL_MS)
+  }
+}
+
+server.listen(PORT, HOST, () => {
+  console.log(`Server running at http://${HOST}:${PORT}`)
+  setTimeout(() => {
+    bootstrapServer().catch((err) => {
+      startupError = err
+      startupPhase = 'ready'
+      console.error('[startup] bootstrap crashed:', err.message)
+    })
+  }, 50)
 })
