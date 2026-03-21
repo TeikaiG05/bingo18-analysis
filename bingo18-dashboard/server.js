@@ -4,8 +4,6 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { WebSocketServer } from 'ws'
-import { buildPrediction } from './predictor.js'
-import { buildPredictionFromBase } from './predictor_v2.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -47,6 +45,7 @@ let startupError = null
 let pollTimer = null
 let cacheBuildState = 'idle'
 let cacheBuildTimer = null
+let predictorFnsPromise = null
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -116,16 +115,31 @@ function normalizeStoredRounds(store) {
   }
 }
 
-function refreshPredictionCache(store = readData()) {
+async function loadPredictorFns() {
+  if (!predictorFnsPromise) {
+    predictorFnsPromise = Promise.all([
+      import('./predictor.js'),
+      import('./predictor_v2.js'),
+    ]).then(([predictorModule, predictorV2Module]) => ({
+      buildPrediction: predictorModule.buildPrediction,
+      buildPredictionFromBase: predictorV2Module.buildPredictionFromBase,
+    }))
+  }
+
+  return predictorFnsPromise
+}
+
+async function refreshPredictionCache(store = readData()) {
+  const { buildPrediction, buildPredictionFromBase } = await loadPredictorFns()
   predictionCache = buildPrediction(normalizeStoredRounds(store).rounds)
   predictionCacheV2 = buildPredictionFromBase(predictionCache)
   return predictionCache
 }
 
-function safeRefreshPredictionCache(store = readData()) {
+async function safeRefreshPredictionCache(store = readData()) {
   try {
     cacheBuildState = 'building'
-    const cache = refreshPredictionCache(store)
+    const cache = await refreshPredictionCache(store)
     startupError = null
     cacheBuildState = 'ready'
     return cache
@@ -144,7 +158,11 @@ function scheduleCacheBuild(delayMs = 50, store = null) {
   cacheBuildState = 'scheduled'
   cacheBuildTimer = setTimeout(() => {
     cacheBuildTimer = null
-    safeRefreshPredictionCache(store || readData())
+    safeRefreshPredictionCache(store || readData()).catch((err) => {
+      startupError = err
+      cacheBuildState = 'error'
+      console.error('[predict] scheduled build crashed:', err.message)
+    })
   }, delayMs)
 }
 
@@ -322,7 +340,7 @@ async function syncAllRoundsFromSource() {
     rounds: mapped,
     updatedAt: new Date().toISOString(),
   })
-  safeRefreshPredictionCache({
+  await safeRefreshPredictionCache({
     rounds: mapped,
     updatedAt: new Date().toISOString(),
   })
@@ -386,7 +404,7 @@ async function pollLatestRound() {
         store.updatedAt = new Date().toISOString()
         writeData(store)
         if (predictionCache) {
-          safeRefreshPredictionCache(store)
+          await safeRefreshPredictionCache(store)
         } else {
           scheduleCacheBuild(1000, store)
         }
@@ -403,7 +421,7 @@ async function pollLatestRound() {
 
     writeData(store)
     if (predictionCache) {
-      safeRefreshPredictionCache(store)
+      await safeRefreshPredictionCache(store)
     } else {
       scheduleCacheBuild(1000, store)
     }
