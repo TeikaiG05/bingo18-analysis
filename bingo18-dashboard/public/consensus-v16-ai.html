@@ -1,0 +1,316 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 | Hội đồng V1-V6 AI</title>
+    <style>
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle { display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid rgba(28,34,60,.1); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: 0 20px 60px rgba(28,34,60,.12); color: #1c223c; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
+      .tabs-menu { display: grid; gap: 10px; min-width: 230px; padding: 12px; border: 1px solid rgba(28,34,60,.1); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: 0 20px 60px rgba(28,34,60,.12); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid rgba(28,34,60,.1); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: #6d7392; }
+      .tab-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(28,34,60,.1); background: rgba(255,255,255,.76); color: #1c223c; text-decoration: none; font-size: 12px; font-weight: 700; }
+      .tab-link.active { color: #5468d8; border-color: rgba(84,104,216,.22); background: rgba(84,104,216,.12); }
+      body { margin: 0; padding: 18px; font-family: "Segoe UI", Tahoma, Arial, sans-serif; background: linear-gradient(180deg, #eef1f8, #dde2f2); color: #1c223c; }
+      .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .card { border: 1px solid rgba(28,34,60,.1); border-radius: 24px; background: rgba(255,255,255,.92); box-shadow: 0 20px 60px rgba(28,34,60,.12); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .grid, .double-grid, .six-grid { display: grid; gap: 14px; }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .six-grid { grid-template-columns: repeat(6, minmax(0,1fr)); }
+      .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #6d7392; }
+      .metric, .role-card { border: 1px solid rgba(28,34,60,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: #6d7392; line-height: 1.6; font-size: 15px; }
+      .role-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 10px; border-radius: 999px; font-size: 11px; font-weight: 800; border: 1px solid rgba(28,34,60,.1); margin-top: 8px; }
+      .role-pill.result { color: #1c6f65; background: rgba(28,111,101,.12); }
+      .role-pill.number { color: #a96f1c; background: rgba(169,111,28,.12); }
+      .role-pill.ai { color: #5468d8; background: rgba(84,104,216,.12); }
+      .pending-row { background: linear-gradient(90deg, rgba(84,104,216,.08), rgba(84,104,216,.03), rgba(84,104,216,.08)); }
+      .pending-row td { position: relative; overflow: hidden; }
+      .pending-wave {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #5468d8;
+        font-weight: 700;
+      }
+      .pending-wave::after {
+        content: '';
+        width: 52px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(84,104,216,.18), rgba(84,104,216,.85), rgba(84,104,216,.18));
+        background-size: 180% 100%;
+        animation: waveShift 1.3s linear infinite;
+      }
+      .ellipsis-wave {
+        display: inline-flex;
+        gap: 3px;
+        min-width: 22px;
+      }
+      .ellipsis-wave span {
+        width: 4px;
+        height: 4px;
+        border-radius: 999px;
+        background: #5468d8;
+        opacity: .28;
+        animation: ellipsisPulse 1.1s ease-in-out infinite;
+      }
+      .ellipsis-wave span:nth-child(2) { animation-delay: .16s; }
+      .ellipsis-wave span:nth-child(3) { animation-delay: .32s; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(28,34,60,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6d7392; }
+      @keyframes waveShift {
+        0% { background-position: 180% 0; }
+        100% { background-position: -20% 0; }
+      }
+      @keyframes ellipsisPulse {
+        0%, 80%, 100% { opacity: .25; transform: translateY(0); }
+        40% { opacity: 1; transform: translateY(-2px); }
+      }
+      @media (max-width: 1200px) { .grid, .double-grid, .six-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark"><strong>Bingo18</strong><span>Hội đồng V1-V6 AI</span></div>
+          </div>
+          <a class="tab-link" href="/">Trang chính</a>
+          <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link active" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+      <div class="card"><div class="card-body">
+        <div class="label">Hội đồng V1-V6 AI</div>
+        <h1 class="title">V1-V5 cùng bàn, V6 AI chốt</h1>
+        <div class="subtitle" id="summaryText">Đang tải...</div>
+      </div></div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Cửa đồng thuận</div><div class="value" id="resultConsensus">--</div></div>
+        <div class="metric"><div class="label">Tổng sáng nhất</div><div class="value" id="topTotal">--</div></div>
+        <div class="metric"><div class="label">Xác suất tổng hợp</div><div class="value" id="topTotalScore">--</div></div>
+        <div class="metric"><div class="label">AI V6</div><div class="value" id="aiResult">--</div></div>
+      </div>
+
+      <div class="six-grid" id="modelCards"></div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Bảng hội đồng</div>
+          <table>
+            <thead><tr><th>Mô hình</th><th>Vai trò</th><th>Quyết định</th><th>Cửa</th><th>Tổng</th><th>Tín hiệu</th></tr></thead>
+            <tbody id="compareTable"></tbody>
+          </table>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Tổng số sáng giá</div>
+          <table>
+            <thead><tr><th>Tổng</th><th>Xác suất</th><th>Số phiếu</th><th>Mô hình</th></tr></thead>
+            <tbody id="totalsTable"></tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">Đối chiếu tổng sáng giá theo kỳ</div>
+        <table>
+          <thead><tr><th>Kỳ</th><th>Top 3 hội đồng</th><th>Tổng thực tế</th><th>Cửa thực tế</th><th>Kết quả</th></tr></thead>
+          <tbody id="recentChecksTable"></tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <script>
+      function repairMojibakeText(input) {
+        if (typeof input !== 'string') return input
+        if (!/[ÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßáºá»Ä]/.test(input)) return input
+        try {
+          return decodeURIComponent(escape(input))
+        } catch {
+          return input
+        }
+      }
+
+      function repairTree(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+        const nodes = []
+        while (walker.nextNode()) nodes.push(walker.currentNode)
+        for (const node of nodes) {
+          const fixed = repairMojibakeText(node.nodeValue)
+          if (fixed !== node.nodeValue) node.nodeValue = fixed
+        }
+        document.title = 'Bingo18 | Hội đồng V1-V6 AI'
+      }
+
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+      const fmt = (v) => `${numberFmt.format(Number(v || 0))}%`
+
+      let retryTimer = null
+      let liveSocket = null
+
+      async function fetchJson(url) {
+        const res = await fetch(url, { cache: 'no-store' })
+        const payload = await res.json().catch(() => ({}))
+        return { ok: res.ok, status: res.status, payload }
+      }
+
+      function scheduleRetry(message) {
+        if (retryTimer) clearTimeout(retryTimer)
+        document.getElementById('summaryText').textContent = repairMojibakeText(
+          `${message} Tự tải lại sau 5 giây...`,
+        )
+        retryTimer = setTimeout(() => {
+          retryTimer = null
+          load()
+        }, 5000)
+      }
+
+      function createPendingRow(nextRoundId, predictedTotals) {
+        const top3 = (predictedTotals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'
+        return `
+          <tr class="pending-row">
+            <td>${nextRoundId || 'Kỳ kế tiếp'}</td>
+            <td>${top3}</td>
+            <td><span class="pending-wave">...</span></td>
+            <td>
+              <span class="pending-wave">
+                <span class="ellipsis-wave"><span></span><span></span><span></span></span>
+              </span>
+            </td>
+            <td>
+              <span class="pending-wave">
+                <span class="ellipsis-wave"><span></span><span></span><span></span></span>
+              </span>
+            </td>
+          </tr>
+        `
+      }
+
+      function ensureLiveSocket() {
+        if (liveSocket || !window.WebSocket) return
+        const protocol = location.protocol === 'https:' ? 'wss' : 'ws'
+        liveSocket = new WebSocket(`${protocol}://${location.host}`)
+        liveSocket.onmessage = (event) => {
+          if (String(event.data) === 'updated') load().catch(() => {})
+        }
+        liveSocket.onclose = () => {
+          liveSocket = null
+          setTimeout(ensureLiveSocket, 1500)
+        }
+        liveSocket.onerror = () => {
+          try { liveSocket.close() } catch {}
+        }
+      }
+
+      async function load() {
+        const response = await fetchJson('/predict-consensus-v16-ai')
+        if (!response.ok) {
+          if (response.status === 503) {
+            scheduleRetry(
+              response.payload?.message || 'Hội đồng V1-V6 AI đang chuẩn bị dữ liệu.',
+            )
+            return
+          }
+          throw new Error(`HTTP ${response.status} tại /predict-consensus-v16-ai`)
+        }
+
+        const council = response.payload
+        const current = council?.current || {}
+        const models = Array.isArray(current.models) ? current.models : []
+        const totalList = Array.isArray(current.topTotals) ? current.topTotals : []
+        const v6 = models.find((item) => item.name === 'V6') || null
+        const recentChecks = Array.isArray(council?.backtest?.recentTotalChecks)
+          ? council.backtest.recentTotalChecks
+          : []
+        const pendingRow = createPendingRow(current.nextRoundId, totalList)
+
+        const hitRateText = council?.backtest?.sampleSize
+          ? ` Tỷ lệ trúng Top 3 gần nhất đạt ${fmt((council.backtest.totalHitRate || 0) * 100)} trên ${council.backtest.sampleSize} kỳ kiểm tra.`
+          : ''
+        const pendingText = council?.backtest?.pending
+          ? ' Bảng đối chiếu gần nhất đang được tính nền và sẽ tự cập nhật lại sau vài giây.'
+          : ''
+        const memoryText = council?.backtest?.sampleSize
+          ? ` Bảng đối chiếu đang dùng ${council.backtest.sampleSize} kỳ gần nhất đã ghi nhớ sẵn.`
+          : ''
+
+        document.getElementById('summaryText').textContent = repairMojibakeText(`AI V6 hiện nghiêng về ${v6?.result || '--'} với các tổng ${(v6?.totals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'}.${hitRateText}${pendingText}${memoryText}`)
+        document.getElementById('resultConsensus').textContent = repairMojibakeText(current.resultConsensus || '--')
+        document.getElementById('topTotal').textContent = current.topTotal ?? '--'
+        document.getElementById('topTotalScore').textContent = totalList[0] ? fmt(totalList[0].normalized * 100) : '--'
+        document.getElementById('aiResult').textContent = repairMojibakeText(v6?.result || '--')
+
+        document.getElementById('modelCards').innerHTML = models.map((model) => `
+          <div class="role-card">
+            <div class="label">${model.name}</div>
+            <strong>${model.result}</strong>
+            <div class="role-pill ${model.role.cls}">${model.role.label}</div>
+            <div class="subtitle" style="font-size:12px;">${model.decision} | ${model.totals.slice(0,3).map((item) => item.total).join(', ') || '--'}</div>
+          </div>
+        `).join('')
+
+        document.getElementById('compareTable').innerHTML = models.map((model) => `
+          <tr>
+            <td>${model.name}</td>
+            <td>${model.role.label}</td>
+            <td>${model.decision}</td>
+            <td>${model.result}</td>
+            <td>${model.totals.slice(0,3).map((item) => item.total).join(', ') || '--'}</td>
+            <td>${model.summary}</td>
+          </tr>
+        `).join('')
+
+        document.getElementById('totalsTable').innerHTML = totalList.slice(0, 8).map((item) => `
+          <tr>
+            <td>${item.total}</td>
+            <td>${fmt(item.normalized * 100)}</td>
+            <td>${item.votes.length}</td>
+            <td>${item.votes.join(', ')}</td>
+          </tr>
+        `).join('')
+
+        document.getElementById('recentChecksTable').innerHTML = pendingRow + (recentChecks.length
+          ? recentChecks.map((item) => `
+            <tr>
+              <td>${item.id}</td>
+              <td>${(item.predictedTotals || []).join(', ') || '--'}</td>
+              <td>${item.actualTotal ?? '--'}</td>
+              <td>${item.actualResult || '--'}${item.actualTotal != null ? ` (${item.actualTotal})` : ''}</td>
+              <td>${item.hit ? 'Trúng' : 'Trượt'}</td>
+            </tr>
+          `).join('')
+          : '<tr><td colspan="5">Chưa đủ dữ liệu để đối chiếu theo kỳ.</td></tr>')
+
+        if (council?.backtest?.pending) {
+          scheduleRetry('Hội đồng hiện đã lên dữ liệu chính, đang hoàn tất bảng đối chiếu gần nhất.')
+        }
+      }
+
+      repairTree()
+      ensureLiveSocket()
+      load().then(() => repairTree()).catch((error) => {
+        document.getElementById('summaryText').textContent = repairMojibakeText(`Lỗi tải dữ liệu: ${error.message}`)
+        repairTree()
+      })
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Chọn lọc V5</title>
+    <style>
+      :root {
+        --bg: #eef1f7;
+        --bg2: #dde3ee;
+        --panel: rgba(255,255,255,.92);
+        --line: rgba(22,34,54,.1);
+        --text: #162236;
+        --muted: #66758a;
+        --blue: #1e5da8;
+        --blue-soft: rgba(30,93,168,.12);
+        --green: #1f6b4d;
+        --green-soft: rgba(31,107,77,.12);
+        --amber: #b67721;
+        --amber-soft: rgba(182,119,33,.12);
+        --shadow: 0 20px 60px rgba(22,34,54,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(30,93,168,.12), transparent 28%),
+          radial-gradient(circle at top right, rgba(182,119,33,.1), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px;
+        border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92);
+        box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em;
+        text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed;
+      }
+      .tabs-menu { display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(22,34,54,.14); }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px;
+        border: 1px solid var(--line); background: rgba(255,255,255,.76); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700;
+      }
+      .tab-link.active { color: var(--blue); border-color: rgba(30,93,168,.22); background: var(--blue-soft); }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .panel, .metric, .item { border: 1px solid rgba(22,34,54,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge, .decision {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px;
+        border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800;
+      }
+      .decision.bet { color: var(--green); background: var(--green-soft); border-color: rgba(31,107,77,.2); }
+      .decision.skip { color: var(--amber); background: var(--amber-soft); border-color: rgba(182,119,33,.2); }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(54px,7vw,86px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .stack { display: grid; gap: 10px; }
+      .tiny, .muted { font-size: 12px; color: var(--muted); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(22,34,54,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      @media (max-width: 1080px) {
+        .hero, .grid, .double-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Chọn lọc V5</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link active" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Bộ dự đoán V5</div>
+              <h1 class="title">Markov chuyển trạng thái cho Lớn / Nhỏ / Hòa</h1>
+              <div class="subtitle">
+                V5 đọc chuỗi kết quả gần nhất như một N-gram Markov bậc 1 đến 3, rồi lùi bậc theo mức độ hỗ trợ.
+                Trọng tâm của bản này là lớp cửa Lớn / Nhỏ / Hòa, sau đó mới gợi ý các tổng số phù hợp với cửa được chọn.
+              </div>
+              <div class="badge-row">
+                <div class="decision skip" id="decisionBadge">Đang tải</div>
+                <div class="badge" id="chainBadge">--</div>
+                <div class="badge" id="orderBadge">--</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="label">Khung V5</div>
+              <div class="stack" style="margin-top: 12px;">
+                <div class="item"><div><strong>Markov bậc 1-3</strong><div class="tiny">Chọn bậc cao nhất nếu hỗ trợ đủ mạnh</div></div></div>
+                <div class="item"><div><strong>Prior lai</strong><div class="tiny">Lý thuyết chỉ là neo nhẹ, phần chính là dữ liệu dài hạn và gần đây</div></div></div>
+                <div class="item"><div><strong>Gợi ý tổng số</strong><div class="tiny">Bám lớp kết quả đang nghiêng và neo nhẹ theo phân phối tự nhiên</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Xác suất cao nhất</div><div class="value" id="topProb">--</div></div>
+        <div class="metric"><div class="label">Độ chênh</div><div class="value" id="spread">--</div></div>
+        <div class="metric"><div class="label">Mức hỗ trợ</div><div class="value" id="support">--</div></div>
+        <div class="metric"><div class="label">Tỷ lệ trúng chọn lọc</div><div class="value" id="selectiveHit">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Kết luận V5</div>
+            <strong class="hero-result" id="heroResult">--</strong>
+            <div class="subtitle" id="summaryText">--</div>
+            <table style="margin-top: 16px;">
+              <thead>
+                <tr><th>Kết quả</th><th>Xác suất</th></tr>
+              </thead>
+              <tbody id="resultTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các prior</div>
+            <div class="stack">
+              <div class="item"><div><strong>Trọng số</strong><div class="tiny" id="priorWeights">--</div></div></div>
+              <div class="item"><div><strong>Dài hạn</strong><div class="tiny" id="longRunPrior">--</div></div></div>
+              <div class="item"><div><strong>Gần đây</strong><div class="tiny" id="recentPrior">--</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Phân tích chuỗi</div>
+            <table>
+              <thead>
+                <tr><th>Bậc</th><th>Chuỗi</th><th>Ưu tiên</th><th>Hỗ trợ</th><th>Độ chênh</th></tr>
+              </thead>
+              <tbody id="chainTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các tổng ưu tiên</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Lớp</th><th>Xác suất</th><th>Nguồn</th></tr>
+              </thead>
+              <tbody id="totalsTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các kỳ đạt điều kiện gần đây</div>
+            <table>
+              <thead>
+                <tr><th>Kỳ</th><th>Dự kiến</th><th>Thực tế</th><th>Kết quả</th></tr>
+              </thead>
+              <tbody id="qualifiedTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng thái</div>
+          <div class="subtitle" id="statusText">Đang tải...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value
+      }
+
+      function formatPercent(value) {
+        return `${numberFmt.format(Number(value || 0))}%`
+      }
+
+      function repairVietnamese(value) {
+        if (typeof value !== 'string') return value
+        return value
+          .replaceAll('NhÃ¡Â»Â', 'Nhỏ')
+          .replaceAll('HÃƒÂ²a', 'Hòa')
+          .replaceAll('LÃ¡Â»â€ºn', 'Lớn')
+          .replaceAll('Äang', 'Đang')
+          .replaceAll('Ä‘ang', 'đang')
+          .replaceAll('TrÃºng', 'Trúng')
+          .replaceAll('TrÆ°á»£t', 'Trượt')
+      }
+
+      function safeString(value, fallback = '--') {
+        if (typeof value !== 'string') return fallback
+        const fixed = repairVietnamese(value).trim()
+        return fixed || fallback
+      }
+
+      function renderRows(targetId, rows, renderRow, emptyMessage, colspan) {
+        const target = document.getElementById(targetId)
+        if (!rows.length) {
+          target.innerHTML = `<tr><td colspan="${colspan}" class="muted">${emptyMessage}</td></tr>`
+          return
+        }
+        target.innerHTML = rows.map(renderRow).join('')
+      }
+
+      async function loadV5() {
+        const res = await fetch('/predict-v5', { cache: 'no-store' })
+        if (res.status === 503) {
+          setText('statusText', 'Hệ thống đang khởi động dữ liệu V5, sẽ tự tải lại sau vài giây.')
+          setTimeout(loadV5, 5000)
+          return
+        }
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`)
+        }
+
+        const payload = await res.json()
+        const diagnosis = payload?.diagnosis || {}
+        const methodology = payload?.methodology || {}
+        const markov = methodology?.markov || {}
+        const priors = methodology?.priors || {}
+        const decision = payload?.selectiveStrategy?.currentDecision || {}
+        const resultProb = diagnosis?.resultProbabilities || {}
+        const topTotals = decision?.recommendedTotals?.length ? decision.recommendedTotals : (diagnosis?.topTotals || []).slice(0, 4)
+        const chainInsights = decision?.chainInsights || markov?.chainInsights || []
+        const recentQualified = payload?.selectiveStrategy?.recentQualified || []
+        const topResult = decision?.recommendedResult || diagnosis?.recommendedResult || '--'
+        const summary = decision?.summary || diagnosis?.confidenceModel?.summary || decision?.rationale?.[0] || 'Chưa có kết luận rõ ràng.'
+
+        const topProbability = Number(decision?.topProbability ?? diagnosis?.confidenceModel?.topProbability ?? 0) * (decision?.topProbability && decision.topProbability <= 1 ? 100 : 1)
+        const spread = Number(decision?.spread ?? diagnosis?.confidenceModel?.spread ?? 0)
+        const spreadPercent = spread <= 1 ? spread * 100 : spread
+        const support = decision?.chainSupport ?? markov?.selectedSupport ?? diagnosis?.confidenceModel?.support ?? 0
+        const selectiveHit = payload?.selectiveStrategy?.performance?.hitRate ?? payload?.selectiveStrategy?.validation?.hitRate ?? 0
+
+        const orderValue = markov?.selectedOrder || decision?.selectedOrder || '--'
+        const chainLabel = safeString(markov?.selectedChainLabel || decision?.selectedChainLabel || 'Chuỗi hiện tại chưa rõ')
+
+        const shouldBet = Boolean(decision?.shouldBet)
+        const decisionLabel = shouldBet ? `BET | ${topResult}` : `SKIP | ${topResult}`
+        document.getElementById('decisionBadge').textContent = decisionLabel
+        document.getElementById('decisionBadge').className = `decision ${shouldBet ? 'bet' : 'skip'}`
+
+        setText('chainBadge', chainLabel)
+        setText('orderBadge', `Bậc ${orderValue}`)
+        setText('topProb', formatPercent(topProbability))
+        setText('spread', formatPercent(spreadPercent))
+        setText('support', numberFmt.format(Number(support || 0)))
+        setText('selectiveHit', formatPercent(Number(selectiveHit || 0)))
+        setText('heroResult', safeString(topResult))
+        setText('summaryText', safeString(summary))
+        setText('statusText', 'Dữ liệu V5 đã sẵn sàng.')
+
+        const weights = priors?.weights || {}
+        const longRun = priors?.longRun || {}
+        const recent = priors?.recent || {}
+
+        setText('priorWeights', `Lý thuyết ${numberFmt.format((weights.theory || 0) * 100)}% | Dài hạn ${numberFmt.format((weights.longRun || 0) * 100)}% | Gần đây ${numberFmt.format((weights.recent || 0) * 100)}%`)
+        setText('longRunPrior', `Lớn ${numberFmt.format((longRun.Big || 0) * 100)}% | Nhỏ ${numberFmt.format((longRun.Small || 0) * 100)}% | Hòa ${numberFmt.format((longRun.Draw || 0) * 100)}%`)
+        setText('recentPrior', `Lớn ${numberFmt.format((recent.Big || 0) * 100)}% | Nhỏ ${numberFmt.format((recent.Small || 0) * 100)}% | Hòa ${numberFmt.format((recent.Draw || 0) * 100)}%`)
+
+        const resultRows = ['Big', 'Small', 'Draw'].map((key) => ({
+          key,
+          label: key === 'Big' ? 'Lớn' : key === 'Small' ? 'Nhỏ' : 'Hòa',
+          value: Number(resultProb[key] || 0) * 100,
+        }))
+        renderRows(
+          'resultTable',
+          resultRows,
+          (row) => `<tr><td>${row.label}</td><td>${formatPercent(row.value)}</td></tr>`,
+          'Chưa có phân phối kết quả.',
+          2,
+        )
+
+        renderRows(
+          'chainTable',
+          chainInsights,
+          (item) => `<tr><td>${item.order ?? '--'}</td><td>${safeString(item.chainLabel || item.chain || '--')}</td><td>${safeString(item.topResult || '--')}</td><td>${numberFmt.format(Number(item.support || 0))}</td><td>${formatPercent((Number(item.spread || 0) <= 1 ? Number(item.spread || 0) * 100 : Number(item.spread || 0)))}</td></tr>`,
+          'Chưa có chuỗi Markov đủ điều kiện.',
+          5,
+        )
+
+        renderRows(
+          'totalsTable',
+          topTotals,
+          (item) => `<tr><td>${item.total ?? '--'}</td><td>${safeString(item.resultClass || item.classification || '--')}</td><td>${formatPercent((Number(item.probability || item.score || 0) <= 1 ? Number(item.probability || item.score || 0) * 100 : Number(item.probability || item.score || 0)))}</td><td>${safeString(item.source || 'V5')}</td></tr>`,
+          'Chưa có tổng số ưu tiên.',
+          4,
+        )
+
+        renderRows(
+          'qualifiedTable',
+          recentQualified.slice(0, 8),
+          (item) => {
+            const hit = Boolean(item.hit || item.win)
+            return `<tr><td>${item.id || '--'}</td><td>${safeString(item.prediction || item.predictedResult || '--')}</td><td>${safeString(item.actualResult || '--')}</td><td>${hit ? 'Trúng' : 'Trượt'}</td></tr>`
+          },
+          'Chưa có kỳ đạt điều kiện gần đây.',
+          4,
+        )
+      }
+
+      loadV5().catch((error) => {
+        setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+      })
+    </script>
+  </body>
+</html>

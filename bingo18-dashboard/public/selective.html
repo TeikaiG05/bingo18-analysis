@@ -203,14 +203,20 @@
             <img src="/brand-logo.svg" alt="Bingo18 logo" />
             <div class="brand-mark">
               <strong>Bingo18</strong>
-              <span>Selective V1</span>
+              <span>Chọn lọc V1</span>
             </div>
           </div>
-          <a class="tab-link" href="/">Dashboard V1</a>
-          <a class="tab-link active" href="/selective">Selective V1</a>
-          <a class="tab-link" href="/selective-v2">Selective V2</a>
-          <a class="tab-link" href="/predict" target="_blank" rel="noreferrer">JSON V1</a>
-          <a class="tab-link" href="/predict-v2" target="_blank" rel="noreferrer">JSON V2</a>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link active" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
@@ -251,7 +257,7 @@
               <div class="subtitle" id="decisionSummary">Đang nạp bộ lọc chọn lọc...</div>
               <div class="kpis">
                 <div class="kpi"><div class="label">Xác Suất Top</div><div class="value" id="topProbabilityValue">--</div></div>
-                <div class="kpi"><div class="label">Spread</div><div class="value" id="spreadValue">--</div></div>
+                <div class="kpi"><div class="label">Độ chênh</div><div class="value" id="spreadValue">--</div></div>
                 <div class="kpi"><div class="label">Đồng Thuận</div><div class="value" id="consensusValue">--</div></div>
                 <div class="kpi"><div class="label">Độ Dày Lớp</div><div class="value" id="supportValue">--</div></div>
               </div>
@@ -607,7 +613,7 @@
 
         const t = backtest.thresholds || {}
         const cfg = backtest.config || {}
-        document.getElementById('thresholdSummary').textContent = `Cấu hình ${cfg.label || cfg.id || '--'} | topProb >= ${t.minTopProbability ?? '--'} | spread >= ${t.minSpread ?? '--'} | classSupport >= ${t.minClassSupport ?? '--'} | totalSupport >= ${t.minTotalSupport ?? '--'} | patternSupport >= ${t.minPatternSupport ?? '--'} | agreement >= ${t.minAgreementCount ?? '--'} | consensusCount >= ${t.minConsensusCount ?? '--'} | consensusStrength >= ${t.minConsensusStrength ?? '--'} | totalPatternGap <= ${t.maxTotalPatternGap ?? '--'}`
+        document.getElementById('thresholdSummary').textContent = `Cấu hình ${cfg.label || cfg.id || '--'} | xác suất đỉnh >= ${t.minTopProbability ?? '--'} | độ chênh >= ${t.minSpread ?? '--'} | hỗ trợ cửa >= ${t.minClassSupport ?? '--'} | hỗ trợ tổng >= ${t.minTotalSupport ?? '--'} | hỗ trợ mẫu >= ${t.minPatternSupport ?? '--'} | đồng thuận >= ${t.minAgreementCount ?? '--'} | số nguồn đồng thuận >= ${t.minConsensusCount ?? '--'} | lực đồng thuận >= ${t.minConsensusStrength ?? '--'} | lệch mẫu-tổng <= ${t.maxTotalPatternGap ?? '--'}`
 
         const tbody = document.getElementById('recentQualifiedTable')
         tbody.innerHTML = ''

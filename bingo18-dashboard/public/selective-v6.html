@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Chọn lọc V6</title>
+    <style>
+      :root {
+        --bg: #eef4ef;
+        --bg2: #dde7df;
+        --panel: rgba(255,255,255,.92);
+        --line: rgba(25,42,33,.1);
+        --text: #192a21;
+        --muted: #6a7970;
+        --teal: #1c6f65;
+        --teal-soft: rgba(28,111,101,.12);
+        --amber: #a96f1c;
+        --amber-soft: rgba(169,111,28,.12);
+        --green: #21694b;
+        --green-soft: rgba(33,105,75,.12);
+        --shadow: 0 20px 60px rgba(25,42,33,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(28,111,101,.12), transparent 28%),
+          radial-gradient(circle at top right, rgba(169,111,28,.08), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle { display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
+      .tabs-menu { display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(25,42,33,.14); }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; }
+      .tab-link.active { color: var(--teal); border-color: rgba(28,111,101,.22); background: var(--teal-soft); }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .panel, .metric, .item { border: 1px solid rgba(25,42,33,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge, .decision { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
+      .decision.bet { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
+      .decision.skip { color: var(--amber); background: var(--amber-soft); border-color: rgba(169,111,28,.2); }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(54px,7vw,86px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .stack { display: grid; gap: 10px; }
+      .tiny, .muted { font-size: 12px; color: var(--muted); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(25,42,33,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      @media (max-width: 1080px) {
+        .hero, .grid, .double-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Chọn lọc V6</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link active" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">AI Meta Council V6</div>
+              <h1 class="title">Lớp AI tổng hợp từ từng kỳ của V1-V5</h1>
+              <div class="subtitle">
+                V6 không thay thế các version cũ. Nó đọc đầu ra theo từng kỳ, chấm lại độ mạnh của từng model theo vai trò,
+                độ tự tin, độ chênh và hiệu năng gần đây, rồi mới đưa ra cửa và tổng số cuối cùng.
+              </div>
+              <div class="badge-row">
+                <div class="decision skip" id="decisionBadge">Đang tải</div>
+                <div class="badge" id="resultBadge">--</div>
+                <div class="badge" id="totalBadge">--</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="label">Nguyên tắc AI V6</div>
+              <div class="stack" style="margin-top: 12px;">
+                <div class="item"><div><strong>Đọc hội đồng</strong><div class="tiny">Tổng hợp đồng thuận giữa V1-V5 thay vì nghe một model đơn lẻ</div></div></div>
+                <div class="item"><div><strong>Chấm trọng số</strong><div class="tiny">Trọng số thay đổi theo confidence, spread, hit rate và vai trò chuyên cửa/chuyên số</div></div></div>
+                <div class="item"><div><strong>Ra quyết định cuối</strong><div class="tiny">Chỉ vào lệnh khi cả cửa và tổng số cùng hội tụ đủ mạnh</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Xác suất cửa</div><div class="value" id="topProb">--</div></div>
+        <div class="metric"><div class="label">Độ chênh</div><div class="value" id="spread">--</div></div>
+        <div class="metric"><div class="label">Đồng thuận cửa</div><div class="value" id="agreement">--</div></div>
+        <div class="metric"><div class="label">Tổng ưu tiên</div><div class="value" id="topTotal">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Kết luận V6</div>
+            <strong class="hero-result" id="heroResult">--</strong>
+            <div class="subtitle" id="summaryText">--</div>
+            <table style="margin-top: 16px;">
+              <thead>
+                <tr><th>Cửa</th><th>Xác suất</th></tr>
+              </thead>
+              <tbody id="resultTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Cổng quyết định</div>
+            <table>
+              <thead>
+                <tr><th>Điều kiện</th><th>Giá trị</th><th>Ngưỡng</th><th>Kết quả</th></tr>
+              </thead>
+              <tbody id="gateTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Tiếng nói từng model</div>
+            <table>
+              <thead>
+                <tr><th>Model</th><th>Vai trò</th><th>Trọng số</th><th>Cửa</th><th>Tổng</th></tr>
+              </thead>
+              <tbody id="voicesTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các tổng số AI ưu tiên</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Lớp</th><th>Xác suất</th><th>Nguồn</th></tr>
+              </thead>
+              <tbody id="totalsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng thái</div>
+          <div class="subtitle" id="statusText">Đang tải...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+      function setText(id, value) { document.getElementById(id).textContent = value }
+      function formatPercent(value) { return `${numberFmt.format(Number(value || 0))}%` }
+
+      async function loadV6() {
+        const res = await fetch('/predict-v6', { cache: 'no-store' })
+        if (res.status === 503) {
+          setText('statusText', 'V6 đang khởi động dữ liệu, sẽ tự tải lại.')
+          setTimeout(loadV6, 5000)
+          return
+        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const payload = await res.json()
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        const voices = current.modelVoices || payload?.analytics?.v6?.modelVoices || []
+        const topTotals = current.recommendedTotals || diagnosis.topTotals || []
+        const resultProb = diagnosis.resultProbabilities || {}
+        const agreement = payload?.analytics?.v6?.resultAgreementCount || diagnosis?.confidenceModel?.agreementCount || 0
+
+        const shouldBet = Boolean(current.shouldBet)
+        document.getElementById('decisionBadge').textContent = `${shouldBet ? 'BET' : 'SKIP'} | ${current.recommendedResult || diagnosis.mostLikelyResult || '--'}`
+        document.getElementById('decisionBadge').className = `decision ${shouldBet ? 'bet' : 'skip'}`
+
+        setText('resultBadge', `Cửa ${current.recommendedResult || diagnosis.mostLikelyResult || '--'}`)
+        setText('totalBadge', `Tổng ${topTotals[0]?.total ?? '--'}`)
+        setText('topProb', formatPercent(current.topProbability))
+        setText('spread', formatPercent(current.spread))
+        setText('agreement', `${agreement}/5`)
+        setText('topTotal', String(topTotals[0]?.total ?? '--'))
+        setText('heroResult', `${current.recommendedResult || diagnosis.mostLikelyResult || '--'} | ${topTotals[0]?.total ?? '--'}`)
+        setText('summaryText', current.summary || '--')
+        setText('statusText', 'Dữ liệu V6 đã sẵn sàng.')
+
+        const resultRows = [
+          { label: 'Lớn', value: resultProb.Big },
+          { label: 'Nhỏ', value: resultProb.Small },
+          { label: 'Hòa', value: resultProb.Draw },
+        ]
+        document.getElementById('resultTable').innerHTML = resultRows
+          .map((row) => `<tr><td>${row.label}</td><td>${formatPercent(Number(row.value || 0) * 100)}</td></tr>`)
+          .join('')
+
+        document.getElementById('gateTable').innerHTML = (current.gateChecks || [])
+          .map((item) => `<tr><td>${item.label || '--'}</td><td>${item.value ?? '--'}</td><td>${item.threshold ?? '--'}</td><td>${item.pass ? 'Đạt' : 'Trượt'}</td></tr>`)
+          .join('') || '<tr><td colspan="4" class="muted">Chưa có gate check.</td></tr>'
+
+        document.getElementById('voicesTable').innerHTML = voices
+          .map((item) => `<tr><td>${item.id}</td><td>${item.focus === 'result' ? 'Chuyên cửa' : 'Chuyên số'}</td><td>${numberFmt.format(item.weight || 0)}</td><td>${item.recommendedResult || '--'}</td><td>${(item.topTotals || []).join(', ') || '--'}</td></tr>`)
+          .join('') || '<tr><td colspan="5" class="muted">Chưa có tiếng nói model.</td></tr>'
+
+        document.getElementById('totalsTable').innerHTML = topTotals
+          .map((item) => `<tr><td>${item.total}</td><td>${item.result || '--'}</td><td>${formatPercent(item.score ?? (Number(item.probability || 0) * 100))}</td><td>${(item.sources || []).join(', ') || '--'}</td></tr>`)
+          .join('') || '<tr><td colspan="4" class="muted">Chưa có tổng số ưu tiên.</td></tr>'
+      }
+
+      loadV6().catch((error) => {
+        setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+      })
+    </script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bingo18 Selective V2</title>
+    <title>Bingo18 Chọn lọc V2</title>
     <style>
       :root {
         --bg: #f2f5ef;
@@ -179,14 +179,20 @@
             <img src="/brand-logo.svg" alt="Bingo18 logo" />
             <div class="brand-mark">
               <strong>Bingo18</strong>
-              <span>Selective V2</span>
+              <span>Chọn lọc V2</span>
             </div>
           </div>
-          <a class="tab-link" href="/">Dashboard V1</a>
-          <a class="tab-link" href="/selective">Selective V1</a>
-          <a class="tab-link active" href="/selective-v2">Selective V2</a>
-          <a class="tab-link" href="/predict" target="_blank" rel="noreferrer">JSON V1</a>
-          <a class="tab-link" href="/predict-v2" target="_blank" rel="noreferrer">JSON V2</a>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link active" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
@@ -194,7 +200,7 @@
         <div class="card-body">
           <div class="hero">
             <div>
-              <div class="eyebrow">Selective V2</div>
+              <div class="eyebrow">Chọn lọc V2</div>
               <h1 class="title">Overlay quyết định mới trên predictor cũ</h1>
               <div class="subtitle">
                 Trang này đọc từ <code>/predict-v2</code>. V1 vẫn giữ nguyên schema cũ,
@@ -228,7 +234,7 @@
               <div class="subtitle" id="v1Summary">--</div>
               <div class="kpis">
                 <div class="kpi"><div class="label">Top Prob</div><div class="value" id="v1TopProb">--</div></div>
-                <div class="kpi"><div class="label">Spread</div><div class="value" id="v1Spread">--</div></div>
+                <div class="kpi"><div class="label">Độ chênh</div><div class="value" id="v1Spread">--</div></div>
                 <div class="kpi"><div class="label">Backtest Hit</div><div class="value" id="v1BacktestHit">--</div></div>
                 <div class="kpi"><div class="label">Coverage</div><div class="value" id="v1Coverage">--</div></div>
               </div>
@@ -352,7 +358,7 @@
           strong_backtest: 'Backtest tốt',
           usable_coverage: 'Coverage đủ dùng',
           high_top_probability: 'Top probability cao',
-          wide_spread: 'Spread rộng',
+          wide_spread: 'Độ chênh rộng',
           healthy_gate_ratio: 'Tỷ lệ gate pass tốt',
           low_drift: 'Drift thấp',
           profile_stability: 'Profile backtest ổn định',

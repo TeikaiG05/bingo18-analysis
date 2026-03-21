@@ -1,3 +1,6 @@
+const VALID_START_HOUR = 6
+const VALID_END_HOUR = 21
+
 function sumDice(dice) {
   return dice[0] + dice[1] + dice[2]
 }
@@ -36,7 +39,10 @@ function localHourFromValue(value, utcOffsetHours = 7) {
 }
 
 function roundHourBucket(round) {
-  return localHourFromValue(round?.processTime ?? round?.time)
+  const hour = localHourFromValue(round?.processTime ?? round?.time)
+  if (hour == null) return null
+  if (hour < VALID_START_HOUR || hour > VALID_END_HOUR) return null
+  return hour
 }
 
 function normalizeMap(map) {

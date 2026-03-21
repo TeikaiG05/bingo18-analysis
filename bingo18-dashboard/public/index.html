@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bingo18 Diagnostic Dashboard</title>
+    <title>Bingo18 Bang dieu phoi chan doan</title>
     <style>
       :root {
         --bg: #ecf2f6; --bg2: #dfe8ef; --panel: rgba(255,255,255,.78); --panel2: rgba(255,255,255,.92);
@@ -211,14 +211,14 @@
             <img src="/brand-logo.svg" alt="Bingo18 logo" />
             <div class="brand-mark">
               <strong>Bingo18</strong>
-              <span>Diagnostic Console</span>
+              <span>Điều hướng chẩn đoán</span>
             </div>
           </div>
-          <a class="tab-link active" href="/">Dashboard V1</a>
-          <a class="tab-link" href="/selective">Selective V1</a>
-          <a class="tab-link" href="/selective-v2">Selective V2</a>
-          <a class="tab-link" href="/predict" target="_blank" rel="noreferrer">JSON V1</a>
-          <a class="tab-link" href="/predict-v2" target="_blank" rel="noreferrer">JSON V2</a>
+          <a class="tab-link active" href="/">Trang chính</a>
+          <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
@@ -244,17 +244,14 @@
               <div class="summary-panel">
                 <div class="block-label">Nhịp chẩn đoán</div>
                 <div class="headline-sub" style="margin-top:8px;">Cụm hiển thị này gom các chỉ dấu vận hành cốt lõi để người xem định vị trạng thái hệ thống trước khi đi vào từng bảng con.</div>
-                <div class="quick-links" style="margin-top:16px;">
-                  <a class="mini-link" href="/stats" target="_blank" rel="noreferrer">Mở Stats</a>
-                  <a class="mini-link" href="/export/csv">Tải CSV</a>
-                </div>
+                <div class="headline-sub" style="margin-top:16px;">Điều hướng chính hiện chỉ giữ các hội đồng và AI để tập trung cho tác vụ chẩn đoán.</div>
               </div>
               <div class="summary-panel">
                 <div class="block-label">Khung đọc nhanh</div>
                 <div class="list">
                   <div class="item"><div><strong>Prediction</strong><div class="muted tiny">Tín hiệu Top 1 và độ chênh so với Top 2</div></div><strong>Ưu tiên</strong></div>
                   <div class="item"><div><strong>Analytics</strong><div class="muted tiny">Tách riêng pattern và đồng xuất hiện</div></div><strong>Sạch tầng</strong></div>
-                  <div class="item"><div><strong>Recent stream</strong><div class="muted tiny">Sidebar riêng cho 50 phiên gần nhất</div></div><strong>Dễ rà</strong></div>
+                  <div class="item"><div><strong>Dòng gần đây</strong><div class="muted tiny">Sidebar riêng cho 50 phiên gần nhất</div></div><strong>Dễ rà</strong></div>
                 </div>
               </div>
             </div>
@@ -264,23 +261,6 @@
 
       <div class="layout">
         <div class="main-column">
-          <div class="card">
-            <div class="card-body">
-              <div class="section-head"><div><h2 class="section-title">Bảng thử xúc xắc</h2><div class="section-subtitle tiny">Khối thao tác mô phỏng tách biệt khỏi dữ liệu thật nhưng vẫn giữ ngôn ngữ thị giác chung</div></div></div>
-              <div class="random-layout">
-                <div class="dice-panel"><div class="dice-row" id="randomDice"><div class="die">1</div><div class="die">1</div><div class="die">1</div></div></div>
-                <div class="result-panel">
-                  <div class="result-grid">
-                    <div class="stat-box"><div class="stat-label">Tổng điểm</div><div class="stat-value" id="randomTotalValue">--</div></div>
-                    <div class="stat-box"><div class="stat-label">Phân loại</div><div class="stat-value" id="randomResultValue">--</div></div>
-                  </div>
-                  <button class="btn btn-primary" id="rollDiceBtn" type="button">Quay thử</button>
-                  <div class="stat-box"><div class="block-label">Trạng thái</div><div class="rolling-note" id="rollingNote"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="card">
             <div class="card-body">
               <div class="section-head"><div><h2 class="section-title">Khối dự đoán trọng tâm</h2><div class="section-subtitle tiny">Ưu tiên nhãn kết quả chính, xác suất tổng hợp và các lựa chọn có trọng số cao nhất</div></div></div>
@@ -364,17 +344,23 @@
       }
       function rollThreeDice() { return Array.from({ length: 3 }, () => Math.floor(Math.random() * 6) + 1) }
       function renderRandomDice(values) {
+        const randomDice = document.getElementById('randomDice')
+        const randomTotalValue = document.getElementById('randomTotalValue')
+        const randomResultValue = document.getElementById('randomResultValue')
+        if (!randomDice || !randomTotalValue || !randomResultValue) return
         const total = values.reduce((sum, value) => sum + value, 0)
-        document.getElementById('randomDice').innerHTML = values.map((value) => `<div class="die">${value}</div>`).join('')
-        document.getElementById('randomTotalValue').textContent = total
-        document.getElementById('randomResultValue').textContent = classifyTotal(total)
+        randomDice.innerHTML = values.map((value) => `<div class="die">${value}</div>`).join('')
+        randomTotalValue.textContent = total
+        randomResultValue.textContent = classifyTotal(total)
       }
       function setRollingState(isRolling) {
         const button = document.getElementById('rollDiceBtn')
+        const rollingNote = document.getElementById('rollingNote')
+        if (!button || !rollingNote) return
         const dice = document.querySelectorAll('#randomDice .die')
         button.disabled = isRolling
         button.textContent = isRolling ? 'Đang quay...' : 'Quay thử'
-        document.getElementById('rollingNote').textContent = isRolling ? 'Xúc xắc đang xoay, chờ một chút...' : 'Sẵn sàng.'
+        rollingNote.textContent = isRolling ? 'Xúc xắc đang xoay, chờ một chút...' : 'Sẵn sàng.'
         dice.forEach((die) => die.classList.toggle('rolling', isRolling))
       }
       async function animateDiceRoll() {
@@ -701,7 +687,7 @@
         ws.onclose = () => { clearInterval(heartbeatTimer); reconnectTimer = setTimeout(connectWebSocket, 3000) }
         ws.onerror = () => { if (ws) ws.close() }
       }
-      document.getElementById('rollDiceBtn').addEventListener('click', async () => { await animateDiceRoll() })
+      document.getElementById('rollDiceBtn')?.addEventListener('click', async () => { await animateDiceRoll() })
       renderRandomDice([1, 1, 1]); setRollingState(false); updateHeroMeta(); refreshLiveData(); connectWebSocket()
     </script>
   </body>

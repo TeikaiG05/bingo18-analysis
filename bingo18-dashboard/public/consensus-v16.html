@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 | Hội đồng V1-V6</title>
+    <style>
+      :root {
+        --bg: #edf2ec;
+        --bg2: #dfe8dd;
+        --panel: rgba(255,255,255,.92);
+        --line: rgba(28,43,36,.1);
+        --text: #1c2b24;
+        --muted: #69786f;
+        --teal: #16746a;
+        --teal-soft: rgba(22,116,106,.12);
+        --gold: #a86b17;
+        --gold-soft: rgba(168,107,23,.12);
+        --violet: #7156d8;
+        --violet-soft: rgba(113,86,216,.12);
+        --green: #21694b;
+        --green-soft: rgba(33,105,75,.12);
+        --shadow: 0 20px 60px rgba(28,43,36,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(22,116,106,.1), transparent 28%),
+          radial-gradient(circle at top right, rgba(113,86,216,.08), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1520px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle { display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
+      .tabs-menu { display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(28,43,36,.14); }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; }
+      .tab-link.active { color: var(--teal); border-color: rgba(22,116,106,.22); background: var(--teal-soft); }
+      .tabs-menu a[href="/selective"],
+      .tabs-menu a[href="/selective-v2"],
+      .tabs-menu a[href="/selective-v3"],
+      .tabs-menu a[href="/selective-v4"],
+      .tabs-menu a[href="/selective-v5"],
+      .tabs-menu a[href="/selective-v6"] { display: none; }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid, .six-grid { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(340px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .six-grid { grid-template-columns: repeat(6, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .metric, .panel, .role-card { border: 1px solid rgba(28,43,36,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(48px,7vw,82px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
+      .badge.strong { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
+      .badge.soft { color: var(--gold); background: var(--gold-soft); border-color: rgba(168,107,23,.2); }
+      .badge.ai { color: var(--violet); background: var(--violet-soft); border-color: rgba(113,86,216,.2); }
+      .role-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 10px; border-radius: 999px; font-size: 11px; font-weight: 800; border: 1px solid var(--line); margin-top: 8px; }
+      .role-pill.result { color: var(--teal); background: var(--teal-soft); border-color: rgba(22,116,106,.22); }
+      .role-pill.number { color: var(--gold); background: var(--gold-soft); border-color: rgba(168,107,23,.22); }
+      .role-pill.ai { color: var(--violet); background: var(--violet-soft); border-color: rgba(113,86,216,.22); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(28,43,36,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .muted { color: var(--muted); }
+      @media (max-width: 1200px) {
+        .hero, .grid, .double-grid, .six-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Hội đồng V1-V6</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link active" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Hội đồng 6 mô hình</div>
+              <h1 class="title">5 model nền + 1 lớp AI tổng hợp</h1>
+              <div class="subtitle">
+                V1-V5 tiếp tục đưa ra nhận định riêng. V6 đóng vai trò AI meta-council: nghe toàn bộ hội đồng,
+                đo độ hội tụ, rồi chấm cửa và tổng số cuối cùng.
+              </div>
+              <div class="badge-row" id="resultBadges"></div>
+            </div>
+            <div class="panel">
+              <div class="label">Kết luận cuối</div>
+              <strong class="hero-result" id="heroResult">--</strong>
+              <div class="subtitle" id="heroSummary">Đang chờ hội đồng V1-V6...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Mô hình sẵn sàng</div><div class="value" id="readyCount">--</div></div>
+        <div class="metric"><div class="label">Đồng thuận cửa</div><div class="value" id="resultConsensus">--</div></div>
+        <div class="metric"><div class="label">Tổng sáng nhất</div><div class="value" id="topTotal">--</div></div>
+        <div class="metric"><div class="label">Xác suất tổng hợp</div><div class="value" id="topTotalScore">--</div></div>
+      </div>
+
+      <div class="six-grid" id="modelCards"></div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Bảng hội đồng V1-V6</div>
+            <table>
+              <thead>
+                <tr><th>Mô hình</th><th>Vai trò</th><th>Quyết định</th><th>Cửa</th><th>Tổng ưu tiên</th><th>Tín hiệu</th></tr>
+              </thead>
+              <tbody id="compareTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Tổng số sáng giá</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Xác suất</th><th>Số phiếu</th><th>Mô hình</th></tr>
+              </thead>
+              <tbody id="totalsConsensusTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng thái</div>
+          <div class="subtitle" id="statusText">Đang tải dữ liệu...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+      const MODEL_ROLES = {
+        V1: { focus: 'number', label: 'Chuyên số', badge: 'number' },
+        V2: { focus: 'number', label: 'Chuyên số', badge: 'number' },
+        V3: { focus: 'number', label: 'Chuyên số', badge: 'number' },
+        V4: { focus: 'result', label: 'Chuyên cửa', badge: 'result' },
+        V5: { focus: 'result', label: 'Chuyên cửa', badge: 'result' },
+        V6: { focus: 'ai', label: 'AI meta', badge: 'ai' },
+      }
+
+      function setText(id, value) { document.getElementById(id).textContent = value }
+      function formatPercent(value) { return `${numberFmt.format(Number(value || 0))}%` }
+      function normalizeUnitProbability(value) {
+        const num = Number(value)
+        if (!Number.isFinite(num) || num <= 0) return 0
+        return num > 1 ? num / 100 : num
+      }
+
+      async function fetchJson(url) {
+        const res = await fetch(url, { cache: 'no-store' })
+        if (!res.ok) throw new Error(`HTTP ${res.status} tại ${url}`)
+        return res.json()
+      }
+
+      function safeRecommendedTotals(payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        if (Array.isArray(current.recommendedTotals) && current.recommendedTotals.length) return current.recommendedTotals
+        return (payload?.diagnosis?.topTotals || []).slice(0, 4)
+      }
+
+      function buildModelView(name, payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        return {
+          name,
+          role: MODEL_ROLES[name],
+          payload,
+          result: current.recommendedResult || diagnosis.mostLikelyResult || diagnosis.recommendedResult || '--',
+          decision: current.shouldBet ? 'BET' : 'SKIP',
+          summary:
+            current.summary ||
+            diagnosis?.recommendations?.recommendationText ||
+            diagnosis?.recommendations?.[0] ||
+            current?.rationale?.[0] ||
+            '--',
+          topTotals: safeRecommendedTotals(payload),
+          topProbability: normalizeUnitProbability(current.topProbability ?? diagnosis?.confidenceModel?.topProbability ?? 0),
+        }
+      }
+
+      async function loadConsensus() {
+        const [v1, v2, v3, v4, v5, v6] = await Promise.all([
+          fetchJson('/predict'),
+          fetchJson('/predict-v2'),
+          fetchJson('/predict-v3'),
+          fetchJson('/predict-v4'),
+          fetchJson('/predict-v5'),
+          fetchJson('/predict-v6'),
+        ])
+
+        const models = [
+          buildModelView('V1', v1),
+          buildModelView('V2', v2),
+          buildModelView('V3', v3),
+          buildModelView('V4', v4),
+          buildModelView('V5', v5),
+          buildModelView('V6', v6),
+        ]
+
+        setText('readyCount', String(models.length))
+
+        const resultScores = new Map([['Big', 0], ['Small', 0], ['Draw', 0]])
+        const totalScores = new Map()
+        const totalVotes = new Map()
+
+        for (const model of models) {
+          const resultKey = model.result
+          if (resultScores.has(resultKey)) {
+            const bonus = model.name === 'V6' ? 1.25 : 1
+            resultScores.set(resultKey, (resultScores.get(resultKey) || 0) + Math.max(0.01, model.topProbability || 0.01) * bonus)
+          }
+
+          model.topTotals.slice(0, 4).forEach((item, index) => {
+            const total = Number(item.total)
+            if (!Number.isFinite(total)) return
+            const rankWeight = Math.max(0.3, 1 - index * 0.18)
+            const probability = normalizeUnitProbability(item.probability ?? item.score ?? 0.1)
+            const bonus = model.name === 'V6' ? 1.2 : 1
+            const score = probability * rankWeight * bonus
+            totalScores.set(total, (totalScores.get(total) || 0) + score)
+            const votes = totalVotes.get(total) || []
+            votes.push(model.name)
+            totalVotes.set(total, votes)
+          })
+        }
+
+        const resultList = [...resultScores.entries()]
+          .map(([result, score]) => ({ result, score }))
+          .sort((a, b) => b.score - a.score)
+        const resultSum = resultList.reduce((acc, item) => acc + item.score, 0) || 1
+        resultList.forEach((item) => { item.probability = item.score / resultSum })
+
+        const totalSum = [...totalScores.values()].reduce((acc, value) => acc + value, 0) || 1
+        const totalList = [...totalScores.entries()]
+          .map(([total, score]) => ({
+            total,
+            score,
+            normalizedScore: score / totalSum,
+            votes: totalVotes.get(total) || [],
+          }))
+          .sort((a, b) => b.score - a.score)
+
+        const topResult = resultList[0]
+        const topTotal = totalList[0]
+        setText('resultConsensus', topResult?.result || '--')
+        setText('topTotal', topTotal ? String(topTotal.total) : '--')
+        setText('topTotalScore', topTotal ? formatPercent(topTotal.normalizedScore * 100) : '--')
+        setText('heroResult', `${topResult?.result || '--'} | ${topTotal?.total ?? '--'}`)
+        setText('heroSummary', `Hội đồng V1-V6 đang nghiêng về ${topResult?.result || '--'} và ưu tiên tổng ${topTotal?.total ?? '--'}.`)
+
+        document.getElementById('resultBadges').innerHTML = resultList.map((item, index) => {
+          const cls = index === 0 ? 'strong' : 'soft'
+          return `<div class="badge ${cls}">${item.result} ${formatPercent(item.probability * 100)}</div>`
+        }).join('')
+
+        document.getElementById('modelCards').innerHTML = models.map((model) => `
+          <div class="role-card">
+            <div class="label">${model.name}</div>
+            <strong>${model.result}</strong>
+            <div class="role-pill ${model.role.badge}">${model.role.label}</div>
+            <div class="muted" style="margin-top:8px;">${model.decision} | ${(model.topTotals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'}</div>
+          </div>
+        `).join('')
+
+        document.getElementById('compareTable').innerHTML = models.map((model) => `
+          <tr>
+            <td>${model.name}</td>
+            <td>${model.role.label}</td>
+            <td>${model.decision}</td>
+            <td>${model.result}</td>
+            <td>${(model.topTotals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'}</td>
+            <td>${model.summary}</td>
+          </tr>
+        `).join('')
+
+        document.getElementById('totalsConsensusTable').innerHTML = totalList.length
+          ? totalList.slice(0, 8).map((item) => `
+              <tr>
+                <td>${item.total}</td>
+                <td>${formatPercent(item.normalizedScore * 100)}</td>
+                <td>${item.votes.length}</td>
+                <td>${item.votes.join(', ')}</td>
+              </tr>
+            `).join('')
+          : '<tr><td colspan="4" class="muted">Chưa có tổng số đồng thuận.</td></tr>'
+
+        setText('statusText', 'Hội đồng V1-V6 đã sẵn sàng.')
+      }
+
+      loadConsensus().catch((error) => {
+        setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+      })
+    </script>
+  </body>
+</html>

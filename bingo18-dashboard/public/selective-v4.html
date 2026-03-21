@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Chọn lọc V4</title>
+    <style>
+      :root {
+        --bg: #f4f0ea;
+        --bg2: #e7ddd2;
+        --panel: rgba(255,255,255,.9);
+        --line: rgba(44,32,19,.1);
+        --text: #2c2013;
+        --muted: #6d6258;
+        --gold: #a56b19;
+        --gold-soft: rgba(165,107,25,.12);
+        --green: #2b6d4d;
+        --green-soft: rgba(43,109,77,.12);
+        --red: #b24444;
+        --red-soft: rgba(178,68,68,.12);
+        --shadow: 0 20px 60px rgba(44,32,19,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(165,107,25,.12), transparent 28%),
+          radial-gradient(circle at top right, rgba(43,109,77,.10), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1500px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer {
+        position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start;
+        transform: translateX(calc(-100% + 54px)); transition: transform .24s ease;
+      }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px;
+        border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92);
+        box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em;
+        text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed;
+      }
+      .tabs-menu {
+        display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0;
+        border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow);
+      }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(44,32,19,.14); }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76);
+        color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700;
+      }
+      .tab-link.active { color: var(--gold); border-color: rgba(165,107,25,.2); background: var(--gold-soft); }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid, .quad-grid, .list { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .quad-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .panel, .item, .metric, .signal, .decision-card {
+        border: 1px solid rgba(44,32,19,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px;
+      }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge, .decision {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800;
+      }
+      .decision.bet { color: var(--green); background: var(--green-soft); border-color: rgba(43,109,77,.2); }
+      .decision.skip { color: var(--gold); background: var(--gold-soft); border-color: rgba(165,107,25,.2); }
+      .badge.strong { background: rgba(255,248,230,.92); border-color: rgba(165,107,25,.28); color: var(--gold); }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(52px, 7vw, 84px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .tiny { font-size: 12px; color: var(--muted); }
+      .stack { display: grid; gap: 10px; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(44,32,19,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .ok { color: var(--green); font-weight: 800; }
+      .warn { color: var(--gold); font-weight: 800; }
+      .bad { color: var(--red); font-weight: 800; }
+      .muted { color: var(--muted); }
+      .mono { font-family: Consolas, monospace; }
+      @media (max-width: 1180px) {
+        .hero, .grid, .double-grid, .quad-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Chọn lọc V4</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link active" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Bo du doan V4</div>
+              <h1 class="title">Phân tích nhảy cầu và tổng hợp 4 phương pháp</h1>
+              <div class="subtitle">
+                V4 đọc thẳng nhịp chuyển giữa <strong>Lớn</strong>, <strong>Nhỏ</strong>, <strong>Hòa</strong>:
+                sau một bước, sau hai bước, và theo kiểu cầu đang đảo, hồi hay nối tiếp. Sau đó trang này tổng hợp
+                V1, V2, V3, V4 để rút ra các cửa sáng giá nhất.
+              </div>
+              <div class="badge-row">
+                <div class="decision skip" id="v4DecisionBadge">Đang tải</div>
+                <div class="badge" id="latestPairBadge">--</div>
+                <div class="badge" id="latestStyleBadge">--</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="label">Ý Chính V4</div>
+              <div class="stack" style="margin-top: 12px;">
+                <div class="item"><div><strong>Cầu 1 bước</strong><div class="tiny">Sau kết quả mới nhất thì thường nhảy về đâu</div></div></div>
+                <div class="item"><div><strong>Cầu 2 bước</strong><div class="tiny">Ví dụ Lớn -> Nhỏ thì kỳ sau thường nghiêng về gì</div></div></div>
+                <div class="item"><div><strong>Style jump</strong><div class="tiny">Đảo biên, bắc cầu qua Hòa, hay kéo streak</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Xác suất cao nhất</div><div class="value" id="v4TopProb">--</div></div>
+        <div class="metric"><div class="label">Độ chênh</div><div class="value" id="v4Spread">--</div></div>
+        <div class="metric"><div class="label">Hỗ trợ cặp cầu</div><div class="value" id="v4PairSupport">--</div></div>
+        <div class="metric"><div class="label">Tỷ lệ trúng chọn lọc</div><div class="value" id="v4SelectiveHit">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Khuyến Nghị Từ 4 Phương Pháp</div>
+            <table>
+              <thead>
+                <tr><th>Model</th><th>Quyết định</th><th>Kết quả</th><th>Tổng ưu tiên</th></tr>
+              </thead>
+              <tbody id="compareTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Cửa Sáng Giá</div>
+            <div class="subtitle" id="brightSummary">Đang tổng hợp 4 phương pháp...</div>
+            <div class="badge-row" id="brightBadges"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quad-grid">
+        <div class="decision-card"><div class="label">V1</div><strong id="cardV1Result">--</strong><div class="tiny" id="cardV1Totals">--</div></div>
+        <div class="decision-card"><div class="label">V2</div><strong id="cardV2Result">--</strong><div class="tiny" id="cardV2Totals">--</div></div>
+        <div class="decision-card"><div class="label">V3</div><strong id="cardV3Result">--</strong><div class="tiny" id="cardV3Totals">--</div></div>
+        <div class="decision-card"><div class="label">V4</div><strong id="cardV4Result">--</strong><div class="tiny" id="cardV4Totals">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Jump Insights V4</div>
+            <div class="stack" id="jumpInsights"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các tổng ưu tiên V4</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Lớp</th><th>Xác suất</th><th>Nguồn</th></tr>
+              </thead>
+              <tbody id="v4TotalsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng Thái</div>
+          <div class="subtitle" id="statusText">Đang tải dữ liệu...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value
+      }
+
+      function formatPercent(value) {
+        return `${numberFmt.format(value || 0)}%`
+      }
+
+      function renderRows(targetId, rows, renderRow, emptyMessage, colspan) {
+        const target = document.getElementById(targetId)
+        if (!rows.length) {
+          target.innerHTML = `<tr><td colspan="${colspan}" class="muted">${emptyMessage}</td></tr>`
+          return
+        }
+        target.innerHTML = rows.map(renderRow).join('')
+      }
+
+      function safeRecommendedTotals(payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        if (Array.isArray(current.recommendedTotals) && current.recommendedTotals.length) {
+          return current.recommendedTotals
+        }
+        return (payload?.diagnosis?.topTotals || []).slice(0, 3)
+      }
+
+      function buildModelView(label, payload, responseOk = true) {
+        if (!responseOk || !payload || payload.ok === false) {
+          return {
+            label,
+            decision: 'WARMING',
+            result: '--',
+            totalLabels: [],
+            summary: payload?.message || 'Đang warm-up',
+            shouldBet: false,
+          }
+        }
+
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        const totals = safeRecommendedTotals(payload)
+        const decision = current.decision || (current.shouldBet ? 'BET' : 'SKIP') || '--'
+
+        return {
+          label,
+          decision,
+          result: current.recommendedResult || diagnosis.mostLikelyResult || '--',
+          totalLabels: totals.map((item) => item.total).filter((value) => value != null),
+          summary: current.summary || 'Chưa có tóm tắt.',
+          shouldBet: decision === 'BET',
+          payload,
+        }
+      }
+
+      function aggregateBrightDoors(views) {
+        const totalScores = new Map()
+        const resultScores = new Map()
+
+        for (const view of views) {
+          if (view.result && view.result !== '--') {
+            resultScores.set(view.result, (resultScores.get(view.result) || 0) + (view.shouldBet ? 1.3 : 1))
+          }
+
+          view.totalLabels.forEach((total, index) => {
+            const base = view.shouldBet ? 2.4 : 1.6
+            const rankBoost = Math.max(0, 0.8 - index * 0.2)
+            totalScores.set(total, (totalScores.get(total) || 0) + base + rankBoost)
+          })
+        }
+
+        const rankedTotals = [...totalScores.entries()]
+          .map(([total, score]) => ({ total, score }))
+          .sort((a, b) => b.score - a.score)
+
+        const rankedResults = [...resultScores.entries()]
+          .map(([result, score]) => ({ result, score }))
+          .sort((a, b) => b.score - a.score)
+
+        return {
+          rankedTotals,
+          rankedResults,
+        }
+      }
+
+      async function loadPage() {
+        try {
+          setText('statusText', 'Đang tải V1, V2, V3, V4...')
+          const [r1, r2, r3, r4] = await Promise.all([
+            fetch('/predict', { cache: 'no-store' }),
+            fetch('/predict-v2', { cache: 'no-store' }),
+            fetch('/predict-v3', { cache: 'no-store' }),
+            fetch('/predict-v4', { cache: 'no-store' }),
+          ])
+
+          const [p1, p2, p3, p4] = await Promise.all([
+            r1.json(),
+            r2.json(),
+            r3.json(),
+            r4.json(),
+          ])
+
+          if (!r4.ok) {
+            setText('statusText', p4.message || 'V4 đang warm-up.')
+            setTimeout(loadPage, 4000)
+            return
+          }
+
+          const views = [
+            buildModelView('V1', p1, r1.ok),
+            buildModelView('V2', p2, r2.ok),
+            buildModelView('V3', p3, r3.ok),
+            buildModelView('V4', p4, r4.ok),
+          ]
+
+          const currentV4 = p4?.selectiveStrategy?.currentDecision || {}
+          const validationV4 = p4?.methodology?.validation || {}
+          const jumpContext = p4?.methodology?.jumpContext || {}
+          const bright = aggregateBrightDoors(views)
+          const bestResult = bright.rankedResults[0]?.result || '--'
+          const bestTotals = bright.rankedTotals.slice(0, 5)
+
+          const badge = document.getElementById('v4DecisionBadge')
+          badge.textContent = currentV4.decision || '--'
+          badge.className = `decision ${(currentV4.decision || 'SKIP').toLowerCase() === 'bet' ? 'bet' : 'skip'}`
+          setText('latestPairBadge', jumpContext.latestPair || '--')
+          setText('latestStyleBadge', jumpContext.latestStyle || '--')
+          setText('v4TopProb', formatPercent(currentV4.topProbability))
+          setText('v4Spread', formatPercent(currentV4.spread))
+          setText('v4PairSupport', numberFmt.format(p4?.diagnosis?.confidenceModel?.pairSupport || 0))
+          setText('v4SelectiveHit', formatPercent(validationV4.selectiveHitRate))
+
+          renderRows(
+            'compareTable',
+            views,
+            (item) => `<tr><td>${item.label}</td><td>${item.decision}</td><td>${item.result}</td><td>${item.totalLabels.length ? item.totalLabels.join(', ') : '--'}</td></tr>`,
+            'Chưa có dữ liệu so sánh.',
+            4,
+          )
+
+          const brightBadges = document.getElementById('brightBadges')
+          const brightParts = []
+          if (bestResult !== '--') {
+            brightParts.push(`<div class="badge strong">Kết quả sáng nhất: ${bestResult}</div>`)
+          }
+          bestTotals.forEach((item) => {
+            brightParts.push(`<div class="badge strong">Tổng ${item.total} · ${numberFmt.format(item.score)}</div>`)
+          })
+          brightBadges.innerHTML = brightParts.join('') || '<div class="muted">Chưa đủ dữ liệu để xếp cửa sáng.</div>'
+
+          setText(
+            'brightSummary',
+            bestTotals.length
+              ? `Tổng hợp 4 phương pháp đang ưu tiên ${bestResult}, với các tổng sáng giá nhất là ${bestTotals.map((item) => item.total).join(', ')}.`
+              : 'Chưa đủ đồng thuận giữa 4 phương pháp để tạo cửa sáng giá.',
+          )
+
+          setText('cardV1Result', views[0].result)
+          setText('cardV1Totals', views[0].totalLabels.length ? views[0].totalLabels.join(' · ') : '--')
+          setText('cardV2Result', views[1].result)
+          setText('cardV2Totals', views[1].totalLabels.length ? views[1].totalLabels.join(' · ') : '--')
+          setText('cardV3Result', views[2].result)
+          setText('cardV3Totals', views[2].totalLabels.length ? views[2].totalLabels.join(' · ') : '--')
+          setText('cardV4Result', views[3].result)
+          setText('cardV4Totals', views[3].totalLabels.length ? views[3].totalLabels.join(' · ') : '--')
+
+          const jumpInsights = document.getElementById('jumpInsights')
+          jumpInsights.innerHTML = (currentV4.jumpInsights || []).map((item) => `
+            <div class="signal">
+              <div class="label">${item.label}</div>
+              <div style="margin-top: 8px;">${item.summary}</div>
+              <div class="tiny" style="margin-top: 6px;">Hỗ trợ: ${numberFmt.format(item.support || 0)}</div>
+            </div>
+          `).join('') || '<div class="muted">Chưa có jump insights.</div>'
+
+          renderRows(
+            'v4TotalsTable',
+            p4?.diagnosis?.topTotals || [],
+            (item) => {
+              const source = Array.isArray(item.sources) && item.sources.length ? item.sources[0].source : '--'
+              return `<tr><td>${item.total}</td><td>${item.result}</td><td>${formatPercent((item.probability || 0) * 100)}</td><td class="mono">${source}</td></tr>`
+            },
+            'Chưa có top totals.',
+            4,
+          )
+
+          const warming = []
+          if (!r1.ok) warming.push('V1')
+          if (!r2.ok) warming.push('V2')
+          if (!r3.ok) warming.push('V3')
+          const suffix = warming.length ? ` | Đang warm-up: ${warming.join(', ')}` : ''
+          setText('statusText', `V4 đã sẵn. Jump context: ${jumpContext.latestPair || '--'} / ${jumpContext.latestStyle || '--'}${suffix}`)
+        } catch (error) {
+          setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+          setTimeout(loadPage, 5000)
+        }
+      }
+
+      loadPage()
+      setInterval(loadPage, 15000)
+    </script>
+  </body>
+</html>

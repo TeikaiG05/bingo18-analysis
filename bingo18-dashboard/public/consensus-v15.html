@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 | Hội đồng V1-V5</title>
+    <style>
+      :root {
+        --bg: #edf2ec;
+        --bg2: #dfe8dd;
+        --panel: rgba(255,255,255,.92);
+        --line: rgba(28,43,36,.1);
+        --text: #1c2b24;
+        --muted: #69786f;
+        --teal: #16746a;
+        --teal-soft: rgba(22,116,106,.12);
+        --gold: #a86b17;
+        --gold-soft: rgba(168,107,23,.12);
+        --green: #21694b;
+        --green-soft: rgba(33,105,75,.12);
+        --shadow: 0 20px 60px rgba(28,43,36,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(22,116,106,.1), transparent 28%),
+          radial-gradient(circle at top right, rgba(168,107,23,.08), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1520px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle { display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
+      .tabs-menu { display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(28,43,36,.14); }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; }
+      .tab-link.active { color: var(--teal); border-color: rgba(22,116,106,.22); background: var(--teal-soft); }
+      .tabs-menu a[href="/selective"],
+      .tabs-menu a[href="/selective-v2"],
+      .tabs-menu a[href="/selective-v3"],
+      .tabs-menu a[href="/selective-v4"],
+      .tabs-menu a[href="/selective-v5"],
+      .tabs-menu a[href="/selective-v6"] { display: none; }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid, .five-grid, .triple-grid { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(340px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .five-grid { grid-template-columns: repeat(5, minmax(0,1fr)); }
+      .triple-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .metric, .panel, .role-card { border: 1px solid rgba(28,43,36,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(48px,7vw,82px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
+      .badge.strong { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
+      .badge.soft { color: var(--gold); background: var(--gold-soft); border-color: rgba(168,107,23,.2); }
+      .role-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 0 10px; border-radius: 999px; font-size: 11px; font-weight: 800; border: 1px solid var(--line); margin-top: 8px; }
+      .role-pill.result { color: var(--teal); background: var(--teal-soft); border-color: rgba(22,116,106,.22); }
+      .role-pill.number { color: var(--gold); background: var(--gold-soft); border-color: rgba(168,107,23,.22); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(28,43,36,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .muted { color: var(--muted); }
+      @media (max-width: 1200px) {
+        .hero, .grid, .double-grid, .five-grid, .triple-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Hội đồng V1-V5</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link active" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Hội đồng 5 mô hình</div>
+              <h1 class="title">2 mô hình chuyên cửa, 3 mô hình chuyên số</h1>
+              <div class="subtitle">
+                V4 và V5 được xem là nhóm chuyên sâu cho Lớn / Nhỏ / Hòa. V1, V2, V3 được ưu tiên ở lớp tổng số.
+                Trang này gom cả 5 mô hình, chấm đồng thuận riêng cho cửa và số, rồi mới đưa ra kết luận cuối cùng.
+              </div>
+              <div class="badge-row" id="resultBadges"></div>
+            </div>
+            <div class="panel">
+              <div class="label">Kết luận cuối</div>
+              <strong class="hero-result" id="heroResult">--</strong>
+              <div class="subtitle" id="heroSummary">Đang chờ hội đồng 5 mô hình...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Mô hình sẵn sàng</div><div class="value" id="readyCount">--</div></div>
+        <div class="metric"><div class="label">Đồng thuận cửa</div><div class="value" id="resultConsensus">--</div></div>
+        <div class="metric"><div class="label">Tổng sáng nhất</div><div class="value" id="topTotal">--</div></div>
+        <div class="metric"><div class="label">Xác suất tổng hợp</div><div class="value" id="topTotalScore">--</div></div>
+      </div>
+
+      <div class="triple-grid">
+        <div class="role-card">
+          <div class="label">Cửa số 1</div>
+          <strong id="resultTop1">--</strong>
+          <div class="muted" id="resultTop1Prob">--</div>
+        </div>
+        <div class="role-card">
+          <div class="label">Cửa số 2</div>
+          <strong id="resultTop2">--</strong>
+          <div class="muted" id="resultTop2Prob">--</div>
+        </div>
+        <div class="role-card">
+          <div class="label">Cửa số 3</div>
+          <strong id="resultTop3">--</strong>
+          <div class="muted" id="resultTop3Prob">--</div>
+        </div>
+      </div>
+
+      <div class="five-grid" id="modelCards"></div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Bảng hội đồng V1-V5</div>
+            <table>
+              <thead>
+                <tr><th>Mô hình</th><th>Vai trò</th><th>Quyết định</th><th>Cửa</th><th>Tổng ưu tiên</th><th>Tín hiệu</th></tr>
+              </thead>
+              <tbody id="compareTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Tổng số sáng giá</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Xác suất</th><th>Số phiếu</th><th>Mô hình</th></tr>
+              </thead>
+              <tbody id="totalsConsensusTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng thái</div>
+          <div class="subtitle" id="statusText">Đang tải dữ liệu...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+
+      const MODEL_ROLES = {
+        V1: { focus: 'number', label: 'Chuyên số', resultWeight: 0.7, totalWeight: 1.35 },
+        V2: { focus: 'number', label: 'Chuyên số', resultWeight: 0.8, totalWeight: 1.15 },
+        V3: { focus: 'number', label: 'Chuyên số', resultWeight: 0.9, totalWeight: 1.45 },
+        V4: { focus: 'result', label: 'Chuyên cửa', resultWeight: 1.55, totalWeight: 0.8 },
+        V5: { focus: 'result', label: 'Chuyên cửa', resultWeight: 1.65, totalWeight: 0.75 },
+      }
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value
+      }
+
+      function repairVietnamese(value) {
+        if (typeof value !== 'string') return value
+        return value
+          .replaceAll('NhÃ¡Â»Â', 'Nhỏ')
+          .replaceAll('HÃƒÂ²a', 'Hòa')
+          .replaceAll('LÃ¡Â»â€ºn', 'Lớn')
+          .replaceAll('Äang', 'Đang')
+          .replaceAll('Ä‘ang', 'đang')
+          .replaceAll('TrÃºng', 'Trúng')
+          .replaceAll('TrÆ°á»£t', 'Trượt')
+          .replaceAll('KhÃ´ng', 'Không')
+      }
+
+      function safeString(value, fallback = '--') {
+        if (typeof value !== 'string') return fallback
+        const fixed = repairVietnamese(value).trim()
+        return fixed || fallback
+      }
+
+      function safeRecommendedTotals(payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        if (Array.isArray(current.recommendedTotals) && current.recommendedTotals.length) {
+          return current.recommendedTotals
+        }
+        return (payload?.diagnosis?.topTotals || []).slice(0, 4)
+      }
+
+      function extractSignalSummary(payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        if (typeof current.summary === 'string' && current.summary.trim()) return repairVietnamese(current.summary.trim())
+
+        const recommendations = diagnosis.recommendations
+        if (typeof recommendations === 'string' && recommendations.trim()) return repairVietnamese(recommendations.trim())
+
+        if (Array.isArray(recommendations) && recommendations.length) {
+          const firstText = recommendations.find((item) => typeof item === 'string' && item.trim())
+          if (firstText) return repairVietnamese(firstText.trim())
+        }
+
+        if (recommendations && typeof recommendations === 'object') {
+          if (typeof recommendations.recommendationText === 'string' && recommendations.recommendationText.trim()) {
+            return repairVietnamese(recommendations.recommendationText.trim())
+          }
+          if (typeof recommendations.primaryMethod === 'string' && recommendations.primaryMethod.trim()) {
+            return repairVietnamese(recommendations.primaryMethod.trim())
+          }
+          if (Array.isArray(recommendations.methodNotes) && recommendations.methodNotes.length) {
+            const note = recommendations.methodNotes.find((item) => typeof item === 'string' && item.trim())
+            if (note) return repairVietnamese(note.trim())
+          }
+        }
+
+        if (Array.isArray(current.rationale) && current.rationale.length) {
+          const reason = current.rationale.find((item) => typeof item === 'string' && item.trim())
+          if (reason) return repairVietnamese(reason.trim())
+        }
+
+        return '--'
+      }
+
+      function formatPercent(value) {
+        return `${numberFmt.format(Number(value || 0))}%`
+      }
+
+      function normalizeUnitProbability(value) {
+        const num = Number(value)
+        if (!Number.isFinite(num) || num <= 0) return 0
+        return num > 1 ? num / 100 : num
+      }
+
+      function normalizeScores(scoreMap, keys) {
+        const total = keys.reduce((sum, key) => sum + Math.max(0, scoreMap.get(key) || 0), 0) || 1
+        return keys.map((key) => ({ key, score: (scoreMap.get(key) || 0) / total }))
+      }
+
+      function renderEmptyRow(colspan, message) {
+        return `<tr><td colspan="${colspan}" class="muted">${message}</td></tr>`
+      }
+
+      async function fetchJson(url) {
+        const res = await fetch(url, { cache: 'no-store' })
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} tại ${url}`)
+        }
+        return res.json()
+      }
+
+      function buildModelView(name, payload) {
+        const role = MODEL_ROLES[name]
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        const topTotals = safeRecommendedTotals(payload)
+        const result = current.recommendedResult || diagnosis.recommendedResult || '--'
+        const decision = current.shouldBet ? 'BET' : 'SKIP'
+        const summary = extractSignalSummary(payload)
+        return {
+          name,
+          role,
+          payload,
+          result: safeString(result),
+          decision,
+          summary,
+          topTotals,
+          topProbability: Number(current.topProbability ?? diagnosis?.confidenceModel?.topProbability ?? 0),
+          spread: Number(current.spread ?? diagnosis?.confidenceModel?.spread ?? 0),
+        }
+      }
+
+      async function loadConsensus() {
+        const [v1, v2, v3, v4, v5] = await Promise.all([
+          fetchJson('/predict'),
+          fetchJson('/predict-v2'),
+          fetchJson('/predict-v3'),
+          fetchJson('/predict-v4'),
+          fetchJson('/predict-v5'),
+        ])
+
+        const models = [
+          buildModelView('V1', v1),
+          buildModelView('V2', v2),
+          buildModelView('V3', v3),
+          buildModelView('V4', v4),
+          buildModelView('V5', v5),
+        ]
+
+        setText('readyCount', String(models.length))
+
+        const resultScores = new Map([['Big', 0], ['Small', 0], ['Draw', 0]])
+        const totalScores = new Map()
+        const totalVotes = new Map()
+
+        for (const model of models) {
+          const resultKey = model.result === 'Lớn' ? 'Big' : model.result === 'Nhỏ' ? 'Small' : model.result === 'Hòa' ? 'Draw' : model.result
+          if (resultScores.has(resultKey)) {
+          const score = Math.max(0.01, normalizeUnitProbability(model.topProbability || 0.01)) * model.role.resultWeight
+          resultScores.set(resultKey, (resultScores.get(resultKey) || 0) + score)
+        }
+
+        model.topTotals.slice(0, 4).forEach((item, index) => {
+          const total = Number(item.total)
+          if (!Number.isFinite(total)) return
+          const itemScore = normalizeUnitProbability(item.probability ?? item.score ?? 0.1)
+          const rankWeight = Math.max(0.3, 1 - index * 0.18)
+          const score = itemScore * model.role.totalWeight * rankWeight
+          totalScores.set(total, (totalScores.get(total) || 0) + score)
+            const seen = totalVotes.get(total) || []
+            seen.push(model.name)
+            totalVotes.set(total, seen)
+          })
+        }
+
+        const normalizedResults = normalizeScores(resultScores, ['Big', 'Small', 'Draw']).sort((a, b) => b.score - a.score)
+        const bestResult = normalizedResults[0]
+        const bestResultLabel = bestResult.key === 'Big' ? 'Lớn' : bestResult.key === 'Small' ? 'Nhỏ' : 'Hòa'
+
+        setText('resultConsensus', bestResultLabel)
+        setText('resultTop1', bestResultLabel)
+        setText('resultTop1Prob', formatPercent(bestResult.score * 100))
+
+        const second = normalizedResults[1]
+        const third = normalizedResults[2]
+        setText('resultTop2', second.key === 'Big' ? 'Lớn' : second.key === 'Small' ? 'Nhỏ' : 'Hòa')
+        setText('resultTop2Prob', formatPercent(second.score * 100))
+        setText('resultTop3', third.key === 'Big' ? 'Lớn' : third.key === 'Small' ? 'Nhỏ' : 'Hòa')
+        setText('resultTop3Prob', formatPercent(third.score * 100))
+
+        const totalScoreSum = [...totalScores.values()].reduce((sum, value) => sum + Math.max(0, value), 0) || 1
+        const totalList = [...totalScores.entries()]
+          .map(([total, score]) => ({
+            total,
+            score,
+            normalizedScore: score / totalScoreSum,
+            votes: totalVotes.get(total) || [],
+          }))
+          .sort((a, b) => b.score - a.score)
+
+        const topTotal = totalList[0]
+        setText('topTotal', topTotal ? String(topTotal.total) : '--')
+        setText('topTotalScore', topTotal ? formatPercent(topTotal.normalizedScore * 100) : '--')
+
+        document.getElementById('heroResult').textContent = `${bestResultLabel} | ${topTotal ? topTotal.total : '--'}`
+        document.getElementById('heroSummary').textContent = `Cửa đồng thuận nghiêng về ${bestResultLabel}. Tổng số sáng nhất hiện tại là ${topTotal ? topTotal.total : '--'} với ${topTotal ? topTotal.votes.length : 0} phiếu từ hội đồng.`
+
+        const badgeHost = document.getElementById('resultBadges')
+        badgeHost.innerHTML = normalizedResults.map((item, index) => {
+          const label = item.key === 'Big' ? 'Lớn' : item.key === 'Small' ? 'Nhỏ' : 'Hòa'
+          const tone = index === 0 ? 'strong' : 'soft'
+          return `<div class="badge ${tone}">${label} ${formatPercent(item.score * 100)}</div>`
+        }).join('')
+
+        document.getElementById('modelCards').innerHTML = models.map((model) => `
+          <div class="role-card">
+            <div class="label">${model.name}</div>
+            <strong>${model.result}</strong>
+            <div class="role-pill ${model.role.focus}">${model.role.label}</div>
+            <div class="muted" style="margin-top:8px;">${model.decision} | ${model.topTotals.slice(0, 3).map((item) => item.total).join(', ') || '--'}</div>
+          </div>
+        `).join('')
+
+        document.getElementById('compareTable').innerHTML = models.map((model) => `
+          <tr>
+            <td>${model.name}</td>
+            <td>${model.role.label}</td>
+            <td>${model.decision}</td>
+            <td>${model.result}</td>
+            <td>${model.topTotals.slice(0, 3).map((item) => item.total).join(', ') || '--'}</td>
+            <td>${model.summary}</td>
+          </tr>
+        `).join('')
+
+        document.getElementById('totalsConsensusTable').innerHTML = totalList.length
+          ? totalList.slice(0, 8).map((item) => `
+              <tr>
+                <td>${item.total}</td>
+                <td>${formatPercent(item.normalizedScore * 100)}</td>
+                <td>${item.votes.length}</td>
+                <td>${item.votes.join(', ')}</td>
+              </tr>
+            `).join('')
+          : renderEmptyRow(4, 'Chưa có tổng số đồng thuận.')
+
+        setText('statusText', 'Hội đồng 5 mô hình đã sẵn sàng.')
+      }
+
+      loadConsensus().catch((error) => {
+        setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+      })
+    </script>
+  </body>
+</html>

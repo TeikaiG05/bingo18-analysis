@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 Chọn lọc V3</title>
+    <style>
+      :root {
+        --bg: #f0f4ee;
+        --bg2: #dfe7da;
+        --panel: rgba(255,255,255,.9);
+        --line: rgba(21,33,24,.1);
+        --text: #152118;
+        --muted: #5d6e60;
+        --green: #215732;
+        --green-soft: rgba(33,87,50,.12);
+        --amber: #b96a18;
+        --amber-soft: rgba(185,106,24,.12);
+        --red: #b24444;
+        --red-soft: rgba(178,68,68,.12);
+        --shadow: 0 20px 60px rgba(21,33,24,.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(33,87,50,.12), transparent 28%),
+          radial-gradient(circle at top right, rgba(185,106,24,.1), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1460px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer {
+        position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start;
+        transform: translateX(calc(-100% + 54px)); transition: transform .24s ease;
+      }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0;
+        border-radius: 0 18px 18px 0; background: rgba(255,255,255,.9); box-shadow: var(--shadow);
+        color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em;
+        text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed;
+      }
+      .tabs-menu {
+        display: grid; gap: 10px; min-width: 220px; padding: 12px; border: 1px solid var(--line); border-left: 0;
+        border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow);
+      }
+      .brand-badge {
+        display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px;
+      }
+      .brand-badge img {
+        width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(21,33,24,.14);
+      }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76);
+        color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700;
+      }
+      .tab-link.active { color: var(--green); border-color: rgba(33,87,50,.2); background: var(--green-soft); }
+      .card {
+        border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden;
+      }
+      .card-body { padding: 20px; }
+      .hero, .grid, .double-grid, .triple-grid, .list { display: grid; gap: 14px; }
+      .hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); }
+      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .triple-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .eyebrow, .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .panel, .gate, .item, .metric {
+        border: 1px solid rgba(21,33,24,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px;
+      }
+      .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      .badge, .decision {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px;
+        border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800;
+      }
+      .badge.small { min-height: 32px; padding: 0 12px; font-size: 11px; }
+      .decision.bet { color: var(--green); background: var(--green-soft); border-color: rgba(33,87,50,.2); }
+      .decision.skip { color: var(--amber); background: var(--amber-soft); border-color: rgba(185,106,24,.2); }
+      .hero-result { display: block; margin-top: 10px; font-size: clamp(54px, 7vw, 86px); line-height: .88; letter-spacing: -.06em; font-weight: 900; }
+      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; letter-spacing: -.04em; }
+      .gate {
+        display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center;
+      }
+      .gate.pass { border-color: rgba(33,87,50,.2); }
+      .gate.fail { border-color: rgba(178,68,68,.2); }
+      .tiny { font-size: 12px; color: var(--muted); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(21,33,24,.08); text-align: left; font-size: 14px; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .muted { color: var(--muted); }
+      .error { color: var(--red); }
+      .ok { color: var(--green); font-weight: 800; }
+      .bad { color: var(--red); font-weight: 800; }
+      .strong { font-weight: 800; }
+      .stack { display: grid; gap: 10px; }
+      code {
+        padding: 2px 6px; border-radius: 8px; background: rgba(21,33,24,.06); font-family: Consolas, monospace; font-size: 12px;
+      }
+      @media (max-width: 1080px) {
+        .hero, .grid, .double-grid, .triple-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Chọn lọc V3</span>
+            </div>
+          </div>
+          <a class="tab-link" href="/">Trang chính V1</a>
+          <a class="tab-link" href="/selective">Chọn lọc V1</a>
+          <a class="tab-link" href="/selective-v2">Chọn lọc V2</a>
+          <a class="tab-link active" href="/selective-v3">Chọn lọc V3</a>
+          <a class="tab-link" href="/selective-v4">Chọn lọc V4</a>
+          <a class="tab-link" href="/selective-v5">Chọn lọc V5</a>
+          <a class="tab-link" href="/selective-v6">Chọn lọc V6</a>
+          <a class="tab-link" href="/selective-v6-ai">Chọn lọc V6 AI</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Bo du doan V3</div>
+              <h1 class="title">Session-aware context backoff</h1>
+              <div class="subtitle">
+                V3 bỏ phần bias giờ/ngày dễ overfit, giữ lại các tín hiệu bền hơn:
+                <code>theory prior</code>, <code>recent drift</code>, <code>after result</code>,
+                <code>after total</code> và ngữ cảnh <code>1-3 bước</code> trong cùng phiên.
+              </div>
+              <div class="badge-row">
+                <div class="decision skip" id="decisionBadge">Đang tải</div>
+                <div class="badge" id="resultBadge">--</div>
+                <div class="badge" id="roundBadge">--</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="label">Nguyên Tắc</div>
+              <div class="list" style="margin-top: 12px;">
+                <div class="item"><div><strong>Cắt phiên theo gap</strong><div class="tiny">Không nối mù qua khoảng đứt dài</div></div></div>
+                <div class="item"><div><strong>Backoff context</strong><div class="tiny">Ưu tiên C3, rơi dần về C2, C1, prior</div></div></div>
+                <div class="item"><div><strong>Empirical shrinkage</strong><div class="tiny">Mẫu nhỏ không được phép kéo xác suất quá mạnh</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Xác suất cao nhất</div><div class="value" id="topProb">--</div></div>
+        <div class="metric"><div class="label">Độ chênh</div><div class="value" id="spread">--</div></div>
+        <div class="metric"><div class="label">Hỗ trợ ngữ cảnh</div><div class="value" id="contextSupport">--</div></div>
+        <div class="metric"><div class="label">Continuity</div><div class="value" id="sessionContinuity">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Kết Luận V3</div>
+            <strong class="hero-result" id="heroResult">--</strong>
+            <div class="subtitle" id="summaryText">--</div>
+            <div class="panel" style="margin-top: 16px;">
+              <div class="label">Xác Suất Kết Quả</div>
+              <table>
+                <thead>
+                  <tr><th>Kết quả</th><th>Xác suất</th></tr>
+                </thead>
+                <tbody id="resultTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Gate Kiểm Định</div>
+            <div class="list" id="gates" style="margin-top: 14px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Các tổng ưu tiên</div>
+            <table>
+              <thead>
+                <tr><th>Tổng</th><th>Lớp</th><th>Xác suất</th><th>Nguồn chính</th></tr>
+              </thead>
+              <tbody id="totalsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Backtest Nhanh</div>
+            <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr));">
+              <div class="metric"><div class="label">Continuous</div><div class="value" id="continuousRate">--</div></div>
+              <div class="metric"><div class="label">Chon loc</div><div class="value" id="selectiveRate">--</div></div>
+              <div class="metric"><div class="label">Số lệnh</div><div class="value" id="selectiveBets">--</div></div>
+              <div class="metric"><div class="label">Eval</div><div class="value" id="evaluatedRounds">--</div></div>
+            </div>
+            <div class="panel" style="margin-top: 16px;">
+              <div class="label">Lệnh Qualified Gần Đây</div>
+              <table>
+                <thead>
+                  <tr><th>Kỳ</th><th>Dự kiến</th><th>Thực tế</th><th>KQ</th></tr>
+                </thead>
+                <tbody id="qualifiedTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triple-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Recommend V1</div>
+            <div class="stack">
+              <div class="item"><div><strong>Quyết định</strong><div class="tiny" id="v1Summary">--</div></div><strong id="v1Decision">--</strong></div>
+              <div class="item"><div><strong>Kết quả</strong><div class="tiny">Hướng chính từ V1</div></div><strong id="v1Result">--</strong></div>
+              <div class="item"><div><strong>Tổng ưu tiên</strong><div class="tiny">3 tổng đứng đầu</div></div><strong id="v1Totals">--</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Recommend V2</div>
+            <div class="stack">
+              <div class="item"><div><strong>Quyết định</strong><div class="tiny" id="v2Summary">--</div></div><strong id="v2Decision">--</strong></div>
+              <div class="item"><div><strong>Kết quả</strong><div class="tiny">Overlay chấm lại từ V2</div></div><strong id="v2Result">--</strong></div>
+              <div class="item"><div><strong>Tổng ưu tiên</strong><div class="tiny">3 tổng đứng đầu</div></div><strong id="v2Totals">--</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Recommend V3</div>
+            <div class="stack">
+              <div class="item"><div><strong>Quyết định</strong><div class="tiny" id="v3Summary">--</div></div><strong id="v3Decision">--</strong></div>
+              <div class="item"><div><strong>Kết quả</strong><div class="tiny">Session-aware context backoff</div></div><strong id="v3Result">--</strong></div>
+              <div class="item"><div><strong>Tổng ưu tiên</strong><div class="tiny">3 tổng đứng đầu</div></div><strong id="v3Totals">--</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card">
+          <div class="card-body">
+            <div class="label">Giao Nhau 3 Cầu</div>
+            <div class="subtitle" id="consensusSummary">Đang tính giao nhau giữa V1, V2 và V3.</div>
+            <div class="badge-row" id="consensusBadges"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="label">So Sánh Kết Quả</div>
+            <table>
+              <thead>
+                <tr><th>Model</th><th>Quyết định</th><th>Kết quả</th><th>Tổng</th></tr>
+              </thead>
+              <tbody id="compareTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="label">Trạng Thái</div>
+          <div class="subtitle" id="statusText">Đang tải...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value
+      }
+
+      function renderRows(targetId, rows, renderRow, emptyMessage, colspan) {
+        const target = document.getElementById(targetId)
+        if (!rows.length) {
+          target.innerHTML = `<tr><td colspan="${colspan}" class="muted">${emptyMessage}</td></tr>`
+          return
+        }
+        target.innerHTML = rows.map(renderRow).join('')
+      }
+
+      function formatPercent(value) {
+        return `${numberFmt.format(value || 0)}%`
+      }
+
+      function safeRecommendedTotals(payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        if (Array.isArray(current.recommendedTotals) && current.recommendedTotals.length) {
+          return current.recommendedTotals
+        }
+        return (payload?.diagnosis?.topTotals || []).slice(0, 3)
+      }
+
+      function buildModelView(label, payload) {
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const diagnosis = payload?.diagnosis || {}
+        const totals = safeRecommendedTotals(payload)
+        return {
+          label,
+          decision: current.decision || (current.shouldBet ? 'BET' : 'SKIP') || '--',
+          result: current.recommendedResult || diagnosis.mostLikelyResult || '--',
+          summary: current.summary || 'Chưa có tóm tắt.',
+          totals,
+          totalLabels: totals.map((item) => item.total).filter((value) => value != null),
+        }
+      }
+
+      function intersection(arrays) {
+        if (!arrays.length) return []
+        return [...arrays.reduce((acc, current) => {
+          const set = new Set(current)
+          return new Set([...acc].filter((item) => set.has(item)))
+        }, new Set(arrays[0]))]
+      }
+
+      function resultConsensus(views) {
+        const counts = new Map()
+        for (const view of views) {
+          if (!view.result || view.result === '--') continue
+          counts.set(view.result, (counts.get(view.result) || 0) + 1)
+        }
+        return [...counts.entries()].sort((a, b) => b[1] - a[1])
+      }
+
+      async function loadPrediction() {
+        try {
+          setText('statusText', 'Đang tải predictor V1, V2, V3...')
+          const [v1Response, v2Response, v3Response] = await Promise.all([
+            fetch('/predict', { cache: 'no-store' }),
+            fetch('/predict-v2', { cache: 'no-store' }),
+            fetch('/predict-v3', { cache: 'no-store' }),
+          ])
+
+          const [v1Payload, v2Payload, v3Payload] = await Promise.all([
+            v1Response.json(),
+            v2Response.json(),
+            v3Response.json(),
+          ])
+
+          if (!v3Response.ok) {
+            setText('statusText', v3Payload.message || 'Backend đang warm-up, sẽ tự thử lại.')
+            setTimeout(loadPrediction, 4000)
+            return
+          }
+
+          const diagnosis = v3Payload.diagnosis || {}
+          const selective = v3Payload.selectiveStrategy?.currentDecision || {}
+          const validation = v3Payload.methodology?.validation || {}
+          const latestRound = v3Payload.dataset?.latestRound || {}
+          const v1View = buildModelView('V1', v1Payload)
+          const v2View = buildModelView('V2', v2Payload)
+          const v3View = buildModelView('V3', v3Payload)
+          const views = [v1View, v2View, v3View]
+          const commonTotals = intersection(views.map((view) => view.totalLabels))
+          const consensusResults = resultConsensus(views)
+
+          setText('heroResult', diagnosis.mostLikelyResult || '--')
+          setText('summaryText', selective.summary || '--')
+          setText('topProb', formatPercent(selective.topProbability))
+          setText('spread', formatPercent(selective.spread))
+          setText('contextSupport', numberFmt.format(selective.contextSupport || 0))
+          setText('sessionContinuity', formatPercent(selective.sessionContinuity))
+          setText('continuousRate', formatPercent(validation.continuousHitRate))
+          setText('selectiveRate', formatPercent(validation.selectiveHitRate))
+          setText('selectiveBets', numberFmt.format(validation.selectiveBets || 0))
+          setText('evaluatedRounds', numberFmt.format(validation.evaluatedRounds || 0))
+          setText('resultBadge', `Band: ${selective.confidenceBand || '--'}`)
+          setText('roundBadge', latestRound.id ? `Kỳ ${latestRound.id}` : '--')
+          setText('v1Decision', v1View.decision)
+          setText('v1Result', v1View.result)
+          setText('v1Totals', v1View.totalLabels.length ? v1View.totalLabels.join(' · ') : '--')
+          setText('v1Summary', v1View.summary)
+          setText('v2Decision', v2View.decision)
+          setText('v2Result', v2View.result)
+          setText('v2Totals', v2View.totalLabels.length ? v2View.totalLabels.join(' · ') : '--')
+          setText('v2Summary', v2View.summary)
+          setText('v3Decision', v3View.decision)
+          setText('v3Result', v3View.result)
+          setText('v3Totals', v3View.totalLabels.length ? v3View.totalLabels.join(' · ') : '--')
+          setText('v3Summary', v3View.summary)
+
+          const decisionBadge = document.getElementById('decisionBadge')
+          decisionBadge.textContent = selective.decision || '--'
+          decisionBadge.className = `decision ${(selective.decision || 'SKIP').toLowerCase() === 'bet' ? 'bet' : 'skip'}`
+
+          renderRows(
+            'resultTable',
+            selective.resultBreakdown || [],
+            (item) => `<tr><td>${item.result}</td><td>${formatPercent(item.probability)}</td></tr>`,
+            'Chưa có dữ liệu xác suất.',
+            2,
+          )
+
+          const gates = document.getElementById('gates')
+          gates.innerHTML = (selective.gateChecks || []).map((item) => `
+            <div class="gate ${item.pass ? 'pass' : 'fail'}">
+              <div>
+                <strong>${item.label}</strong>
+                <div class="tiny">${item.detail || ''}</div>
+              </div>
+              <div class="${item.pass ? 'ok' : 'bad'}">${numberFmt.format(item.value || 0)} / ${numberFmt.format(item.threshold || 0)}</div>
+            </div>
+          `).join('') || '<div class="tiny">Chưa có gate checks.</div>'
+
+          renderRows(
+            'totalsTable',
+            diagnosis.topTotals || [],
+            (item) => {
+              const source = Array.isArray(item.sources) && item.sources.length ? item.sources[0].source : '--'
+              return `<tr><td>${item.total}</td><td>${item.result}</td><td>${formatPercent((item.probability || 0) * 100)}</td><td>${source}</td></tr>`
+            },
+            'Chưa có top totals.',
+            4,
+          )
+
+          renderRows(
+            'qualifiedTable',
+            v3Payload?.selectiveStrategy?.recentQualified || [],
+            (item) => `<tr><td>${item.id}</td><td>${item.predicted}</td><td>${item.actual}</td><td>${item.outcome}</td></tr>`,
+            'Chưa có kỳ qualified gần đây.',
+            4,
+          )
+
+          const consensusBadges = document.getElementById('consensusBadges')
+          const consensusPieces = []
+          if (commonTotals.length) {
+            commonTotals.forEach((value) => {
+              consensusPieces.push(`<div class="badge small strong">${value}</div>`)
+            })
+          }
+          if (consensusResults.length) {
+            consensusPieces.push(`<div class="badge small">KQ chung mạnh nhất: ${consensusResults[0][0]} (${consensusResults[0][1]}/3)</div>`)
+          }
+          consensusBadges.innerHTML = consensusPieces.join('') || '<div class="muted">Chưa có tổng số nào trùng cả 3 cầu.</div>'
+
+          const consensusSummary =
+            commonTotals.length
+              ? `3 cầu đang trùng các tổng: ${commonTotals.join(', ')}. Đây là cụm số đáng ưu tiên quan sát.`
+              : 'Hiện chưa có tổng nào trùng cả 3 cầu. Nên ưu tiên nhìn kết quả trùng 2/3 hoặc tiếp tục chờ.'
+          setText('consensusSummary', consensusSummary)
+
+          renderRows(
+            'compareTable',
+            views,
+            (item) => `<tr><td>${item.label}</td><td>${item.decision}</td><td>${item.result}</td><td>${item.totalLabels.length ? item.totalLabels.join(', ') : '--'}</td></tr>`,
+            'Chưa có dữ liệu so sánh.',
+            4,
+          )
+
+          const warmModels = []
+          if (!v1Response.ok) warmModels.push('V1')
+          if (!v2Response.ok) warmModels.push('V2')
+          const tail = warmModels.length ? ` | Đang warm-up: ${warmModels.join(', ')}` : ''
+          setText('statusText', `V3 đã sẵn. Model: ${v3Payload.methodology?.model?.label || 'predictor_v3'}${tail}`)
+        } catch (error) {
+          setText('statusText', `Lỗi tải dữ liệu: ${error.message}`)
+          setTimeout(loadPrediction, 5000)
+        }
+      }
+
+      loadPrediction()
+      setInterval(loadPrediction, 15000)
+    </script>
+  </body>
+</html>
