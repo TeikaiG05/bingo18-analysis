@@ -238,6 +238,19 @@ function topTotalsFromMap(totalMap, sourcesByTotal) {
     .slice(0, 6)
 }
 
+function selectRecommendedTotals(topTotals, mostLikelyResult) {
+  if (mostLikelyResult !== 'Draw') {
+    return topTotals.filter((item) => item.result === mostLikelyResult).slice(0, 3)
+  }
+
+  const drawTotals = topTotals.filter((item) => item.result === 'Draw').slice(0, 2)
+  const centerSpillover = topTotals
+    .filter((item) => item.result !== 'Draw' && (item.total === 9 || item.total === 12))
+    .slice(0, 1)
+
+  return [...drawTotals, ...centerSpillover].slice(0, 3)
+}
+
 function buildTraining(roundsDesc) {
   const asc = [...(Array.isArray(roundsDesc) ? roundsDesc : [])]
     .filter((round) => round && Number.isFinite(Number(round.total)))
@@ -534,11 +547,14 @@ export function buildPrediction(rounds, options = {}) {
       detail: 'Top 1 phải tách Top 2 đủ xa để tránh cầu giả.',
     },
     {
-      label: 'Draw pressure',
-      pass: drawProbability <= 0.3,
+      label: mostLikelyResult === 'Draw' ? 'Draw conviction' : 'Draw pressure',
+      pass: mostLikelyResult === 'Draw' ? drawProbability >= 0.24 : drawProbability <= 0.3,
       value: roundNumber(drawProbability * 100, 4),
-      threshold: 30,
-      detail: 'Áp lực Hòa quá cao sẽ làm nhảy cầu kém sạch.',
+      threshold: mostLikelyResult === 'Draw' ? 24 : 30,
+      detail:
+        mostLikelyResult === 'Draw'
+          ? 'Khi chọn Hòa, xác suất Hòa phải tự đứng đủ rõ.'
+          : 'Áp lực Hòa quá cao sẽ làm nhảy cầu kém sạch.',
     },
   ]
 
@@ -551,12 +567,12 @@ export function buildPrediction(rounds, options = {}) {
     recentQualified: [],
   } : buildRecentBacktest(roundsDesc)
 
-  const recommendedTotals = topTotals.filter((item) => item.result === mostLikelyResult).slice(0, 3)
+  const recommendedTotals = selectRecommendedTotals(topTotals, mostLikelyResult)
   const confidenceScore = roundNumber(
     topProbability * 54 +
       spread * 230 +
       clamp(pairPosterior.support / 40, 0, 1) * 20 -
-      drawProbability * 10,
+      (mostLikelyResult === 'Draw' ? -drawProbability * -6 : drawProbability * 10),
     4,
   )
 

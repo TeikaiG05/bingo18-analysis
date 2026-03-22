@@ -1,0 +1,7315 @@
+{
+  "updatedAt": "2026-03-22T10:06:45.412Z",
+  "pendingPrediction": {
+    "roundId": "0158499",
+    "predictedResult": "Big",
+    "predictedTotals": [
+      12,
+      10,
+      7
+    ],
+    "predictedScores": [
+      {
+        "total": 12,
+        "probability": 0.363788
+      },
+      {
+        "total": 10,
+        "probability": 0.19542
+      },
+      {
+        "total": 7,
+        "probability": 0.0414
+      }
+    ],
+    "predictionSource": "live-pending",
+    "createdAt": "2026-03-22T10:06:45.412Z"
+  },
+  "history": [
+    {
+      "roundId": "0158498",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        11,
+        15
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.318828
+        },
+        {
+          "total": 11,
+          "probability": 0.163318
+        },
+        {
+          "total": 15,
+          "probability": 0.003069
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T10:00:45.391Z",
+      "resolvedAt": "2026-03-22T10:06:42.531Z"
+    },
+    {
+      "roundId": "0158497",
+      "predictedResult": "Draw",
+      "predictedTotals": [
+        10,
+        9,
+        14
+      ],
+      "predictedScores": [
+        {
+          "total": 10,
+          "probability": 0.286866
+        },
+        {
+          "total": 9,
+          "probability": 0.208844
+        },
+        {
+          "total": 14,
+          "probability": 0.04689
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:54:35.445Z",
+      "resolvedAt": "2026-03-22T10:00:41.875Z"
+    },
+    {
+      "roundId": "0158496",
+      "predictedResult": "Draw",
+      "predictedTotals": [
+        10,
+        8,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 10,
+          "probability": 0.27839
+        },
+        {
+          "total": 8,
+          "probability": 0.191803
+        },
+        {
+          "total": 13,
+          "probability": 0.074343
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:50:33.401Z",
+      "resolvedAt": "2026-03-22T09:54:29.469Z"
+    },
+    {
+      "roundId": "0158495",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        12,
+        6
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.259585
+        },
+        {
+          "total": 12,
+          "probability": 0.078681
+        },
+        {
+          "total": 6,
+          "probability": 0.045329
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:44:30.038Z",
+      "resolvedAt": "2026-03-22T09:50:29.430Z"
+    },
+    {
+      "roundId": "0158494",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        10,
+        14
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.286682
+        },
+        {
+          "total": 10,
+          "probability": 0.221839
+        },
+        {
+          "total": 14,
+          "probability": 0.049436
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:38:21.753Z",
+      "resolvedAt": "2026-03-22T09:44:20.164Z"
+    },
+    {
+      "roundId": "0158493",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        12,
+        15
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.312867
+        },
+        {
+          "total": 12,
+          "probability": 0.072862
+        },
+        {
+          "total": 15,
+          "probability": 0.025422
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:32:20.437Z",
+      "resolvedAt": "2026-03-22T09:38:16.318Z"
+    },
+    {
+      "roundId": "0158492",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        12,
+        6
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.31807
+        },
+        {
+          "total": 12,
+          "probability": 0.077901
+        },
+        {
+          "total": 6,
+          "probability": 0.029378
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:26:09.515Z",
+      "resolvedAt": "2026-03-22T09:32:15.869Z"
+    },
+    {
+      "roundId": "0158491",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        7,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.337603
+        },
+        {
+          "total": 7,
+          "probability": 0.090847
+        },
+        {
+          "total": 12,
+          "probability": 0.06703
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:19:59.545Z",
+      "resolvedAt": "2026-03-22T09:26:06.123Z"
+    },
+    {
+      "roundId": "0158490",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        11,
+        5
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.267406
+        },
+        {
+          "total": 11,
+          "probability": 0.149059
+        },
+        {
+          "total": 5,
+          "probability": 0.047775
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:13:59.516Z",
+      "resolvedAt": "2026-03-22T09:19:51.743Z"
+    },
+    {
+      "roundId": "0158489",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        12,
+        15
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.338762
+        },
+        {
+          "total": 12,
+          "probability": 0.071611
+        },
+        {
+          "total": 15,
+          "probability": 0.03772
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:08:00.475Z",
+      "resolvedAt": "2026-03-22T09:13:50.972Z"
+    },
+    {
+      "roundId": "0158488",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        10,
+        11
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.521974
+        },
+        {
+          "total": 10,
+          "probability": 0.269405
+        },
+        {
+          "total": 11,
+          "probability": 0.181335
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "resultHit": false,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T09:02:03.500Z",
+      "resolvedAt": "2026-03-22T09:07:50.782Z"
+    },
+    {
+      "roundId": "0158487",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        10,
+        11
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.555624
+        },
+        {
+          "total": 10,
+          "probability": 0.251619
+        },
+        {
+          "total": 11,
+          "probability": 0.166631
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T08:56:03.206Z",
+      "resolvedAt": "2026-03-22T09:01:54.535Z"
+    },
+    {
+      "roundId": "0158486",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        10,
+        11
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.570572
+        },
+        {
+          "total": 10,
+          "probability": 0.24292
+        },
+        {
+          "total": 11,
+          "probability": 0.160873
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T08:50:35.371Z",
+      "resolvedAt": "2026-03-22T08:55:42.603Z"
+    },
+    {
+      "roundId": "0158485",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        10,
+        11
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.600046
+        },
+        {
+          "total": 10,
+          "probability": 0.226745
+        },
+        {
+          "total": 11,
+          "probability": 0.150355
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "replayedPrediction": false,
+      "predictionSource": "live-lock",
+      "createdAt": "2026-03-22T08:44:37.243Z",
+      "resolvedAt": "2026-03-22T08:49:30.234Z"
+    },
+    {
+      "roundId": "0158484",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        8,
+        10
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.526244
+        },
+        {
+          "total": 8,
+          "probability": 0.275271
+        },
+        {
+          "total": 10,
+          "probability": 0.169689
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:37:28.860Z",
+      "resolvedAt": "2026-03-22T08:43:27.290Z",
+      "replayedPrediction": false,
+      "predictionSource": "live-lock"
+    },
+    {
+      "roundId": "0158483",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        8,
+        10
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.536311
+        },
+        {
+          "total": 8,
+          "probability": 0.262381
+        },
+        {
+          "total": 10,
+          "probability": 0.171893
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:31:58.492Z",
+      "resolvedAt": "2026-03-22T08:37:28.660Z",
+      "replayedPrediction": false,
+      "predictionSource": "live-lock"
+    },
+    {
+      "roundId": "0158482",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        9,
+        8,
+        10
+      ],
+      "predictedScores": [
+        {
+          "total": 9,
+          "probability": 0.608151
+        },
+        {
+          "total": 8,
+          "probability": 0.203777
+        },
+        {
+          "total": 10,
+          "probability": 0.158403
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T08:25:14.503Z",
+      "resolvedAt": "2026-03-22T08:31:15.156Z",
+      "replayedPrediction": false,
+      "predictionSource": "live-lock"
+    },
+    {
+      "roundId": "0158481",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        8,
+        9,
+        10
+      ],
+      "predictedScores": [
+        {
+          "total": 8,
+          "probability": 0.450985
+        },
+        {
+          "total": 9,
+          "probability": 0.296053
+        },
+        {
+          "total": 10,
+          "probability": 0.227518
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:19:15.521Z",
+      "resolvedAt": "2026-03-22T08:25:06.011Z",
+      "replayedPrediction": false,
+      "predictionSource": "live-lock"
+    },
+    {
+      "roundId": "0158480",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        8,
+        9,
+        10
+      ],
+      "predictedScores": [
+        {
+          "total": 8,
+          "probability": 0.436476
+        },
+        {
+          "total": 9,
+          "probability": 0.308173
+        },
+        {
+          "total": 10,
+          "probability": 0.227846
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:14:12.003Z",
+      "resolvedAt": "2026-03-22T08:19:08.075Z",
+      "replayedPrediction": false,
+      "predictionSource": "live-lock"
+    },
+    {
+      "roundId": "0158479",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.482292
+        },
+        {
+          "total": 12,
+          "probability": 0.037141
+        },
+        {
+          "total": 13,
+          "probability": 0.032791
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T08:12:48.427Z",
+      "resolvedAt": "2026-03-22T08:12:48.427Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158478",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.475756
+        },
+        {
+          "total": 12,
+          "probability": 0.03686
+        },
+        {
+          "total": 13,
+          "probability": 0.032901
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:08:45.658Z",
+      "resolvedAt": "2026-03-22T08:08:45.658Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158477",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        13,
+        18
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.508646
+        },
+        {
+          "total": 13,
+          "probability": 0.037973
+        },
+        {
+          "total": 18,
+          "probability": 0.033518
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T08:00:39.157Z",
+      "resolvedAt": "2026-03-22T08:00:39.157Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158476",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.468451
+        },
+        {
+          "total": 18,
+          "probability": 0.052029
+        },
+        {
+          "total": 12,
+          "probability": 0.03681
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:56:31.977Z",
+      "resolvedAt": "2026-03-22T07:56:31.977Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158475",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.468243
+        },
+        {
+          "total": 18,
+          "probability": 0.052017
+        },
+        {
+          "total": 12,
+          "probability": 0.037098
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:48:25.687Z",
+      "resolvedAt": "2026-03-22T07:48:25.687Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158474",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.499252
+        },
+        {
+          "total": 18,
+          "probability": 0.055025
+        },
+        {
+          "total": 13,
+          "probability": 0.032283
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T07:42:21.220Z",
+      "resolvedAt": "2026-03-22T07:42:21.220Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158473",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.471318
+        },
+        {
+          "total": 18,
+          "probability": 0.066078
+        },
+        {
+          "total": 12,
+          "probability": 0.03808
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:36:16.617Z",
+      "resolvedAt": "2026-03-22T07:36:16.617Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158472",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.471279
+        },
+        {
+          "total": 18,
+          "probability": 0.050948
+        },
+        {
+          "total": 12,
+          "probability": 0.038526
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:30:06.594Z",
+      "resolvedAt": "2026-03-22T07:30:06.594Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158471",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.501433
+        },
+        {
+          "total": 18,
+          "probability": 0.053919
+        },
+        {
+          "total": 13,
+          "probability": 0.033692
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T07:24:02.534Z",
+      "resolvedAt": "2026-03-22T07:24:02.534Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158470",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.472293
+        },
+        {
+          "total": 18,
+          "probability": 0.051004
+        },
+        {
+          "total": 12,
+          "probability": 0.036955
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:19:59.744Z",
+      "resolvedAt": "2026-03-22T07:19:59.744Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158469",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.502778
+        },
+        {
+          "total": 18,
+          "probability": 0.054018
+        },
+        {
+          "total": 13,
+          "probability": 0.034905
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T07:13:55.618Z",
+      "resolvedAt": "2026-03-22T07:13:55.618Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158468",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.474449
+        },
+        {
+          "total": 18,
+          "probability": 0.051206
+        },
+        {
+          "total": 12,
+          "probability": 0.034578
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:07:47.664Z",
+      "resolvedAt": "2026-03-22T07:07:47.664Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158467",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.503118
+        },
+        {
+          "total": 18,
+          "probability": 0.054038
+        },
+        {
+          "total": 13,
+          "probability": 0.036377
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T07:01:43.757Z",
+      "resolvedAt": "2026-03-22T07:01:43.757Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158466",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.476499
+        },
+        {
+          "total": 18,
+          "probability": 0.064997
+        },
+        {
+          "total": 12,
+          "probability": 0.035219
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:55:37.332Z",
+      "resolvedAt": "2026-03-22T06:55:37.332Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158465",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.50245
+        },
+        {
+          "total": 18,
+          "probability": 0.067777
+        },
+        {
+          "total": 13,
+          "probability": 0.030603
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T06:49:32.701Z",
+      "resolvedAt": "2026-03-22T06:49:32.701Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158464",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.485609
+        },
+        {
+          "total": 18,
+          "probability": 0.065841
+        },
+        {
+          "total": 12,
+          "probability": 0.035952
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:43:28.312Z",
+      "resolvedAt": "2026-03-22T06:43:28.312Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158463",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.486791
+        },
+        {
+          "total": 18,
+          "probability": 0.066038
+        },
+        {
+          "total": 12,
+          "probability": 0.036454
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:37:17.837Z",
+      "resolvedAt": "2026-03-22T06:37:17.837Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158462",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.48011
+        },
+        {
+          "total": 18,
+          "probability": 0.063913
+        },
+        {
+          "total": 12,
+          "probability": 0.03638
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:31:05.157Z",
+      "resolvedAt": "2026-03-22T06:31:05.157Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158461",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.436163
+        },
+        {
+          "total": 3,
+          "probability": 0.064096
+        },
+        {
+          "total": 9,
+          "probability": 0.027606
+        }
+      ],
+      "actualTotal": 4,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T06:25:01.341Z",
+      "resolvedAt": "2026-03-22T06:25:01.341Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158460",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.482678
+        },
+        {
+          "total": 18,
+          "probability": 0.063837
+        },
+        {
+          "total": 12,
+          "probability": 0.037045
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:18:57.461Z",
+      "resolvedAt": "2026-03-22T06:18:57.461Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158459",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.523847
+        },
+        {
+          "total": 18,
+          "probability": 0.054176
+        },
+        {
+          "total": 12,
+          "probability": 0.029447
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T06:12:51.559Z",
+      "resolvedAt": "2026-03-22T06:12:51.559Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158458",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.510179
+        },
+        {
+          "total": 18,
+          "probability": 0.066707
+        },
+        {
+          "total": 12,
+          "probability": 0.031989
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:06:47.683Z",
+      "resolvedAt": "2026-03-22T06:06:47.683Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158457",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.485504
+        },
+        {
+          "total": 18,
+          "probability": 0.063567
+        },
+        {
+          "total": 12,
+          "probability": 0.038656
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T06:00:43.452Z",
+      "resolvedAt": "2026-03-22T06:00:43.452Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158456",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.511925
+        },
+        {
+          "total": 18,
+          "probability": 0.05273
+        },
+        {
+          "total": 12,
+          "probability": 0.032731
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:54:34.713Z",
+      "resolvedAt": "2026-03-22T05:54:34.713Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158455",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.487637
+        },
+        {
+          "total": 18,
+          "probability": 0.050405
+        },
+        {
+          "total": 12,
+          "probability": 0.039691
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:48:30.057Z",
+      "resolvedAt": "2026-03-22T05:48:30.057Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158454",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.512464
+        },
+        {
+          "total": 18,
+          "probability": 0.06651
+        },
+        {
+          "total": 12,
+          "probability": 0.033598
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:42:25.007Z",
+      "resolvedAt": "2026-03-22T05:42:25.007Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158453",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.489405
+        },
+        {
+          "total": 18,
+          "probability": 0.063807
+        },
+        {
+          "total": 12,
+          "probability": 0.038128
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:36:20.364Z",
+      "resolvedAt": "2026-03-22T05:36:20.364Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158452",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.512691
+        },
+        {
+          "total": 18,
+          "probability": 0.066583
+        },
+        {
+          "total": 12,
+          "probability": 0.029382
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T05:32:15.947Z",
+      "resolvedAt": "2026-03-22T05:32:15.947Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158451",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.490842
+        },
+        {
+          "total": 18,
+          "probability": 0.064055
+        },
+        {
+          "total": 12,
+          "probability": 0.035567
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:24:10.569Z",
+      "resolvedAt": "2026-03-22T05:24:10.569Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158450",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.491206
+        },
+        {
+          "total": 18,
+          "probability": 0.049344
+        },
+        {
+          "total": 12,
+          "probability": 0.035789
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:18:02.635Z",
+      "resolvedAt": "2026-03-22T05:18:02.635Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158449",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.516273
+        },
+        {
+          "total": 18,
+          "probability": 0.051521
+        },
+        {
+          "total": 12,
+          "probability": 0.03008
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T05:11:58.282Z",
+      "resolvedAt": "2026-03-22T05:11:58.282Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158448",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.493875
+        },
+        {
+          "total": 18,
+          "probability": 0.049432
+        },
+        {
+          "total": 12,
+          "probability": 0.036673
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:05:49.892Z",
+      "resolvedAt": "2026-03-22T05:05:49.892Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158447",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.495365
+        },
+        {
+          "total": 18,
+          "probability": 0.062517
+        },
+        {
+          "total": 12,
+          "probability": 0.037072
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T05:01:47.274Z",
+      "resolvedAt": "2026-03-22T05:01:47.274Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158446",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.496307
+        },
+        {
+          "total": 18,
+          "probability": 0.049503
+        },
+        {
+          "total": 12,
+          "probability": 0.037475
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T04:55:42.903Z",
+      "resolvedAt": "2026-03-22T04:55:42.903Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158445",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.496636
+        },
+        {
+          "total": 18,
+          "probability": 0.062354
+        },
+        {
+          "total": 12,
+          "probability": 0.037884
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:49:38.873Z",
+      "resolvedAt": "2026-03-22T04:49:38.873Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158444",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.520916
+        },
+        {
+          "total": 18,
+          "probability": 0.065112
+        },
+        {
+          "total": 12,
+          "probability": 0.031955
+        }
+      ],
+      "actualTotal": 16,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T04:43:34.767Z",
+      "resolvedAt": "2026-03-22T04:43:34.767Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158443",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.499794
+        },
+        {
+          "total": 18,
+          "probability": 0.062716
+        },
+        {
+          "total": 12,
+          "probability": 0.03637
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:37:30.772Z",
+      "resolvedAt": "2026-03-22T04:37:30.772Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158442",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.521344
+        },
+        {
+          "total": 18,
+          "probability": 0.065083
+        },
+        {
+          "total": 12,
+          "probability": 0.028115
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T04:31:26.890Z",
+      "resolvedAt": "2026-03-22T04:31:26.890Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158441",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.509361
+        },
+        {
+          "total": 18,
+          "probability": 0.062714
+        },
+        {
+          "total": 12,
+          "probability": 0.034399
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:25:20.179Z",
+      "resolvedAt": "2026-03-22T04:25:20.179Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158440",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.500406
+        },
+        {
+          "total": 18,
+          "probability": 0.048365
+        },
+        {
+          "total": 12,
+          "probability": 0.033889
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:19:16.321Z",
+      "resolvedAt": "2026-03-22T04:19:16.321Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158439",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.525423
+        },
+        {
+          "total": 18,
+          "probability": 0.050433
+        },
+        {
+          "total": 12,
+          "probability": 0.028372
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:13:12.001Z",
+      "resolvedAt": "2026-03-22T04:13:12.001Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158438",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.511017
+        },
+        {
+          "total": 18,
+          "probability": 0.049182
+        },
+        {
+          "total": 12,
+          "probability": 0.034848
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:07:08.051Z",
+      "resolvedAt": "2026-03-22T04:07:08.051Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158437",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.505305
+        },
+        {
+          "total": 18,
+          "probability": 0.04805
+        },
+        {
+          "total": 12,
+          "probability": 0.034605
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T04:01:03.945Z",
+      "resolvedAt": "2026-03-22T04:01:03.945Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158436",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.494645
+        },
+        {
+          "total": 18,
+          "probability": 0.047034
+        },
+        {
+          "total": 12,
+          "probability": 0.034041
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:54:59.682Z",
+      "resolvedAt": "2026-03-22T03:54:59.682Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158435",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.506628
+        },
+        {
+          "total": 18,
+          "probability": 0.047782
+        },
+        {
+          "total": 12,
+          "probability": 0.035062
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T03:48:55.593Z",
+      "resolvedAt": "2026-03-22T03:48:55.593Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158434",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.516478
+        },
+        {
+          "total": 18,
+          "probability": 0.048519
+        },
+        {
+          "total": 12,
+          "probability": 0.035975
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T03:42:48.624Z",
+      "resolvedAt": "2026-03-22T03:42:48.624Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158433",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.519234
+        },
+        {
+          "total": 18,
+          "probability": 0.048343
+        },
+        {
+          "total": 12,
+          "probability": 0.036646
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:36:44.661Z",
+      "resolvedAt": "2026-03-22T03:36:44.661Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158432",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.520953
+        },
+        {
+          "total": 18,
+          "probability": 0.048397
+        },
+        {
+          "total": 12,
+          "probability": 0.037087
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:30:40.641Z",
+      "resolvedAt": "2026-03-22T03:30:40.641Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158431",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.514714
+        },
+        {
+          "total": 18,
+          "probability": 0.060486
+        },
+        {
+          "total": 12,
+          "probability": 0.037015
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:24:36.398Z",
+      "resolvedAt": "2026-03-22T03:24:36.398Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158430",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.515666
+        },
+        {
+          "total": 18,
+          "probability": 0.06029
+        },
+        {
+          "total": 12,
+          "probability": 0.034903
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:18:32.294Z",
+      "resolvedAt": "2026-03-22T03:18:32.294Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158429",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.525112
+        },
+        {
+          "total": 18,
+          "probability": 0.061077
+        },
+        {
+          "total": 12,
+          "probability": 0.0333
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T03:12:27.998Z",
+      "resolvedAt": "2026-03-22T03:12:27.998Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158428",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.525796
+        },
+        {
+          "total": 18,
+          "probability": 0.060914
+        },
+        {
+          "total": 12,
+          "probability": 0.03336
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:06:19.478Z",
+      "resolvedAt": "2026-03-22T03:06:19.478Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158427",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.52725
+        },
+        {
+          "total": 18,
+          "probability": 0.060677
+        },
+        {
+          "total": 12,
+          "probability": 0.033475
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T03:00:15.351Z",
+      "resolvedAt": "2026-03-22T03:00:15.351Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158426",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.521348
+        },
+        {
+          "total": 18,
+          "probability": 0.059671
+        },
+        {
+          "total": 12,
+          "probability": 0.033132
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:54:10.250Z",
+      "resolvedAt": "2026-03-22T02:54:10.250Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158425",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.543782
+        },
+        {
+          "total": 18,
+          "probability": 0.0616
+        },
+        {
+          "total": 13,
+          "probability": 0.028731
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:50:07.658Z",
+      "resolvedAt": "2026-03-22T02:50:07.658Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158424",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.547637
+        },
+        {
+          "total": 18,
+          "probability": 0.058101
+        },
+        {
+          "total": 12,
+          "probability": 0.032674
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:44:03.753Z",
+      "resolvedAt": "2026-03-22T02:44:03.753Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158423",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.540547
+        },
+        {
+          "total": 18,
+          "probability": 0.057035
+        },
+        {
+          "total": 12,
+          "probability": 0.032319
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:37:59.507Z",
+      "resolvedAt": "2026-03-22T02:37:59.507Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158422",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.532193
+        },
+        {
+          "total": 18,
+          "probability": 0.055841
+        },
+        {
+          "total": 12,
+          "probability": 0.0319
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:31:54.184Z",
+      "resolvedAt": "2026-03-22T02:31:54.184Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158421",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.543645
+        },
+        {
+          "total": 18,
+          "probability": 0.056719
+        },
+        {
+          "total": 12,
+          "probability": 0.032873
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T02:25:48.409Z",
+      "resolvedAt": "2026-03-22T02:25:48.409Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158420",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.553913
+        },
+        {
+          "total": 18,
+          "probability": 0.057457
+        },
+        {
+          "total": 12,
+          "probability": 0.033611
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T02:19:44.118Z",
+      "resolvedAt": "2026-03-22T02:19:44.118Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158419",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.282752
+        },
+        {
+          "total": 9,
+          "probability": 0.066192
+        },
+        {
+          "total": 8,
+          "probability": 0.051945
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T02:13:39.927Z",
+      "resolvedAt": "2026-03-22T02:13:39.927Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158418",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.283198
+        },
+        {
+          "total": 9,
+          "probability": 0.061741
+        },
+        {
+          "total": 8,
+          "probability": 0.052876
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T02:07:36.078Z",
+      "resolvedAt": "2026-03-22T02:07:36.078Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158417",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        8,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.309841
+        },
+        {
+          "total": 8,
+          "probability": 0.062713
+        },
+        {
+          "total": 9,
+          "probability": 0.054206
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T02:01:30.852Z",
+      "resolvedAt": "2026-03-22T02:01:30.852Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158416",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.277346
+        },
+        {
+          "total": 9,
+          "probability": 0.061449
+        },
+        {
+          "total": 8,
+          "probability": 0.053832
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T01:55:26.791Z",
+      "resolvedAt": "2026-03-22T01:55:26.791Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158415",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.287376
+        },
+        {
+          "total": 9,
+          "probability": 0.064059
+        },
+        {
+          "total": 8,
+          "probability": 0.053106
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:49:21.227Z",
+      "resolvedAt": "2026-03-22T01:49:21.227Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158414",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.288963
+        },
+        {
+          "total": 9,
+          "probability": 0.064855
+        },
+        {
+          "total": 8,
+          "probability": 0.047496
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:43:16.859Z",
+      "resolvedAt": "2026-03-22T01:43:16.859Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158413",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.28831
+        },
+        {
+          "total": 9,
+          "probability": 0.065212
+        },
+        {
+          "total": 8,
+          "probability": 0.048082
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T01:37:11.290Z",
+      "resolvedAt": "2026-03-22T01:37:11.290Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158412",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.31584
+        },
+        {
+          "total": 9,
+          "probability": 0.057553
+        },
+        {
+          "total": 8,
+          "probability": 0.057012
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:31:05.165Z",
+      "resolvedAt": "2026-03-22T01:31:05.165Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158411",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.290972
+        },
+        {
+          "total": 9,
+          "probability": 0.067067
+        },
+        {
+          "total": 8,
+          "probability": 0.046779
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T01:25:01.201Z",
+      "resolvedAt": "2026-03-22T01:25:01.201Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158410",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.319354
+        },
+        {
+          "total": 9,
+          "probability": 0.059775
+        },
+        {
+          "total": 7,
+          "probability": 0.050935
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:18:57.010Z",
+      "resolvedAt": "2026-03-22T01:18:57.010Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158409",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.286224
+        },
+        {
+          "total": 9,
+          "probability": 0.063227
+        },
+        {
+          "total": 7,
+          "probability": 0.043965
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T01:12:50.123Z",
+      "resolvedAt": "2026-03-22T01:12:50.123Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158408",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.295699
+        },
+        {
+          "total": 9,
+          "probability": 0.061799
+        },
+        {
+          "total": 7,
+          "probability": 0.045869
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:06:46.060Z",
+      "resolvedAt": "2026-03-22T01:06:46.060Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158407",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.323535
+        },
+        {
+          "total": 9,
+          "probability": 0.054163
+        },
+        {
+          "total": 7,
+          "probability": 0.053149
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T01:00:42.070Z",
+      "resolvedAt": "2026-03-22T01:00:42.070Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158406",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.299337
+        },
+        {
+          "total": 9,
+          "probability": 0.06297
+        },
+        {
+          "total": 7,
+          "probability": 0.047484
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:54:37.318Z",
+      "resolvedAt": "2026-03-22T00:54:37.318Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158405",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.300815
+        },
+        {
+          "total": 9,
+          "probability": 0.063072
+        },
+        {
+          "total": 7,
+          "probability": 0.048333
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T00:48:33.251Z",
+      "resolvedAt": "2026-03-22T00:48:33.251Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158404",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        7,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.328535
+        },
+        {
+          "total": 7,
+          "probability": 0.056095
+        },
+        {
+          "total": 9,
+          "probability": 0.055249
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:42:29.147Z",
+      "resolvedAt": "2026-03-22T00:42:29.147Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158403",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.303862
+        },
+        {
+          "total": 9,
+          "probability": 0.064304
+        },
+        {
+          "total": 7,
+          "probability": 0.050297
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:36:25.329Z",
+      "resolvedAt": "2026-03-22T00:36:25.329Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158402",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.51912
+        },
+        {
+          "total": 3,
+          "probability": 0.134812
+        },
+        {
+          "total": 9,
+          "probability": 0.034979
+        }
+      ],
+      "actualTotal": 4,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-22T00:30:18.017Z",
+      "resolvedAt": "2026-03-22T00:30:18.017Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158401",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.51206
+        },
+        {
+          "total": 3,
+          "probability": 0.133385
+        },
+        {
+          "total": 9,
+          "probability": 0.034823
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:26:15.427Z",
+      "resolvedAt": "2026-03-22T00:26:15.427Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158400",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.520358
+        },
+        {
+          "total": 3,
+          "probability": 0.135971
+        },
+        {
+          "total": 9,
+          "probability": 0.035745
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T00:18:06.987Z",
+      "resolvedAt": "2026-03-22T00:18:06.987Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158399",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.521262
+        },
+        {
+          "total": 3,
+          "probability": 0.136641
+        },
+        {
+          "total": 9,
+          "probability": 0.036203
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-22T00:14:04.222Z",
+      "resolvedAt": "2026-03-22T00:14:04.222Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158398",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.544538
+        },
+        {
+          "total": 3,
+          "probability": 0.142526
+        },
+        {
+          "total": 9,
+          "probability": 0.030422
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:05:58.531Z",
+      "resolvedAt": "2026-03-22T00:05:58.531Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158397",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.522174
+        },
+        {
+          "total": 3,
+          "probability": 0.137782
+        },
+        {
+          "total": 9,
+          "probability": 0.037197
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-22T00:01:55.444Z",
+      "resolvedAt": "2026-03-22T00:01:55.444Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158396",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.554143
+        },
+        {
+          "total": 3,
+          "probability": 0.146015
+        },
+        {
+          "total": 9,
+          "probability": 0.02895
+        }
+      ],
+      "actualTotal": 16,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:55:47.345Z",
+      "resolvedAt": "2026-03-21T23:55:47.345Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158395",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.545501
+        },
+        {
+          "total": 3,
+          "probability": 0.144235
+        },
+        {
+          "total": 9,
+          "probability": 0.032013
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:49:43.227Z",
+      "resolvedAt": "2026-03-21T23:49:43.227Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158394",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.517126
+        },
+        {
+          "total": 3,
+          "probability": 0.137871
+        },
+        {
+          "total": 9,
+          "probability": 0.036169
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:43:33.978Z",
+      "resolvedAt": "2026-03-21T23:43:33.978Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158393",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.517161
+        },
+        {
+          "total": 3,
+          "probability": 0.138377
+        },
+        {
+          "total": 9,
+          "probability": 0.034534
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T23:37:29.939Z",
+      "resolvedAt": "2026-03-21T23:37:29.939Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158392",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.525413
+        },
+        {
+          "total": 3,
+          "probability": 0.141103
+        },
+        {
+          "total": 9,
+          "probability": 0.035462
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T23:31:26.212Z",
+      "resolvedAt": "2026-03-21T23:31:26.212Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158391",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.531231
+        },
+        {
+          "total": 3,
+          "probability": 0.143202
+        },
+        {
+          "total": 9,
+          "probability": 0.036278
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T23:25:22.335Z",
+      "resolvedAt": "2026-03-21T23:25:22.335Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158390",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.530857
+        },
+        {
+          "total": 3,
+          "probability": 0.143651
+        },
+        {
+          "total": 9,
+          "probability": 0.036724
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:19:18.166Z",
+      "resolvedAt": "2026-03-21T23:19:18.166Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158389",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        4,
+        3,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 4,
+          "probability": 0.526431
+        },
+        {
+          "total": 3,
+          "probability": 0.143012
+        },
+        {
+          "total": 9,
+          "probability": 0.036942
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:13:14.069Z",
+      "resolvedAt": "2026-03-21T23:13:14.069Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158388",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.330205
+        },
+        {
+          "total": 9,
+          "probability": 0.070788
+        },
+        {
+          "total": 7,
+          "probability": 0.045289
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T23:07:10.255Z",
+      "resolvedAt": "2026-03-21T23:07:10.255Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158387",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.360353
+        },
+        {
+          "total": 9,
+          "probability": 0.062542
+        },
+        {
+          "total": 7,
+          "probability": 0.052412
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:54:48.104Z",
+      "resolvedAt": "2026-03-21T14:54:48.104Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158386",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.335472
+        },
+        {
+          "total": 9,
+          "probability": 0.068892
+        },
+        {
+          "total": 7,
+          "probability": 0.047197
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T14:48:44.155Z",
+      "resolvedAt": "2026-03-21T14:48:44.155Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158385",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.363478
+        },
+        {
+          "total": 9,
+          "probability": 0.056393
+        },
+        {
+          "total": 7,
+          "probability": 0.054388
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:42:39.954Z",
+      "resolvedAt": "2026-03-21T14:42:39.954Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158384",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.339267
+        },
+        {
+          "total": 9,
+          "probability": 0.066557
+        },
+        {
+          "total": 7,
+          "probability": 0.049272
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T14:36:35.956Z",
+      "resolvedAt": "2026-03-21T14:36:35.956Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158383",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.330025
+        },
+        {
+          "total": 9,
+          "probability": 0.065482
+        },
+        {
+          "total": 7,
+          "probability": 0.048846
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T14:32:32.425Z",
+      "resolvedAt": "2026-03-21T14:32:32.425Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158382",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.33307
+        },
+        {
+          "total": 9,
+          "probability": 0.062284
+        },
+        {
+          "total": 7,
+          "probability": 0.050366
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:26:28.470Z",
+      "resolvedAt": "2026-03-21T14:26:28.470Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158381",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.344512
+        },
+        {
+          "total": 9,
+          "probability": 0.060532
+        },
+        {
+          "total": 7,
+          "probability": 0.049653
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:18:20.386Z",
+      "resolvedAt": "2026-03-21T14:18:20.386Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158380",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.347256
+        },
+        {
+          "total": 9,
+          "probability": 0.061346
+        },
+        {
+          "total": 7,
+          "probability": 0.044916
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:12:16.384Z",
+      "resolvedAt": "2026-03-21T14:12:16.384Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158379",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.348209
+        },
+        {
+          "total": 9,
+          "probability": 0.061913
+        },
+        {
+          "total": 7,
+          "probability": 0.042668
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T14:06:12.216Z",
+      "resolvedAt": "2026-03-21T14:06:12.216Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158378",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.396153
+        },
+        {
+          "total": 9,
+          "probability": 0.051802
+        },
+        {
+          "total": 7,
+          "probability": 0.044008
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T14:02:09.689Z",
+      "resolvedAt": "2026-03-21T14:02:09.689Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158377",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.398099
+        },
+        {
+          "total": 9,
+          "probability": 0.052787
+        },
+        {
+          "total": 7,
+          "probability": 0.04449
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:56:05.558Z",
+      "resolvedAt": "2026-03-21T13:56:05.558Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158376",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.387767
+        },
+        {
+          "total": 9,
+          "probability": 0.057148
+        },
+        {
+          "total": 7,
+          "probability": 0.043637
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:49:58.411Z",
+      "resolvedAt": "2026-03-21T13:49:58.411Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158375",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.361851
+        },
+        {
+          "total": 9,
+          "probability": 0.062892
+        },
+        {
+          "total": 7,
+          "probability": 0.039175
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:43:51.907Z",
+      "resolvedAt": "2026-03-21T13:43:51.907Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158374",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.392673
+        },
+        {
+          "total": 9,
+          "probability": 0.051246
+        },
+        {
+          "total": 7,
+          "probability": 0.045315
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T13:37:47.727Z",
+      "resolvedAt": "2026-03-21T13:37:47.727Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158373",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.36728
+        },
+        {
+          "total": 9,
+          "probability": 0.060651
+        },
+        {
+          "total": 7,
+          "probability": 0.040881
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:31:43.511Z",
+      "resolvedAt": "2026-03-21T13:31:43.511Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158372",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.369171
+        },
+        {
+          "total": 9,
+          "probability": 0.061662
+        },
+        {
+          "total": 7,
+          "probability": 0.041598
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:25:39.378Z",
+      "resolvedAt": "2026-03-21T13:25:39.378Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158371",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.399814
+        },
+        {
+          "total": 9,
+          "probability": 0.053736
+        },
+        {
+          "total": 7,
+          "probability": 0.047883
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T13:19:35.454Z",
+      "resolvedAt": "2026-03-21T13:19:35.454Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158370",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.375903
+        },
+        {
+          "total": 9,
+          "probability": 0.063859
+        },
+        {
+          "total": 7,
+          "probability": 0.040638
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:13:31.178Z",
+      "resolvedAt": "2026-03-21T13:13:31.178Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158369",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.405611
+        },
+        {
+          "total": 9,
+          "probability": 0.055658
+        },
+        {
+          "total": 8,
+          "probability": 0.041998
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T13:07:27.338Z",
+      "resolvedAt": "2026-03-21T13:07:27.338Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158368",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.372444
+        },
+        {
+          "total": 9,
+          "probability": 0.060354
+        },
+        {
+          "total": 8,
+          "probability": 0.035773
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T13:01:19.291Z",
+      "resolvedAt": "2026-03-21T13:01:19.291Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158367",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.375323
+        },
+        {
+          "total": 9,
+          "probability": 0.053248
+        },
+        {
+          "total": 8,
+          "probability": 0.035877
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T12:55:15.363Z",
+      "resolvedAt": "2026-03-21T12:55:15.363Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158366",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.388112
+        },
+        {
+          "total": 9,
+          "probability": 0.050681
+        },
+        {
+          "total": 8,
+          "probability": 0.036937
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T12:49:11.218Z",
+      "resolvedAt": "2026-03-21T12:49:11.218Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158365",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.393421
+        },
+        {
+          "total": 9,
+          "probability": 0.051195
+        },
+        {
+          "total": 7,
+          "probability": 0.037461
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T12:43:05.710Z",
+      "resolvedAt": "2026-03-21T12:43:05.710Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158364",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.421874
+        },
+        {
+          "total": 9,
+          "probability": 0.043706
+        },
+        {
+          "total": 7,
+          "probability": 0.042479
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:37:01.019Z",
+      "resolvedAt": "2026-03-21T12:37:01.019Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158363",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.407681
+        },
+        {
+          "total": 9,
+          "probability": 0.052755
+        },
+        {
+          "total": 7,
+          "probability": 0.039615
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:30:55.889Z",
+      "resolvedAt": "2026-03-21T12:30:55.889Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158362",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        7
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.404333
+        },
+        {
+          "total": 9,
+          "probability": 0.052222
+        },
+        {
+          "total": 7,
+          "probability": 0.039819
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:24:47.050Z",
+      "resolvedAt": "2026-03-21T12:24:47.050Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158361",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.407634
+        },
+        {
+          "total": 9,
+          "probability": 0.05259
+        },
+        {
+          "total": 8,
+          "probability": 0.038076
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:18:43.072Z",
+      "resolvedAt": "2026-03-21T12:18:43.072Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158360",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.437059
+        },
+        {
+          "total": 9,
+          "probability": 0.045022
+        },
+        {
+          "total": 8,
+          "probability": 0.043533
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T12:12:39.332Z",
+      "resolvedAt": "2026-03-21T12:12:39.332Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158359",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.414542
+        },
+        {
+          "total": 9,
+          "probability": 0.053532
+        },
+        {
+          "total": 8,
+          "probability": 0.038655
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:08:36.811Z",
+      "resolvedAt": "2026-03-21T12:08:36.811Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158358",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.409032
+        },
+        {
+          "total": 9,
+          "probability": 0.049253
+        },
+        {
+          "total": 8,
+          "probability": 0.038027
+        }
+      ],
+      "actualTotal": 17,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T12:00:31.375Z",
+      "resolvedAt": "2026-03-21T12:00:31.375Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158357",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.422879
+        },
+        {
+          "total": 9,
+          "probability": 0.04733
+        },
+        {
+          "total": 8,
+          "probability": 0.039217
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T11:54:27.188Z",
+      "resolvedAt": "2026-03-21T11:54:27.188Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158356",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.428185
+        },
+        {
+          "total": 9,
+          "probability": 0.047493
+        },
+        {
+          "total": 8,
+          "probability": 0.039922
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T11:50:20.177Z",
+      "resolvedAt": "2026-03-21T11:50:20.177Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158355",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.431208
+        },
+        {
+          "total": 9,
+          "probability": 0.047397
+        },
+        {
+          "total": 8,
+          "probability": 0.040157
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:44:15.773Z",
+      "resolvedAt": "2026-03-21T11:44:15.773Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158354",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        8,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.476899
+        },
+        {
+          "total": 8,
+          "probability": 0.047267
+        },
+        {
+          "total": 9,
+          "probability": 0.037719
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T11:38:10.162Z",
+      "resolvedAt": "2026-03-21T11:38:10.162Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158353",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        8,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.466611
+        },
+        {
+          "total": 8,
+          "probability": 0.046292
+        },
+        {
+          "total": 9,
+          "probability": 0.039932
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:32:05.453Z",
+      "resolvedAt": "2026-03-21T11:32:05.453Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158352",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.445798
+        },
+        {
+          "total": 9,
+          "probability": 0.047344
+        },
+        {
+          "total": 8,
+          "probability": 0.041649
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:25:58.285Z",
+      "resolvedAt": "2026-03-21T11:25:58.285Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158351",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.45116
+        },
+        {
+          "total": 9,
+          "probability": 0.047484
+        },
+        {
+          "total": 8,
+          "probability": 0.039368
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:19:49.298Z",
+      "resolvedAt": "2026-03-21T11:19:49.298Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158350",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.456442
+        },
+        {
+          "total": 9,
+          "probability": 0.047615
+        },
+        {
+          "total": 8,
+          "probability": 0.034975
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T11:13:43.191Z",
+      "resolvedAt": "2026-03-21T11:13:43.191Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158349",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.487225
+        },
+        {
+          "total": 9,
+          "probability": 0.040236
+        },
+        {
+          "total": 8,
+          "probability": 0.039379
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:07:38.164Z",
+      "resolvedAt": "2026-03-21T11:07:38.164Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158348",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.466168
+        },
+        {
+          "total": 9,
+          "probability": 0.047799
+        },
+        {
+          "total": 8,
+          "probability": 0.035075
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T11:01:34.107Z",
+      "resolvedAt": "2026-03-21T11:01:34.107Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158347",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.472043
+        },
+        {
+          "total": 9,
+          "probability": 0.048006
+        },
+        {
+          "total": 8,
+          "probability": 0.035465
+        }
+      ],
+      "actualTotal": 16,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:55:29.843Z",
+      "resolvedAt": "2026-03-21T10:55:29.843Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158346",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        8,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.515457
+        },
+        {
+          "total": 8,
+          "probability": 0.040867
+        },
+        {
+          "total": 9,
+          "probability": 0.037774
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T10:49:23.631Z",
+      "resolvedAt": "2026-03-21T10:49:23.631Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158345",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.508824
+        },
+        {
+          "total": 9,
+          "probability": 0.040718
+        },
+        {
+          "total": 8,
+          "probability": 0.040003
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:43:18.617Z",
+      "resolvedAt": "2026-03-21T10:43:18.617Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158344",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.497064
+        },
+        {
+          "total": 9,
+          "probability": 0.049517
+        },
+        {
+          "total": 8,
+          "probability": 0.036433
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:37:13.881Z",
+      "resolvedAt": "2026-03-21T10:37:13.881Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158343",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.37334
+        },
+        {
+          "total": 9,
+          "probability": 0.03699
+        },
+        {
+          "total": 8,
+          "probability": 0.027158
+        }
+      ],
+      "actualTotal": 17,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:31:09.398Z",
+      "resolvedAt": "2026-03-21T10:31:09.398Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158342",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.378877
+        },
+        {
+          "total": 9,
+          "probability": 0.034764
+        },
+        {
+          "total": 8,
+          "probability": 0.027369
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:25:05.209Z",
+      "resolvedAt": "2026-03-21T10:25:05.209Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158341",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.384789
+        },
+        {
+          "total": 9,
+          "probability": 0.032349
+        },
+        {
+          "total": 8,
+          "probability": 0.027626
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T10:19:01.209Z",
+      "resolvedAt": "2026-03-21T10:19:01.209Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158340",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        8,
+        9
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.403332
+        },
+        {
+          "total": 8,
+          "probability": 0.030668
+        },
+        {
+          "total": 9,
+          "probability": 0.026688
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:14:58.168Z",
+      "resolvedAt": "2026-03-21T10:14:58.168Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158339",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.397741
+        },
+        {
+          "total": 9,
+          "probability": 0.032483
+        },
+        {
+          "total": 8,
+          "probability": 0.026326
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T10:06:48.506Z",
+      "resolvedAt": "2026-03-21T10:06:48.506Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158338",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.416188
+        },
+        {
+          "total": 9,
+          "probability": 0.033546
+        },
+        {
+          "total": 8,
+          "probability": 0.024093
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T10:00:44.418Z",
+      "resolvedAt": "2026-03-21T10:00:44.418Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158337",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.411489
+        },
+        {
+          "total": 9,
+          "probability": 0.032734
+        },
+        {
+          "total": 8,
+          "probability": 0.023443
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:54:40.592Z",
+      "resolvedAt": "2026-03-21T09:54:40.592Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158336",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.406555
+        },
+        {
+          "total": 9,
+          "probability": 0.031904
+        },
+        {
+          "total": 8,
+          "probability": 0.022918
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:48:35.221Z",
+      "resolvedAt": "2026-03-21T09:48:35.221Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158335",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.427245
+        },
+        {
+          "total": 9,
+          "probability": 0.03078
+        },
+        {
+          "total": 8,
+          "probability": 0.023659
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T09:44:32.664Z",
+      "resolvedAt": "2026-03-21T09:44:32.664Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158334",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.438282
+        },
+        {
+          "total": 9,
+          "probability": 0.028481
+        },
+        {
+          "total": 8,
+          "probability": 0.023838
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T09:38:28.612Z",
+      "resolvedAt": "2026-03-21T09:38:28.612Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158333",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.447689
+        },
+        {
+          "total": 9,
+          "probability": 0.028377
+        },
+        {
+          "total": 8,
+          "probability": 0.023916
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:30:18.212Z",
+      "resolvedAt": "2026-03-21T09:30:18.212Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158332",
+      "predictedResult": "Small",
+      "predictedTotals": [
+        3,
+        9,
+        8
+      ],
+      "predictedScores": [
+        {
+          "total": 3,
+          "probability": 0.446071
+        },
+        {
+          "total": 9,
+          "probability": 0.027576
+        },
+        {
+          "total": 8,
+          "probability": 0.023423
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:24:13.012Z",
+      "resolvedAt": "2026-03-21T09:24:13.012Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158331",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.465883
+        },
+        {
+          "total": 18,
+          "probability": 0.145506
+        },
+        {
+          "total": 12,
+          "probability": 0.08014
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T09:18:08.760Z",
+      "resolvedAt": "2026-03-21T09:18:08.760Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158330",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.468225
+        },
+        {
+          "total": 18,
+          "probability": 0.146001
+        },
+        {
+          "total": 12,
+          "probability": 0.076777
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:12:03.693Z",
+      "resolvedAt": "2026-03-21T09:12:03.693Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158329",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.468974
+        },
+        {
+          "total": 18,
+          "probability": 0.145995
+        },
+        {
+          "total": 12,
+          "probability": 0.074993
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T09:05:58.639Z",
+      "resolvedAt": "2026-03-21T09:05:58.639Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158328",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.4704
+        },
+        {
+          "total": 18,
+          "probability": 0.146193
+        },
+        {
+          "total": 12,
+          "probability": 0.071528
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T09:01:50.596Z",
+      "resolvedAt": "2026-03-21T09:01:50.596Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158327",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.494734
+        },
+        {
+          "total": 18,
+          "probability": 0.152763
+        },
+        {
+          "total": 12,
+          "probability": 0.057685
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:53:45.465Z",
+      "resolvedAt": "2026-03-21T08:53:45.465Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158326",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.465467
+        },
+        {
+          "total": 18,
+          "probability": 0.14416
+        },
+        {
+          "total": 12,
+          "probability": 0.069535
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T08:49:42.419Z",
+      "resolvedAt": "2026-03-21T08:49:42.419Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158325",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.467313
+        },
+        {
+          "total": 18,
+          "probability": 0.144474
+        },
+        {
+          "total": 12,
+          "probability": 0.066266
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:43:38.480Z",
+      "resolvedAt": "2026-03-21T08:43:38.480Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158324",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.46826
+        },
+        {
+          "total": 18,
+          "probability": 0.144503
+        },
+        {
+          "total": 12,
+          "probability": 0.063282
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:37:34.231Z",
+      "resolvedAt": "2026-03-21T08:37:34.231Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158323",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.477145
+        },
+        {
+          "total": 18,
+          "probability": 0.146972
+        },
+        {
+          "total": 12,
+          "probability": 0.060892
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:31:29.652Z",
+      "resolvedAt": "2026-03-21T08:31:29.652Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158322",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.500576
+        },
+        {
+          "total": 18,
+          "probability": 0.153165
+        },
+        {
+          "total": 12,
+          "probability": 0.048708
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:25:22.748Z",
+      "resolvedAt": "2026-03-21T08:25:22.748Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158321",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.482076
+        },
+        {
+          "total": 18,
+          "probability": 0.147922
+        },
+        {
+          "total": 12,
+          "probability": 0.059372
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T08:19:18.612Z",
+      "resolvedAt": "2026-03-21T08:19:18.612Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158320",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.454996
+        },
+        {
+          "total": 18,
+          "probability": 0.139336
+        },
+        {
+          "total": 12,
+          "probability": 0.043823
+        }
+      ],
+      "actualTotal": 3,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T08:13:14.287Z",
+      "resolvedAt": "2026-03-21T08:13:14.287Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158319",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.456918
+        },
+        {
+          "total": 18,
+          "probability": 0.139642
+        },
+        {
+          "total": 12,
+          "probability": 0.043985
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T08:07:06.993Z",
+      "resolvedAt": "2026-03-21T08:07:06.993Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158318",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.477644
+        },
+        {
+          "total": 18,
+          "probability": 0.144982
+        },
+        {
+          "total": 12,
+          "probability": 0.036808
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T08:01:01.872Z",
+      "resolvedAt": "2026-03-21T08:01:01.872Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158317",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.458205
+        },
+        {
+          "total": 18,
+          "probability": 0.139451
+        },
+        {
+          "total": 12,
+          "probability": 0.044776
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:54:57.726Z",
+      "resolvedAt": "2026-03-21T07:54:57.726Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158316",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.478782
+        },
+        {
+          "total": 18,
+          "probability": 0.144709
+        },
+        {
+          "total": 12,
+          "probability": 0.037501
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T07:48:53.860Z",
+      "resolvedAt": "2026-03-21T07:48:53.860Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158315",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.448066
+        },
+        {
+          "total": 18,
+          "probability": 0.135773
+        },
+        {
+          "total": 12,
+          "probability": 0.044567
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:42:47.387Z",
+      "resolvedAt": "2026-03-21T07:42:47.387Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158314",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.455156
+        },
+        {
+          "total": 18,
+          "probability": 0.137611
+        },
+        {
+          "total": 12,
+          "probability": 0.045732
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T07:36:43.340Z",
+      "resolvedAt": "2026-03-21T07:36:43.340Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158313",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.457375
+        },
+        {
+          "total": 18,
+          "probability": 0.137963
+        },
+        {
+          "total": 12,
+          "probability": 0.046467
+        }
+      ],
+      "actualTotal": 4,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:30:26.410Z",
+      "resolvedAt": "2026-03-21T07:30:26.410Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158312",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.458186
+        },
+        {
+          "total": 18,
+          "probability": 0.137883
+        },
+        {
+          "total": 12,
+          "probability": 0.047121
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:26:23.702Z",
+      "resolvedAt": "2026-03-21T07:26:23.702Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158311",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.459288
+        },
+        {
+          "total": 18,
+          "probability": 0.137882
+        },
+        {
+          "total": 12,
+          "probability": 0.047877
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:18:18.131Z",
+      "resolvedAt": "2026-03-21T07:18:18.131Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158310",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.454156
+        },
+        {
+          "total": 18,
+          "probability": 0.136006
+        },
+        {
+          "total": 12,
+          "probability": 0.04806
+        }
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:14:15.523Z",
+      "resolvedAt": "2026-03-21T07:14:15.523Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158309",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.447452
+        },
+        {
+          "total": 18,
+          "probability": 0.133662
+        },
+        {
+          "total": 12,
+          "probability": 0.048156
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T07:08:09.399Z",
+      "resolvedAt": "2026-03-21T07:08:09.399Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158308",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.457474
+        },
+        {
+          "total": 18,
+          "probability": 0.136304
+        },
+        {
+          "total": 12,
+          "probability": 0.046669
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T07:02:02.902Z",
+      "resolvedAt": "2026-03-21T07:02:02.902Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158307",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.463742
+        },
+        {
+          "total": 18,
+          "probability": 0.137808
+        },
+        {
+          "total": 12,
+          "probability": 0.045328
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T06:55:58.318Z",
+      "resolvedAt": "2026-03-21T06:55:58.318Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158306",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.459676
+        },
+        {
+          "total": 18,
+          "probability": 0.136232
+        },
+        {
+          "total": 12,
+          "probability": 0.045552
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T06:49:54.561Z",
+      "resolvedAt": "2026-03-21T06:49:54.561Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158305",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.453509
+        },
+        {
+          "total": 18,
+          "probability": 0.134035
+        },
+        {
+          "total": 12,
+          "probability": 0.042452
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T06:43:50.274Z",
+      "resolvedAt": "2026-03-21T06:43:50.274Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158304",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.461758
+        },
+        {
+          "total": 18,
+          "probability": 0.136088
+        },
+        {
+          "total": 12,
+          "probability": 0.041356
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T06:37:38.456Z",
+      "resolvedAt": "2026-03-21T06:37:38.456Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158303",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.469221
+        },
+        {
+          "total": 18,
+          "probability": 0.137888
+        },
+        {
+          "total": 12,
+          "probability": 0.042347
+        }
+      ],
+      "actualTotal": 16,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T06:31:34.271Z",
+      "resolvedAt": "2026-03-21T06:31:34.271Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158302",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.465687
+        },
+        {
+          "total": 18,
+          "probability": 0.136445
+        },
+        {
+          "total": 12,
+          "probability": 0.042384
+        }
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T06:25:29.807Z",
+      "resolvedAt": "2026-03-21T06:25:29.807Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158301",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.465994
+        },
+        {
+          "total": 18,
+          "probability": 0.136122
+        },
+        {
+          "total": 12,
+          "probability": 0.042812
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T06:19:25.602Z",
+      "resolvedAt": "2026-03-21T06:19:25.602Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158300",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.487526
+        },
+        {
+          "total": 18,
+          "probability": 0.141295
+        },
+        {
+          "total": 12,
+          "probability": 0.035972
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T06:13:19.927Z",
+      "resolvedAt": "2026-03-21T06:13:19.927Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158299",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.468656
+        },
+        {
+          "total": 18,
+          "probability": 0.136042
+        },
+        {
+          "total": 12,
+          "probability": 0.044023
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T06:07:15.886Z",
+      "resolvedAt": "2026-03-21T06:07:15.886Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158298",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.469955
+        },
+        {
+          "total": 18,
+          "probability": 0.135975
+        },
+        {
+          "total": 12,
+          "probability": 0.044735
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T06:01:09.019Z",
+      "resolvedAt": "2026-03-21T06:01:09.019Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158297",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.472228
+        },
+        {
+          "total": 18,
+          "probability": 0.136177
+        },
+        {
+          "total": 12,
+          "probability": 0.042442
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:55:03.676Z",
+      "resolvedAt": "2026-03-21T05:55:03.676Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158296",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.473189
+        },
+        {
+          "total": 18,
+          "probability": 0.135988
+        },
+        {
+          "total": 12,
+          "probability": 0.040428
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T05:48:59.528Z",
+      "resolvedAt": "2026-03-21T05:48:59.528Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158295",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.49597
+        },
+        {
+          "total": 18,
+          "probability": 0.14136
+        },
+        {
+          "total": 12,
+          "probability": 0.033934
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:42:55.615Z",
+      "resolvedAt": "2026-03-21T05:42:55.615Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158294",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.482498
+        },
+        {
+          "total": 18,
+          "probability": 0.137681
+        },
+        {
+          "total": 12,
+          "probability": 0.041893
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:36:51.418Z",
+      "resolvedAt": "2026-03-21T05:36:51.418Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158293",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.478575
+        },
+        {
+          "total": 18,
+          "probability": 0.136058
+        },
+        {
+          "total": 12,
+          "probability": 0.041954
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:30:47.589Z",
+      "resolvedAt": "2026-03-21T05:30:47.589Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158292",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.501128
+        },
+        {
+          "total": 18,
+          "probability": 0.141256
+        },
+        {
+          "total": 12,
+          "probability": 0.035299
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:24:37.749Z",
+      "resolvedAt": "2026-03-21T05:24:37.749Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158291",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.482517
+        },
+        {
+          "total": 18,
+          "probability": 0.136129
+        },
+        {
+          "total": 12,
+          "probability": 0.040457
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:18:33.796Z",
+      "resolvedAt": "2026-03-21T05:18:33.796Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158290",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.510946
+        },
+        {
+          "total": 18,
+          "probability": 0.142893
+        },
+        {
+          "total": 13,
+          "probability": 0.033673
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T05:12:29.924Z",
+      "resolvedAt": "2026-03-21T05:12:29.924Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158289",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.503717
+        },
+        {
+          "total": 18,
+          "probability": 0.140295
+        },
+        {
+          "total": 13,
+          "probability": 0.033987
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:06:25.924Z",
+      "resolvedAt": "2026-03-21T05:06:25.924Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158288",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.478201
+        },
+        {
+          "total": 18,
+          "probability": 0.133262
+        },
+        {
+          "total": 12,
+          "probability": 0.039393
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T05:00:21.854Z",
+      "resolvedAt": "2026-03-21T05:00:21.854Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158287",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.488127
+        },
+        {
+          "total": 18,
+          "probability": 0.135441
+        },
+        {
+          "total": 12,
+          "probability": 0.040383
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T04:54:16.658Z",
+      "resolvedAt": "2026-03-21T04:54:16.658Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158286",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.490005
+        },
+        {
+          "total": 18,
+          "probability": 0.135359
+        },
+        {
+          "total": 12,
+          "probability": 0.040728
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T04:48:10.097Z",
+      "resolvedAt": "2026-03-21T04:48:10.097Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158285",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.511872
+        },
+        {
+          "total": 18,
+          "probability": 0.140085
+        },
+        {
+          "total": 12,
+          "probability": 0.033986
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:44:07.579Z",
+      "resolvedAt": "2026-03-21T04:44:07.579Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158284",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.500943
+        },
+        {
+          "total": 18,
+          "probability": 0.137103
+        },
+        {
+          "total": 12,
+          "probability": 0.042083
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:36:00.616Z",
+      "resolvedAt": "2026-03-21T04:36:00.616Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158283",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.501979
+        },
+        {
+          "total": 18,
+          "probability": 0.136724
+        },
+        {
+          "total": 12,
+          "probability": 0.042426
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:29:56.720Z",
+      "resolvedAt": "2026-03-21T04:29:56.720Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158282",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.503967
+        },
+        {
+          "total": 18,
+          "probability": 0.136584
+        },
+        {
+          "total": 12,
+          "probability": 0.042878
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:25:54.122Z",
+      "resolvedAt": "2026-03-21T04:25:54.122Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158281",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.500584
+        },
+        {
+          "total": 18,
+          "probability": 0.134975
+        },
+        {
+          "total": 12,
+          "probability": 0.042784
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:19:47.389Z",
+      "resolvedAt": "2026-03-21T04:19:47.389Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158280",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.502841
+        },
+        {
+          "total": 18,
+          "probability": 0.13487
+        },
+        {
+          "total": 12,
+          "probability": 0.043317
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:13:41.112Z",
+      "resolvedAt": "2026-03-21T04:13:41.112Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158279",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.50518
+        },
+        {
+          "total": 18,
+          "probability": 0.134763
+        },
+        {
+          "total": 12,
+          "probability": 0.043897
+        }
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T04:07:37.020Z",
+      "resolvedAt": "2026-03-21T04:07:37.020Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158278",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.506666
+        },
+        {
+          "total": 18,
+          "probability": 0.134405
+        },
+        {
+          "total": 12,
+          "probability": 0.044448
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T04:01:32.895Z",
+      "resolvedAt": "2026-03-21T04:01:32.895Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158277",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.509306
+        },
+        {
+          "total": 18,
+          "probability": 0.134328
+        },
+        {
+          "total": 12,
+          "probability": 0.045152
+        }
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T03:55:28.230Z",
+      "resolvedAt": "2026-03-21T03:55:28.230Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158276",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.530803
+        },
+        {
+          "total": 18,
+          "probability": 0.138506
+        },
+        {
+          "total": 12,
+          "probability": 0.037837
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:49:24.228Z",
+      "resolvedAt": "2026-03-21T03:49:24.228Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158275",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.512725
+        },
+        {
+          "total": 18,
+          "probability": 0.133605
+        },
+        {
+          "total": 12,
+          "probability": 0.046583
+        }
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:43:19.113Z",
+      "resolvedAt": "2026-03-21T03:43:19.113Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158274",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.515606
+        },
+        {
+          "total": 18,
+          "probability": 0.133507
+        },
+        {
+          "total": 12,
+          "probability": 0.047522
+        }
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:37:15.109Z",
+      "resolvedAt": "2026-03-21T03:37:15.109Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158273",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.523656
+        },
+        {
+          "total": 18,
+          "probability": 0.134706
+        },
+        {
+          "total": 12,
+          "probability": 0.049043
+        }
+      ],
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "resultHit": true,
+      "createdAt": "2026-03-21T03:31:10.821Z",
+      "resolvedAt": "2026-03-21T03:31:10.821Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158272",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        17,
+        18,
+        12
+      ],
+      "predictedScores": [
+        {
+          "total": 17,
+          "probability": 0.521114
+        },
+        {
+          "total": 18,
+          "probability": 0.133149
+        },
+        {
+          "total": 12,
+          "probability": 0.049689
+        }
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:25:06.178Z",
+      "resolvedAt": "2026-03-21T03:25:06.178Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158271",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.322969
+        },
+        {
+          "total": 12,
+          "probability": 0.104965
+        },
+        {
+          "total": 13,
+          "probability": 0.041578
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:19:01.371Z",
+      "resolvedAt": "2026-03-21T03:19:01.371Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158270",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.301633
+        },
+        {
+          "total": 12,
+          "probability": 0.117708
+        },
+        {
+          "total": 13,
+          "probability": 0.036631
+        }
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:12:57.229Z",
+      "resolvedAt": "2026-03-21T03:12:57.229Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158269",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.301982
+        },
+        {
+          "total": 12,
+          "probability": 0.117752
+        },
+        {
+          "total": 13,
+          "probability": 0.036839
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T03:06:53.310Z",
+      "resolvedAt": "2026-03-21T03:06:53.310Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158268",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.295262
+        },
+        {
+          "total": 12,
+          "probability": 0.110466
+        },
+        {
+          "total": 13,
+          "probability": 0.035924
+        }
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "resultHit": false,
+      "createdAt": "2026-03-21T03:00:48.923Z",
+      "resolvedAt": "2026-03-21T03:00:48.923Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158267",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.296646
+        },
+        {
+          "total": 12,
+          "probability": 0.102674
+        },
+        {
+          "total": 13,
+          "probability": 0.036608
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T02:54:44.876Z",
+      "resolvedAt": "2026-03-21T02:54:44.876Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158266",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.298323
+        },
+        {
+          "total": 12,
+          "probability": 0.094378
+        },
+        {
+          "total": 13,
+          "probability": 0.037023
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T02:48:40.894Z",
+      "resolvedAt": "2026-03-21T02:48:40.894Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158265",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.308987
+        },
+        {
+          "total": 12,
+          "probability": 0.087929
+        },
+        {
+          "total": 13,
+          "probability": 0.038914
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T02:42:33.695Z",
+      "resolvedAt": "2026-03-21T02:42:33.695Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    },
+    {
+      "roundId": "0158264",
+      "predictedResult": "Big",
+      "predictedTotals": [
+        18,
+        12,
+        13
+      ],
+      "predictedScores": [
+        {
+          "total": 18,
+          "probability": 0.330281
+        },
+        {
+          "total": 12,
+          "probability": 0.071618
+        },
+        {
+          "total": 13,
+          "probability": 0.044595
+        }
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": true,
+      "resultHit": true,
+      "createdAt": "2026-03-21T02:36:29.512Z",
+      "resolvedAt": "2026-03-21T02:36:29.512Z",
+      "replayedPrediction": true,
+      "predictionSource": "backfill-replay"
+    }
+  ]
+}

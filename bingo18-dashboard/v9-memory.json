@@ -1,0 +1,1298 @@
+{
+  "updatedAt": "2026-03-22T10:07:52.100Z",
+  "pendingPrediction": {
+    "roundId": "0158499",
+    "predictedTotals": [
+      9,
+      8,
+      13
+    ],
+    "predictedResult": "Small",
+    "strategyId": "lower_core",
+    "strategyLabel": "Lower Core",
+    "createdAt": "2026-03-22T10:07:52.100Z"
+  },
+  "history": [
+    {
+      "roundId": "0158498",
+      "predictedTotals": [
+        11,
+        9,
+        15
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T10:04:21.837Z",
+      "resolvedAt": "2026-03-22T10:06:42.529Z"
+    },
+    {
+      "roundId": "0158497",
+      "predictedTotals": [
+        11,
+        10,
+        15
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T09:57:39.539Z",
+      "resolvedAt": "2026-03-22T10:00:41.873Z"
+    },
+    {
+      "roundId": "0158494",
+      "predictedTotals": [
+        8,
+        12,
+        17
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T09:39:26.083Z",
+      "resolvedAt": "2026-03-22T09:44:20.153Z"
+    },
+    {
+      "roundId": "0158493",
+      "predictedTotals": [
+        9,
+        8,
+        12
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T09:37:40.135Z",
+      "resolvedAt": "2026-03-22T09:38:16.317Z"
+    },
+    {
+      "roundId": "0158492",
+      "predictedTotals": [
+        11,
+        10,
+        5
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T09:31:02.539Z",
+      "resolvedAt": "2026-03-22T09:32:15.868Z"
+    },
+    {
+      "roundId": "0158491",
+      "predictedTotals": [
+        9,
+        13,
+        5
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T09:24:25.492Z",
+      "resolvedAt": "2026-03-22T09:26:06.121Z"
+    },
+    {
+      "roundId": "0158490",
+      "predictedTotals": [
+        11,
+        10,
+        5
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T09:17:47.083Z",
+      "resolvedAt": "2026-03-22T09:19:51.741Z"
+    },
+    {
+      "roundId": "0158489",
+      "predictedTotals": [
+        9,
+        12,
+        16
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T09:11:00.574Z",
+      "resolvedAt": "2026-03-22T09:13:50.970Z"
+    },
+    {
+      "roundId": "0158488",
+      "predictedTotals": [
+        9,
+        8,
+        12
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T09:04:18.996Z",
+      "resolvedAt": "2026-03-22T09:07:50.780Z"
+    },
+    {
+      "roundId": "0158487",
+      "predictedTotals": [
+        9,
+        7,
+        12
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T08:59:23.161Z",
+      "resolvedAt": "2026-03-22T09:01:54.534Z"
+    },
+    {
+      "roundId": "0158486",
+      "predictedTotals": [
+        13,
+        12,
+        14
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "upper_edge",
+      "strategyLabel": "Upper Edge",
+      "createdAt": "2026-03-22T08:52:37.934Z",
+      "resolvedAt": "2026-03-22T08:55:42.601Z"
+    },
+    {
+      "roundId": "0158485",
+      "predictedTotals": [
+        10,
+        13,
+        11
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "dynamic_upper_0158484",
+      "strategyLabel": "Dynamic Upper Sweep",
+      "createdAt": "2026-03-22T08:45:55.423Z",
+      "resolvedAt": "2026-03-22T08:49:30.232Z"
+    },
+    {
+      "roundId": "0158484",
+      "predictedTotals": [
+        13,
+        10,
+        11
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": true,
+      "strategyId": "dynamic_edge_0158481",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T08:37:28.862Z",
+      "resolvedAt": "2026-03-22T08:43:27.289Z"
+    },
+    {
+      "roundId": "0158482",
+      "predictedTotals": [
+        13,
+        10,
+        11
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "dynamic_edge_0158481",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T08:26:09.584Z",
+      "resolvedAt": "2026-03-22T08:31:15.155Z"
+    },
+    {
+      "roundId": "0158481",
+      "predictedTotals": [
+        13,
+        12,
+        14
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "strategyId": "upper_core",
+      "strategyLabel": "Upper Core",
+      "createdAt": "2026-03-22T08:24:57.294Z",
+      "resolvedAt": "2026-03-22T08:25:06.010Z"
+    },
+    {
+      "roundId": "0158480",
+      "predictedTotals": [
+        14,
+        12,
+        13
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": true,
+      "strategyId": "upper_core",
+      "strategyLabel": "Upper Core",
+      "createdAt": "2026-03-22T08:17:00.167Z",
+      "resolvedAt": "2026-03-22T08:19:08.074Z"
+    },
+    {
+      "roundId": "0158479",
+      "predictedTotals": [
+        11,
+        13,
+        12
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T08:10:23.435Z",
+      "resolvedAt": "2026-03-22T08:13:00.617Z"
+    },
+    {
+      "roundId": "0158478",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T08:03:39.550Z",
+      "resolvedAt": "2026-03-22T08:08:54.950Z"
+    },
+    {
+      "roundId": "0158476",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T07:53:40.706Z",
+      "resolvedAt": "2026-03-22T07:56:37.849Z"
+    },
+    {
+      "roundId": "0158475",
+      "predictedTotals": [
+        12,
+        11,
+        13
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T07:48:11.006Z",
+      "resolvedAt": "2026-03-22T07:48:28.471Z"
+    },
+    {
+      "roundId": "0158474",
+      "predictedTotals": [
+        13,
+        12,
+        8
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": true,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T07:41:28.217Z",
+      "resolvedAt": "2026-03-22T07:42:28.860Z"
+    },
+    {
+      "roundId": "0158473",
+      "predictedTotals": [
+        11,
+        10,
+        12
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T07:34:59.194Z",
+      "resolvedAt": "2026-03-22T07:36:22.699Z"
+    },
+    {
+      "roundId": "0158472",
+      "predictedTotals": [
+        11,
+        9,
+        14
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T07:28:04.969Z",
+      "resolvedAt": "2026-03-22T07:30:17.333Z"
+    },
+    {
+      "roundId": "0158471",
+      "predictedTotals": [
+        12,
+        13,
+        10
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T07:21:44.542Z",
+      "resolvedAt": "2026-03-22T07:24:15.596Z"
+    },
+    {
+      "roundId": "0158469",
+      "predictedTotals": [
+        9,
+        11,
+        13
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T07:09:10.064Z",
+      "resolvedAt": "2026-03-22T07:14:09.427Z"
+    },
+    {
+      "roundId": "0158467",
+      "predictedTotals": [
+        11,
+        13,
+        9
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T07:00:51.091Z",
+      "resolvedAt": "2026-03-22T07:01:55.615Z"
+    },
+    {
+      "roundId": "0158466",
+      "predictedTotals": [
+        11,
+        13,
+        10
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T06:54:01.742Z",
+      "resolvedAt": "2026-03-22T06:55:54.523Z"
+    },
+    {
+      "roundId": "0158465",
+      "predictedTotals": [
+        11,
+        9,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "dynamic_edge_0158464",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T06:47:31.798Z",
+      "resolvedAt": "2026-03-22T06:49:59.525Z"
+    },
+    {
+      "roundId": "0158464",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:40:42.594Z",
+      "resolvedAt": "2026-03-22T06:43:33.832Z"
+    },
+    {
+      "roundId": "0158463",
+      "predictedTotals": [
+        11,
+        10,
+        8
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:37:33.464Z",
+      "resolvedAt": "2026-03-22T06:37:34.044Z"
+    },
+    {
+      "roundId": "0158462",
+      "predictedTotals": [
+        11,
+        9,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:27:24.487Z",
+      "resolvedAt": "2026-03-22T06:31:21.224Z"
+    },
+    {
+      "roundId": "0158461",
+      "predictedTotals": [
+        11,
+        9,
+        13
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 4,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "dynamic_edge_0158460",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T06:24:06.634Z",
+      "resolvedAt": "2026-03-22T06:25:10.534Z"
+    },
+    {
+      "roundId": "0158460",
+      "predictedTotals": [
+        11,
+        13,
+        10
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T06:17:24.064Z",
+      "resolvedAt": "2026-03-22T06:19:17.557Z"
+    },
+    {
+      "roundId": "0158459",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:10:41.368Z",
+      "resolvedAt": "2026-03-22T06:12:57.500Z"
+    },
+    {
+      "roundId": "0158458",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:04:51.560Z",
+      "resolvedAt": "2026-03-22T06:06:59.757Z"
+    },
+    {
+      "roundId": "0158457",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T06:00:43.649Z",
+      "resolvedAt": "2026-03-22T06:00:58.950Z"
+    },
+    {
+      "roundId": "0158456",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T05:54:09.699Z",
+      "resolvedAt": "2026-03-22T05:54:51.171Z"
+    },
+    {
+      "roundId": "0158455",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T05:47:21.141Z",
+      "resolvedAt": "2026-03-22T05:48:50.895Z"
+    },
+    {
+      "roundId": "0158454",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T05:40:48.874Z",
+      "resolvedAt": "2026-03-22T05:42:42.339Z"
+    },
+    {
+      "roundId": "0158453",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "dynamic_edge_0158452",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T05:34:24.524Z",
+      "resolvedAt": "2026-03-22T05:36:42.087Z"
+    },
+    {
+      "roundId": "0158449",
+      "predictedTotals": [
+        10,
+        9,
+        12
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T05:11:56.680Z",
+      "resolvedAt": "2026-03-22T05:12:14.044Z"
+    },
+    {
+      "roundId": "0158448",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T05:05:18.655Z",
+      "resolvedAt": "2026-03-22T05:05:57.953Z"
+    },
+    {
+      "roundId": "0158447",
+      "predictedTotals": [
+        10,
+        9,
+        8
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "dynamic_lower_0158446",
+      "strategyLabel": "Dynamic Lower Sweep",
+      "createdAt": "2026-03-22T05:01:56.446Z",
+      "resolvedAt": "2026-03-22T05:02:01.540Z"
+    },
+    {
+      "roundId": "0158446",
+      "predictedTotals": [
+        11,
+        9,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T04:55:14.634Z",
+      "resolvedAt": "2026-03-22T04:55:46.135Z"
+    },
+    {
+      "roundId": "0158445",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T04:47:41.188Z",
+      "resolvedAt": "2026-03-22T04:49:51.527Z"
+    },
+    {
+      "roundId": "0158444",
+      "predictedTotals": [
+        10,
+        9,
+        12
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 16,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "dynamic_edge_0158443",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T04:41:01.742Z",
+      "resolvedAt": "2026-03-22T04:43:39.376Z"
+    },
+    {
+      "roundId": "0158443",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T04:34:24.584Z",
+      "resolvedAt": "2026-03-22T04:37:39.698Z"
+    },
+    {
+      "roundId": "0158442",
+      "predictedTotals": [
+        9,
+        8,
+        10
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T04:31:02.833Z",
+      "resolvedAt": "2026-03-22T04:31:38.553Z"
+    },
+    {
+      "roundId": "0158441",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T04:24:17.822Z",
+      "resolvedAt": "2026-03-22T04:25:25.604Z"
+    },
+    {
+      "roundId": "0158440",
+      "predictedTotals": [
+        11,
+        9,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T04:17:38.051Z",
+      "resolvedAt": "2026-03-22T04:19:25.430Z"
+    },
+    {
+      "roundId": "0158438",
+      "predictedTotals": [
+        9,
+        7,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T04:04:20.617Z",
+      "resolvedAt": "2026-03-22T04:07:12.889Z"
+    },
+    {
+      "roundId": "0158437",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T04:01:01.325Z",
+      "resolvedAt": "2026-03-22T04:01:12.811Z"
+    },
+    {
+      "roundId": "0158436",
+      "predictedTotals": [
+        11,
+        9,
+        14
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T03:54:17.650Z",
+      "resolvedAt": "2026-03-22T03:55:12.740Z"
+    },
+    {
+      "roundId": "0158435",
+      "predictedTotals": [
+        9,
+        8,
+        12
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:47:42.566Z",
+      "resolvedAt": "2026-03-22T03:49:00.284Z"
+    },
+    {
+      "roundId": "0158434",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:41:01.312Z",
+      "resolvedAt": "2026-03-22T03:43:00.105Z"
+    },
+    {
+      "roundId": "0158433",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:34:24.468Z",
+      "resolvedAt": "2026-03-22T03:36:48.346Z"
+    },
+    {
+      "roundId": "0158432",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:27:42.775Z",
+      "resolvedAt": "2026-03-22T03:30:47.765Z"
+    },
+    {
+      "roundId": "0158431",
+      "predictedTotals": [
+        9,
+        11,
+        12
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "dynamic_edge_0158430",
+      "strategyLabel": "Dynamic Edge Follow-up",
+      "createdAt": "2026-03-22T03:23:51.174Z",
+      "resolvedAt": "2026-03-22T03:24:49.101Z"
+    },
+    {
+      "roundId": "0158430",
+      "predictedTotals": [
+        9,
+        8,
+        7
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "temporal_recent50",
+      "strategyLabel": "Temporal Recent50 Mesh",
+      "createdAt": "2026-03-22T03:17:06.406Z",
+      "resolvedAt": "2026-03-22T03:18:37.279Z"
+    },
+    {
+      "roundId": "0158429",
+      "predictedTotals": [
+        8,
+        9,
+        7
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:10:24.520Z",
+      "resolvedAt": "2026-03-22T03:12:36.772Z"
+    },
+    {
+      "roundId": "0158428",
+      "predictedTotals": [
+        8,
+        9,
+        7
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T03:03:42.536Z",
+      "resolvedAt": "2026-03-22T03:06:24.647Z"
+    },
+    {
+      "roundId": "0158427",
+      "predictedTotals": [
+        8,
+        9,
+        7
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T02:57:05.468Z",
+      "resolvedAt": "2026-03-22T03:00:24.871Z"
+    },
+    {
+      "roundId": "0158426",
+      "predictedTotals": [
+        11,
+        9,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T02:53:44.505Z",
+      "resolvedAt": "2026-03-22T02:54:24.325Z"
+    },
+    {
+      "roundId": "0158425",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T02:47:04.956Z",
+      "resolvedAt": "2026-03-22T02:50:12.073Z"
+    },
+    {
+      "roundId": "0158424",
+      "predictedTotals": [
+        8,
+        9,
+        7
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T02:43:47.792Z",
+      "resolvedAt": "2026-03-22T02:44:12.105Z"
+    },
+    {
+      "roundId": "0158423",
+      "predictedTotals": [
+        13,
+        12,
+        11
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T02:33:11.861Z",
+      "resolvedAt": "2026-03-22T02:38:11.280Z"
+    },
+    {
+      "roundId": "0158421",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T02:24:39.199Z",
+      "resolvedAt": "2026-03-22T02:25:54.787Z"
+    },
+    {
+      "roundId": "0158420",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 15,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T02:18:22.607Z",
+      "resolvedAt": "2026-03-22T02:20:05.407Z"
+    },
+    {
+      "roundId": "0158419",
+      "predictedTotals": [
+        11,
+        12,
+        13
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T02:12:41.266Z",
+      "resolvedAt": "2026-03-22T02:13:48.237Z"
+    },
+    {
+      "roundId": "0158418",
+      "predictedTotals": [
+        12,
+        11,
+        13
+      ],
+      "predictedResult": "Big",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_big",
+      "strategyLabel": "Center Big",
+      "createdAt": "2026-03-22T02:05:01.533Z",
+      "resolvedAt": "2026-03-22T02:07:42.876Z"
+    },
+    {
+      "roundId": "0158417",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T02:01:42.841Z",
+      "resolvedAt": "2026-03-22T02:01:42.923Z"
+    },
+    {
+      "roundId": "0158416",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:55:01.312Z",
+      "resolvedAt": "2026-03-22T01:55:31.229Z"
+    },
+    {
+      "roundId": "0158415",
+      "predictedTotals": [
+        9,
+        8,
+        10
+      ],
+      "predictedResult": "Small",
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "lower_core",
+      "strategyLabel": "Lower Core",
+      "createdAt": "2026-03-22T01:48:25.507Z",
+      "resolvedAt": "2026-03-22T01:49:30.053Z"
+    },
+    {
+      "roundId": "0158414",
+      "predictedTotals": [
+        11,
+        10,
+        12
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_draw",
+      "strategyLabel": "Center Draw",
+      "createdAt": "2026-03-22T01:41:41.808Z",
+      "resolvedAt": "2026-03-22T01:43:29.836Z"
+    },
+    {
+      "roundId": "0158413",
+      "predictedTotals": [
+        10,
+        11,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:35:04.322Z",
+      "resolvedAt": "2026-03-22T01:37:19.002Z"
+    },
+    {
+      "roundId": "0158412",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:28:20.843Z",
+      "resolvedAt": "2026-03-22T01:31:17.479Z"
+    },
+    {
+      "roundId": "0158411",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:23:19.310Z",
+      "resolvedAt": "2026-03-22T01:25:10.331Z"
+    },
+    {
+      "roundId": "0158410",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": false,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:16:36.985Z",
+      "resolvedAt": "2026-03-22T01:19:10.025Z"
+    },
+    {
+      "roundId": "0158409",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:09:55.563Z",
+      "resolvedAt": "2026-03-22T01:12:57.905Z"
+    },
+    {
+      "roundId": "0158408",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "predictedResult": "Draw",
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "strategyId": "center_soft",
+      "strategyLabel": "Center Soft",
+      "createdAt": "2026-03-22T01:06:38.967Z",
+      "resolvedAt": "2026-03-22T01:06:57.427Z"
+    }
+  ],
+  "latestRoundId": "0158498"
+}

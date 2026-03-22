@@ -29,6 +29,22 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value))
 }
 
+function buildCenterPressure(roundsDesc, window = 10) {
+  const recent = roundsDesc.slice(0, window)
+  let weightSum = 0
+  let centerScore = 0
+
+  recent.forEach((round, index) => {
+    const total = Number(round?.total)
+    const weight = 1 / (1 + index * 0.22)
+    weightSum += weight
+    if (total === 10 || total === 11) centerScore += weight * 1
+    else if (total === 9 || total === 12) centerScore += weight * 0.55
+  })
+
+  return weightSum > 0 ? centerScore / weightSum : 0
+}
+
 function incrementNestedMap(outer, key, valueKey) {
   if (!outer.has(key)) outer.set(key, new Map())
   const inner = outer.get(key)
@@ -332,6 +348,31 @@ function buildTopTotals(predictedResult, ngramPick, totalTransitions, resultTota
     }))
 }
 
+function selectRecommendedTotals(topTotals, predictedResult, theoryTotals) {
+  if (predictedResult !== 'Draw') return topTotals.slice(0, 3)
+
+  const drawTotals = topTotals.filter((item) => item.result === 'Draw').slice(0, 2)
+  const centerSpillover = THEORY_TOTAL_ORDER
+    .filter((total) => total === 9 || total === 12)
+    .filter((total) => !drawTotals.some((item) => item.total === total))
+    .slice(0, 1)
+    .map((total) => ({
+      total,
+      result: classifyTotal(total),
+      probability: roundNumber(theoryTotals.get(total) || 0),
+      score: roundNumber((theoryTotals.get(total) || 0) * 100),
+      sources: [
+        {
+          source: 'center-spillover',
+          probability: roundNumber(theoryTotals.get(total) || 0),
+          support: 216,
+        },
+      ],
+    }))
+
+  return [...drawTotals, ...centerSpillover].slice(0, 3)
+}
+
 function buildRecentBacktest(roundsDesc, evalRounds = BACKTEST_ROUNDS) {
   const windows = Math.min(evalRounds, Math.max(roundsDesc.length - 320, 0))
   let continuousHits = 0
@@ -415,7 +456,14 @@ export function buildPrediction(rounds, options = {}) {
     markov.transitions,
     empiricalPrior.prior,
   )
-  const resultProbabilities = ngramPick.posterior.map
+  const centerPressure = buildCenterPressure(roundsDesc)
+  const resultProbabilitiesRaw = { ...ngramPick.posterior.map }
+  if (centerPressure >= 0.5) {
+    resultProbabilitiesRaw.Draw += centerPressure * 0.08
+    resultProbabilitiesRaw.Small *= 1 - centerPressure * 0.06
+    resultProbabilitiesRaw.Big *= 1 - centerPressure * 0.06
+  }
+  const resultProbabilities = mapToResultProbabilities(new Map(), resultProbabilitiesRaw, 0).map
   const rankedResults = [...RESULT_ORDER]
     .map((result) => ({
       result,
@@ -539,7 +587,7 @@ export function buildPrediction(rounds, options = {}) {
         decision: shouldBet ? 'BET' : 'SKIP',
         shouldBet,
         recommendedResult: mostLikelyResult,
-        recommendedTotals: topTotals.slice(0, 3),
+        recommendedTotals: selectRecommendedTotals(topTotals, mostLikelyResult, theoryTotals),
         topProbability: roundNumber(topProbability * 100, 4),
         spread: roundNumber(spread * 100, 4),
         drawProbability: roundNumber((resultProbabilities.Draw || 0) * 100, 4),
@@ -562,6 +610,7 @@ export function buildPrediction(rounds, options = {}) {
           `Order: ${ngramPick.n}`,
           `Support: ${ngramPick.posterior.support}`,
           `Top result: ${RESULT_LABEL[mostLikelyResult]} ${roundNumber(topProbability * 100, 2)}%`,
+          `Center pressure: ${roundNumber(centerPressure * 100, 2)}%`,
         ],
         chainInsights,
       },
@@ -581,10 +630,10 @@ export function buildPrediction(rounds, options = {}) {
       recommendedResult: mostLikelyResult,
       highHit: {
         summary: shouldBet
-          ? `Ưu tiên ${RESULT_LABEL[mostLikelyResult]}, tập trung các tổng ${topTotals.slice(0, 3).map((item) => item.total).join(', ')}.`
+          ? `Ưu tiên ${RESULT_LABEL[mostLikelyResult]}, tập trung các tổng ${selectRecommendedTotals(topTotals, mostLikelyResult, theoryTotals).map((item) => item.total).join(', ')}.`
           : 'Markov chưa có lợi thế đủ lớn để dồn lệnh.',
         resultRange: RESULT_LABEL[mostLikelyResult],
-        totals: topTotals.slice(0, 3),
+        totals: selectRecommendedTotals(topTotals, mostLikelyResult, theoryTotals),
         singleFaces: [],
         exactDoubles: [],
       },

@@ -8,6 +8,10 @@ import { buildPrediction as buildPredictionV3 } from './predictor_v3.js'
 import { buildPrediction as buildPredictionV4 } from './predictor_v4.js'
 import { buildPrediction as buildPredictionV5 } from './predictor_v5.js'
 import { buildPrediction as buildPredictionV6 } from './predictor_v6.js'
+import { buildPrediction as buildPredictionV7 } from './predictor_v7.js'
+import { buildPrediction as buildPredictionV8 } from './predictor_v8.js'
+import { buildPrediction as buildPredictionV9 } from './predictor_v9.js'
+import { adaptPredictionPayload } from './prediction_postprocessor.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -83,12 +87,24 @@ function normalizeStoredRounds(store) {
 try {
   const store = readData()
   const rounds = normalizeStoredRounds(store)
-  const v1 = buildPredictionV1(rounds)
-  const v2 = buildPredictionFromBase(v1)
-  const v3 = buildPredictionV3(rounds)
-  const v4 = buildPredictionV4(rounds)
-  const v5 = buildPredictionV5(rounds)
-  const v6 = buildPredictionV6(rounds)
+  const rawV1 = buildPredictionV1(rounds)
+  const rawV2 = buildPredictionFromBase(rawV1)
+  const rawV3 = buildPredictionV3(rounds)
+  const rawV4 = buildPredictionV4(rounds)
+  const rawV5 = buildPredictionV5(rounds)
+  const rawV6 = buildPredictionV6(rounds)
+  const rawV7 = buildPredictionV7(rounds)
+  const rawV8 = buildPredictionV8(rounds)
+  const rawV9 = buildPredictionV9(rounds)
+  const v1 = adaptPredictionPayload(rawV1, rounds, { modelId: 'v1' })
+  const v2 = adaptPredictionPayload(rawV2, rounds, { modelId: 'v2' })
+  const v3 = adaptPredictionPayload(rawV3, rounds, { modelId: 'v3' })
+  const v4 = adaptPredictionPayload(rawV4, rounds, { modelId: 'v4' })
+  const v5 = adaptPredictionPayload(rawV5, rounds, { modelId: 'v5' })
+  const v6 = adaptPredictionPayload(rawV6, rounds, { modelId: 'v6' })
+  const v7 = adaptPredictionPayload(rawV7, rounds, { modelId: 'v7' })
+  const v8 = adaptPredictionPayload(rawV8, rounds, { modelId: 'v8' })
+  const v9 = adaptPredictionPayload(rawV9, rounds, { modelId: 'v9' })
 
   const payload = {
     generatedAt: new Date().toISOString(),
@@ -100,6 +116,9 @@ try {
     v4,
     v5,
     v6,
+    v7,
+    v8,
+    v9,
   }
 
   fs.writeFileSync(SNAPSHOTS_FILE, JSON.stringify(payload), 'utf8')

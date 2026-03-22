@@ -3,25 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bingo18 | Phán quyết OpenAI</title>
+    <title>Bingo18 | AI local/free</title>
     <style>
       :root {
-        --bg: #f0f1f8;
+        --bg: #eef1f8;
         --bg2: #dde2f2;
-        --panel: rgba(255,255,255,.92);
-        --line: rgba(28,34,60,.1);
+        --panel: rgba(255, 255, 255, 0.92);
+        --line: rgba(28, 34, 60, 0.1);
         --text: #1c223c;
         --muted: #6d7392;
         --indigo: #5468d8;
-        --indigo-soft: rgba(84,104,216,.12);
+        --indigo-soft: rgba(84, 104, 216, 0.12);
         --green: #21694b;
-        --green-soft: rgba(33,105,75,.12);
+        --green-soft: rgba(33, 105, 75, 0.12);
+        --red: #a33d4f;
         --amber: #a96f1c;
-        --amber-soft: rgba(169,111,28,.12);
-        --shadow: 0 20px 60px rgba(28,34,60,.12);
+        --amber-soft: rgba(169, 111, 28, 0.12);
+        --shadow: 0 20px 60px rgba(28, 34, 60, 0.12);
       }
+
       * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; padding: 18px; color: var(--text); font-family: "Segoe UI", Tahoma, Arial, sans-serif; background: linear-gradient(180deg, var(--bg), var(--bg2)); }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background: linear-gradient(180deg, var(--bg), var(--bg2));
+      }
       .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
       .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
       .tabs-drawer:hover { transform: translateX(0); }
@@ -37,22 +46,26 @@
       .card { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
       .card-body { padding: 20px; }
       .grid, .double-grid { display: grid; gap: 14px; }
-      .grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
-      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .title { margin: 10px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: .95; letter-spacing: -.04em; }
       .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
       .metric { border: 1px solid rgba(28,34,60,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
-      .metric .value { margin-top: 6px; font-size: 26px; font-weight: 900; }
-      .decision, .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; cursor: pointer; }
-      .decision.bet { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
-      .decision.skip { color: var(--amber); background: var(--amber-soft); border-color: rgba(169,111,28,.2); }
-      .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-      ul { margin: 10px 0 0; padding-left: 18px; color: var(--text); }
-      li { margin: 8px 0; }
+      .metric .value { margin-top: 6px; font-size: 24px; font-weight: 900; }
+      .status-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
+      .status-pill.ready { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
+      .status-pill.warming_up { color: var(--indigo); background: var(--indigo-soft); border-color: rgba(84,104,216,.2); }
+      .status-pill.idle, .status-pill.error { color: var(--amber); background: var(--amber-soft); border-color: rgba(169,111,28,.2); }
       table { width: 100%; border-collapse: collapse; }
       th, td { padding: 12px 10px; border-bottom: 1px solid rgba(28,34,60,.08); text-align: left; font-size: 14px; }
       th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      ul { margin: 10px 0 0; padding-left: 18px; }
+      li { margin: 8px 0; }
+      .pending-wave { display: inline-block; min-width: 40px; height: 10px; border-radius: 999px; background: linear-gradient(90deg, rgba(84,104,216,.18), rgba(84,104,216,.64), rgba(84,104,216,.18)); background-size: 200% 100%; animation: wave 1.2s linear infinite; vertical-align: middle; }
+      .hit { color: var(--green); font-weight: 800; }
+      .miss { color: var(--red); font-weight: 800; }
+      @keyframes wave { from { background-position: 200% 0; } to { background-position: -200% 0; } }
       @media (max-width: 1080px) { .grid, .double-grid { grid-template-columns: 1fr; } }
     </style>
   </head>
@@ -62,165 +75,208 @@
         <div class="tabs-menu">
           <div class="brand-badge">
             <img src="/brand-logo.svg" alt="Bingo18 logo" />
-            <div class="brand-mark"><strong>Bingo18</strong><span>Phán quyết OpenAI</span></div>
+            <div class="brand-mark"><strong>Bingo18</strong><span>AI local/free</span></div>
           </div>
           <a class="tab-link" href="/">Trang chính</a>
           <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link" href="/selective-v9">V9 linh hoạt</a>
           <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
           <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
           <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+          <a class="tab-link active" href="/openai-judge">AI local/free</a>
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
 
       <div class="card"><div class="card-body">
-        <div class="label">LLM bên ngoài</div>
-        <h1 class="title">OpenAI đọc hội đồng rồi đưa phán quyết riêng</h1>
+        <div class="label">AI nội bộ</div>
+        <h1 class="title">AI local/free trạng thái hiện tại</h1>
         <div class="subtitle" id="summaryText">
-          Chế độ này đọc dữ liệu hội đồng V1-V6 AI và 50 kỳ thắng thua gần nhất, rồi để một model OpenAI đánh giá lại
-          cửa sáng hơn, top 3 tổng sáng hơn và mức rủi ro thực tế.
+          Trang này không dùng OpenAI, không cần API key, không có fine-tuning trả phí.
+          Nó chỉ đọc predictor nội bộ và file nhớ cục bộ của AI.
         </div>
-        <div class="toolbar">
-          <div class="decision skip" id="decisionBadge">Đang tải</div>
-          <button class="btn" id="refreshBtn" type="button">Làm mới phán quyết</button>
-        </div>
+        <div class="status-pill idle" id="statusBadge">Đang tải</div>
       </div></div>
 
       <div class="grid">
-        <div class="metric"><div class="label">Cửa phán quyết</div><div class="value" id="resultPick">--</div></div>
-        <div class="metric"><div class="label">Top 3 tổng</div><div class="value" id="totalPicks">--</div></div>
-        <div class="metric"><div class="label">Độ tự tin cửa</div><div class="value" id="resultConfidence">--</div></div>
-        <div class="metric"><div class="label">Độ tự tin tổng</div><div class="value" id="totalConfidence">--</div></div>
+        <div class="metric"><div class="label">Trạng thái</div><div class="value" id="statusValue">--</div></div>
+        <div class="metric"><div class="label">Cửa AI</div><div class="value" id="resultValue">--</div></div>
+        <div class="metric"><div class="label">Top 3 riêng của AI</div><div class="value" id="totalsValue">--</div></div>
+        <div class="metric"><div class="label">Độ tự tin</div><div class="value" id="confidenceValue">--</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Cờ đoán AI</div><div class="value" id="aiBetFlag">--</div></div>
+        <div class="metric"><div class="label">Tỷ lệ trúng AI</div><div class="value" id="aiHitRate">--</div></div>
+        <div class="metric"><div class="label">Xác suất Hòa</div><div class="value" id="drawProbability">--</div></div>
+        <div class="metric"><div class="label">Cụm 10/11</div><div class="value" id="drawTotals">--</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Khi nào cân nhắc Hòa</div><div class="value" id="drawHint">--</div></div>
+        <div class="metric"><div class="label">Phạt lặp cụm</div><div class="value" id="repeatPenalty">--</div></div>
+        <div class="metric"><div class="label">Mẫu đã học</div><div class="value" id="memorySize">--</div></div>
+        <div class="metric"><div class="label">Tỷ lệ trúng nhớ</div><div class="value" id="memoryHitRate">--</div></div>
+        <div class="metric"><div class="label">Tỷ lệ trúng cửa nhớ</div><div class="value" id="resultHitRate">--</div></div>
+        <div class="metric"><div class="label">Kỳ đang chờ chốt</div><div class="value" id="pendingRound">--</div></div>
       </div>
 
       <div class="double-grid">
         <div class="card"><div class="card-body">
-          <div class="label">Lý do chính</div>
-          <ul id="reasonsList"><li>Đang tải...</li></ul>
+          <div class="label">Thông tin hệ thống</div>
+          <table><tbody id="systemTable"></tbody></table>
         </div></div>
         <div class="card"><div class="card-body">
-          <div class="label">Rủi ro cần né</div>
-          <ul id="risksList"><li>Đang tải...</li></ul>
+          <div class="label">Ghi chú</div>
+          <ul id="notesList"></ul>
         </div></div>
       </div>
 
-      <div class="double-grid">
-        <div class="card"><div class="card-body">
-          <div class="label">Tóm tắt đầu vào gửi cho OpenAI</div>
-          <table>
-            <tbody id="inputTable"></tbody>
-          </table>
-        </div></div>
-        <div class="card"><div class="card-body">
-          <div class="label">Trạng thái kết nối</div>
-          <table>
-            <tbody id="statusTable"></tbody>
-          </table>
-        </div></div>
-      </div>
+      <div class="card"><div class="card-body">
+        <div class="label">Đối chiếu tổng sáng giá theo kỳ</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Kỳ</th>
+              <th>Top 3 riêng của AI</th>
+              <th>Tổng thực tế</th>
+              <th>Cửa thực tế</th>
+              <th>Kết quả</th>
+            </tr>
+          </thead>
+          <tbody id="aiRecentChecksTable"></tbody>
+        </table>
+      </div></div>
     </div>
 
     <script>
-      const numberFmt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 })
-      const fmt = (v) => `${numberFmt.format(Number(v || 0))}%`
-      let retryTimer = null
+      const badge = document.getElementById('statusBadge')
+      const summary = document.getElementById('summaryText')
+      const percent = (value) => `${new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(Number(value || 0) * 100)}%`
+      const wave = () => '<span class="pending-wave"></span>'
 
       function setText(id, value) {
         document.getElementById(id).textContent = value
       }
 
-      function renderList(id, items, emptyText) {
-        document.getElementById(id).innerHTML = (items || []).length
+      function renderRows(id, rows) {
+        document.getElementById(id).innerHTML = rows.join('')
+      }
+
+      function renderNotes(items) {
+        document.getElementById('notesList').innerHTML = (items || []).length
           ? items.map((item) => `<li>${item}</li>`).join('')
-          : `<li>${emptyText}</li>`
+          : '<li>Chưa có ghi chú.</li>'
       }
 
-      function renderRows(id, rows, emptyCols, emptyText) {
-        document.getElementById(id).innerHTML = rows.length
-          ? rows.join('')
-          : `<tr><td colspan="${emptyCols}">${emptyText}</td></tr>`
-      }
+      function renderRecentChecks(state) {
+        const pending = state?.aiPendingTotalCheck
+        const history = Array.isArray(state?.aiRecentTotalChecks) ? state.aiRecentTotalChecks : []
+        const lockedIds = new Set(history.map((item) => String(item?.id || '')).filter(Boolean))
+        const currentAiTop3 = (state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || [])
+          .slice(0, 3)
+          .map((item) => Number(item?.total))
+          .filter(Number.isFinite)
+        const rows = []
 
-      async function fetchJudge(forceRefresh = false) {
-        const res = await fetch(`/predict-openai-judge${forceRefresh ? '?refresh=true' : ''}`, { cache: 'no-store' })
-        const payload = await res.json().catch(() => ({}))
-        return { ok: res.ok, status: res.status, payload }
-      }
-
-      function scheduleRetry(message, forceRefresh = false) {
-        if (retryTimer) clearTimeout(retryTimer)
-        document.getElementById('decisionBadge').textContent = 'Đang phân tích'
-        document.getElementById('decisionBadge').className = 'decision skip'
-        setText('summaryText', `${message} Tự tải lại sau 5 giây...`)
-        retryTimer = setTimeout(() => {
-          retryTimer = null
-          load(forceRefresh)
-        }, 5000)
-      }
-
-      async function load(forceRefresh = false) {
-        setText('decisionBadge', 'Đang phân tích')
-        try {
-          const response = await fetchJudge(forceRefresh)
-          if (!response.ok) {
-            if (response.status === 503) {
-              scheduleRetry(
-                response.payload?.message || 'Đang chuẩn bị dữ liệu phân tích AI.',
-                forceRefresh,
-              )
-              return
-            }
-            throw new Error(`HTTP ${response.status}`)
-          }
-
-          const data = response.payload
-          const verdict = data.verdict || {}
-          const input = data.inputSnapshot || {}
-          const configured = Boolean(data.configured)
-          const isOk = Boolean(data.ok)
-
-          document.getElementById('decisionBadge').textContent = isOk ? `${verdict.decision} | ${verdict.result_pick}` : 'SKIP | Chưa sẵn'
-          document.getElementById('decisionBadge').className = `decision ${(isOk && verdict.decision === 'BET') ? 'bet' : 'skip'}`
-          setText('resultPick', verdict.result_pick || '--')
-          setText('totalPicks', (verdict.total_picks || []).join(', ') || '--')
-          setText('resultConfidence', verdict.result_confidence != null ? fmt(verdict.result_confidence) : '--')
-          setText('totalConfidence', verdict.total_confidence != null ? fmt(verdict.total_confidence) : '--')
-          setText('summaryText', verdict.summary || data.message || 'Chưa có phán quyết từ OpenAI.')
-
-          renderList('reasonsList', verdict.reasons, 'Chưa có lý do phân tích.')
-          renderList('risksList', verdict.risks, 'Chưa có rủi ro được ghi nhận.')
-
-          renderRows('inputTable', [
-            `<tr><td>Cửa hội đồng</td><td>${input.council?.resultConsensus || '--'}</td></tr>`,
-            `<tr><td>Tổng hội đồng sáng nhất</td><td>${input.council?.topTotal ?? '--'}</td></tr>`,
-            `<tr><td>Tỷ lệ trúng Top 3 / 50 kỳ</td><td>${input.council?.totalHitRate50 != null ? fmt(input.council.totalHitRate50) : '--'}</td></tr>`,
-            `<tr><td>AI nội bộ V6</td><td>${input.v6ai?.result || '--'} | ${(input.v6ai?.totals || []).map((item) => item.total).join(', ') || '--'}</td></tr>`,
-            `<tr><td>Số model gửi lên</td><td>${(input.council?.models || []).length || 0}</td></tr>`,
-          ], 2, 'Chưa có dữ liệu đầu vào.')
-
-          renderRows('statusTable', [
-            `<tr><td>Provider</td><td>${data.provider || 'openai'}</td></tr>`,
-            `<tr><td>Model</td><td>${data.model || '--'}</td></tr>`,
-            `<tr><td>API key</td><td>${configured ? 'Đã cấu hình' : 'Chưa cấu hình'}</td></tr>`,
-            `<tr><td>Trạng thái</td><td>${isOk ? 'Sẵn sàng' : 'Chưa có phán quyết'}</td></tr>`,
-            `<tr><td>Cập nhật lúc</td><td>${data.createdAt || '--'}</td></tr>`,
-          ], 2, 'Chưa có trạng thái.')
-        } catch (error) {
-          document.getElementById('decisionBadge').textContent = 'SKIP | Lỗi tải'
-          document.getElementById('decisionBadge').className = 'decision skip'
-          setText('summaryText', `Lỗi tải phán quyết OpenAI: ${error.message}`)
-          renderList('reasonsList', [], 'Chưa tải được lý do.')
-          renderList('risksList', [], 'Chưa tải được rủi ro.')
-          renderRows('inputTable', [], 2, 'Chưa có dữ liệu đầu vào.')
-          renderRows('statusTable', [], 2, 'Chưa có trạng thái.')
+        if (pending && !lockedIds.has(String(pending.id || ''))) {
+          rows.push(`
+            <tr>
+              <td>${pending.id || '--'}</td>
+              <td>${(pending.predictedTotals || []).join(', ') || currentAiTop3.join(', ') || '--'}</td>
+              <td>${wave()}</td>
+              <td>${wave()}</td>
+              <td>${wave()}</td>
+            </tr>
+          `)
         }
+
+        history.forEach((item) => {
+          const actualTotal = Number(item?.actualTotal)
+          const hit = item?.hit === true
+          rows.push(`
+            <tr>
+              <td>${item?.id || '--'}</td>
+              <td>${(item?.predictedTotals || []).join(', ') || '--'}</td>
+              <td>${Number.isFinite(actualTotal) ? actualTotal : '--'}</td>
+              <td>${Number.isFinite(actualTotal) ? `${item?.actualResult || '--'} (${actualTotal})` : (item?.actualResult || '--')}</td>
+              <td class="${hit ? 'hit' : 'miss'}">${hit ? 'Trúng' : 'Trượt'}</td>
+            </tr>
+          `)
+        })
+
+        document.getElementById('aiRecentChecksTable').innerHTML = rows.length
+          ? rows.join('')
+          : '<tr><td colspan="5">Chưa có dữ liệu đối chiếu cho AI local/free.</td></tr>'
       }
 
-      document.getElementById('refreshBtn').addEventListener('click', () => {
-        load(true)
-      })
+      function applyState(state) {
+        const status = String(state?.status || 'idle')
+        badge.textContent = status
+        badge.className = `status-pill ${status === 'ready' ? 'ready' : status}`
+        summary.textContent = state?.lastError
+          ? `AI local/free đang ở trạng thái ${status}. Lỗi gần nhất: ${state.lastError}`
+          : `AI local/free đang ở trạng thái ${status}. ${state?.drawConsideration || 'Dữ liệu hiện lấy từ predictor nội bộ.'}`
 
-      load()
+        setText('statusValue', status)
+        setText('resultValue', state?.result || '--')
+        setText('totalsValue', (state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || state?.topTotals || []).map((item) => item.total).join(', ') || '--')
+        setText('confidenceValue', percent(state?.confidence || 0))
+        setText('aiBetFlag', state?.aiBetFlag || state?.decision || '--')
+        setText('aiHitRate', percent(state?.aiHitRate || 0))
+        setText('drawProbability', percent(state?.drawProbability || 0))
+        setText('drawTotals', (state?.drawTopTotals || []).map((item) => item.total).join(', ') || '--')
+        setText('drawHint', state?.drawConsideration || '--')
+        setText('repeatPenalty', percent(state?.adaptiveSignals?.repeatPenalty || 0))
+        setText(
+          'memorySize',
+          state?.memoryHistorySize != null
+            ? `${state?.memorySampleSize ?? '--'}/${state.memoryHistorySize}`
+            : (state?.memorySampleSize ?? '--'),
+        )
+        setText('memoryHitRate', percent(state?.memoryHitRate || 0))
+        setText('resultHitRate', state?.resultEmpiricalHitRate != null ? percent(state.resultEmpiricalHitRate) : '--')
+        setText('pendingRound', state?.pendingPrediction?.roundId || '--')
+
+        renderRows('systemTable', [
+          `<tr><td>Engine</td><td>${state?.engine || '--'}</td></tr>`,
+          `<tr><td>Quyết định</td><td>${state?.decision || '--'}</td></tr>`,
+          `<tr><td>Cờ đoán AI</td><td>${state?.aiBetFlag || '--'}</td></tr>`,
+          `<tr><td>Tỷ lệ trúng AI</td><td>${percent(state?.aiHitRate || 0)}</td></tr>`,
+          `<tr><td>Mẫu live đã khóa</td><td>${state?.liveMemorySampleSize ?? '--'}</td></tr>`,
+          `<tr><td>Mẫu replay/backfill</td><td>${state?.replayMemorySampleSize ?? '--'}</td></tr>`,
+          `<tr><td>Tỷ lệ trúng replay</td><td>${state?.replayHitRate != null ? percent(state.replayHitRate) : '--'}</td></tr>`,
+          `<tr><td>Độ chênh</td><td>${percent(state?.spread || 0)}</td></tr>`,
+          `<tr><td>Cửa hội đồng</td><td>${state?.consensusResult || '--'}</td></tr>`,
+          `<tr><td>Tổng hội đồng sáng nhất</td><td>${state?.consensusTopTotal ?? '--'}</td></tr>`,
+          `<tr><td>Top 3 riêng của AI</td><td>${(state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || []).map((item) => `${item.total} (${item.origin})`).join(', ') || '--'}</td></tr>`,
+          `<tr><td>Tổng số kỳ đang lưu</td><td>${state?.totalRounds ?? '--'}</td></tr>`,
+          `<tr><td>Cập nhật dữ liệu</td><td>${state?.updatedAt || '--'}</td></tr>`,
+          `<tr><td>Top 3 đang chờ chốt</td><td>${(state?.pendingPrediction?.predictedTotals || []).join(', ') || '--'}</td></tr>`,
+          `<tr><td>Startup phase</td><td>${state?.startupPhase || '--'}</td></tr>`,
+          `<tr><td>Cache build</td><td>${state?.cacheBuildState || '--'}</td></tr>`,
+          `<tr><td>Miss streak</td><td>${state?.adaptiveSignals?.missStreak ?? '--'}</td></tr>`,
+          `<tr><td>Repeated cluster misses</td><td>${state?.adaptiveSignals?.repeatedClusterMisses ?? '--'}</td></tr>`,
+          `<tr><td>Draw center miss weight</td><td>${percent(state?.adaptiveSignals?.drawCenterMissWeight || 0)}</td></tr>`,
+        ])
+
+        renderNotes(state?.notes || [])
+        renderRecentChecks(state)
+      }
+
+      async function load() {
+        const res = await fetch('/api/openai-v7/state', { cache: 'no-store' })
+        const payload = await res.json().catch(() => ({}))
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        applyState(payload)
+      }
+
+      load().catch((error) => {
+        badge.textContent = 'lỗi'
+        badge.className = 'status-pill error'
+        summary.textContent = `Lỗi tải AI local/free: ${error.message}`
+      })
+      setInterval(() => load().catch(() => {}), 10000)
     </script>
   </body>
 </html>

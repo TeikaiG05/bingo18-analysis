@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 | V9 Adaptive Ledger</title>
+    <style>
+      :root {
+        --bg: #eef1f8;
+        --bg2: #dde2f2;
+        --panel: rgba(255, 255, 255, 0.92);
+        --line: rgba(28, 34, 60, 0.1);
+        --text: #1c223c;
+        --muted: #6d7392;
+        --indigo: #5468d8;
+        --indigo-soft: rgba(84, 104, 216, 0.12);
+        --shadow: 0 20px 60px rgba(28, 34, 60, 0.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 18px;
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background: linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app {
+        width: min(1480px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: 18px;
+      }
+      .tabs-drawer {
+        position: fixed;
+        top: 18px;
+        left: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: flex-start;
+        transform: translateX(calc(-100% + 54px));
+        transition: transform 0.24s ease;
+      }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 54px;
+        min-height: 54px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+        color: var(--text);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .tabs-menu {
+        display: grid;
+        gap: 10px;
+        min-width: 230px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-left: 0;
+        border-radius: 0 18px 18px 0;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+      }
+      .brand-badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 6px 14px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 4px;
+      }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.76);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .tab-link.active {
+        color: var(--indigo);
+        border-color: rgba(84, 104, 216, 0.22);
+        background: var(--indigo-soft);
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-body { padding: 20px; }
+      .grid, .double-grid {
+        display: grid;
+        gap: 14px;
+      }
+      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .double-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .title {
+        margin: 10px 0 0;
+        font-size: clamp(34px, 5vw, 56px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+      .subtitle {
+        margin-top: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+      .metric {
+        border: 1px solid rgba(28, 34, 60, 0.08);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+        padding: 16px;
+      }
+      .metric .value {
+        margin-top: 6px;
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .pending-row {
+        background: linear-gradient(90deg, rgba(84, 104, 216, 0.08), rgba(84, 104, 216, 0.03), rgba(84, 104, 216, 0.08));
+      }
+      .pending-wave {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #5468d8;
+        font-weight: 700;
+      }
+      .pending-wave::after {
+        content: "";
+        width: 52px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(84, 104, 216, 0.18), rgba(84, 104, 216, 0.85), rgba(84, 104, 216, 0.18));
+        background-size: 180% 100%;
+        animation: waveShift 1.3s linear infinite;
+      }
+      table { width: 100%; border-collapse: collapse; }
+      th, td {
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(28, 34, 60, 0.08);
+        text-align: left;
+        font-size: 14px;
+      }
+      th {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      @keyframes waveShift {
+        0% { background-position: 180% 0; }
+        100% { background-position: -20% 0; }
+      }
+      @media (max-width: 1080px) {
+        .grid, .double-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark"><strong>Bingo18</strong><span>V9 Adaptive Ledger</span></div>
+          </div>
+          <a class="tab-link" href="/">Trang chính</a>
+          <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link active" href="/selective-v9">V9 linh hoạt</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+          <a class="tab-link" href="/openai-judge">AI local/free</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">V9 Adaptive Ledger</div>
+        <h1 class="title">Tự chỉnh sau chuỗi trượt</h1>
+        <div class="subtitle" id="summaryText">Đang tải...</div>
+      </div></div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Cửa</div><div class="value" id="resultValue">--</div></div>
+        <div class="metric"><div class="label">Top 3</div><div class="value" id="totalsValue">--</div></div>
+        <div class="metric"><div class="label">Độ tự tin</div><div class="value" id="confidenceValue">--</div></div>
+        <div class="metric"><div class="label">Quyết định</div><div class="value" id="decisionValue">--</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Chiến lược hiện tại</div><div class="value" id="currentStrategy">--</div></div>
+        <div class="metric"><div class="label">Chiến lược đã chọn</div><div class="value" id="selectedStrategy">--</div></div>
+        <div class="metric"><div class="label">Chuỗi trượt</div><div class="value" id="missStreak">--</div></div>
+        <div class="metric"><div class="label">Mẫu ledger</div><div class="value" id="memorySamples">--</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Kiểm định 2 kỳ</div><div class="value" id="recentValidation">--</div></div>
+        <div class="metric"><div class="label">Dynamic follow-up</div><div class="value" id="dynamicStrategies">--</div></div>
+        <div class="metric"><div class="label">Cửa sổ học</div><div class="value" id="adaptiveWindow">--</div></div>
+        <div class="metric"><div class="label">Hit-rate mô phỏng</div><div class="value" id="simHitRate">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Lý do điều chỉnh</div>
+          <div class="subtitle" id="tuneReason">--</div>
+          <div class="subtitle" id="methodNotes">--</div>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Regime bias gần đây</div>
+          <table><tbody id="regimeTable"></tbody></table>
+        </div></div>
+      </div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">Bảng chiến lược</div>
+        <table>
+          <thead><tr><th>Chiến lược</th><th>Top 3</th><th>Hit-rate</th><th>2 kỳ gần</th><th>Điểm</th></tr></thead>
+          <tbody id="strategyTable"></tbody>
+        </table>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">Tỷ lệ 3..18</div>
+        <div class="subtitle">Hiển thị xác suất hiện tại của từng tổng và điểm cộng cho các tổng hiếm chưa ra gần đây.</div>
+        <table>
+          <thead><tr><th>Tổng</th><th>Cửa</th><th>Xác suất</th><th>Rare bonus</th></tr></thead>
+          <tbody id="distributionTable"></tbody>
+        </table>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">Đối chiếu tổng sáng giá theo kỳ</div>
+        <div class="subtitle" id="recentChecksSummary">V9 nhìn 7 kỳ trước rồi chốt top 3 cho kỳ kế tiếp.</div>
+        <table>
+          <thead><tr><th>Kỳ</th><th>Top 3 hội đồng</th><th>Tổng thực tế</th><th>Cửa thực tế</th><th>Kết quả</th></tr></thead>
+          <tbody id="recentChecksTable"></tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <script>
+      const percent = (value) => `${new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(Number(value || 0) * 100)}%`
+      const number = (value) => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(Number(value || 0))
+      let liveSocket = null
+      let retryTimer = null
+      let pollingTimer = null
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value
+      }
+
+      function scheduleRetry(message) {
+        if (message) setText('summaryText', message)
+        if (retryTimer) return
+        retryTimer = setTimeout(() => {
+          retryTimer = null
+          load().catch(() => {})
+        }, 5000)
+      }
+
+      function setupLiveReload() {
+        if (liveSocket && (liveSocket.readyState === WebSocket.OPEN || liveSocket.readyState === WebSocket.CONNECTING)) return
+        const protocol = location.protocol === 'https:' ? 'wss' : 'ws'
+        liveSocket = new WebSocket(`${protocol}://${location.host}`)
+        liveSocket.addEventListener('message', (event) => {
+          if (String(event.data) === 'updated') load().catch(() => {})
+        })
+        liveSocket.addEventListener('close', () => {
+          liveSocket = null
+          scheduleRetry()
+        })
+        liveSocket.addEventListener('error', () => {
+          try { liveSocket.close() } catch {}
+        })
+        if (!pollingTimer) {
+          pollingTimer = setInterval(() => {
+            load().catch(() => {})
+          }, 6000)
+        }
+      }
+
+      function classifyTotal(total) {
+        const value = Number(total)
+        if (!Number.isFinite(value)) return '--'
+        if (value >= 12) return `Big (${value})`
+        if (value >= 10) return `Draw (${value})`
+        return `Small (${value})`
+      }
+
+      function createPendingRow(nextRoundId, topTotals) {
+        const top3 = (topTotals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'
+        return `
+          <tr class="pending-row">
+            <td>${nextRoundId || 'Kỳ kế tiếp'}</td>
+            <td>${top3}</td>
+            <td><span class="pending-wave">...</span></td>
+            <td><span class="pending-wave">...</span></td>
+            <td><span class="pending-wave">...</span></td>
+          </tr>
+        `
+      }
+
+      function buildDistributionFallback(payload) {
+        const totalsMap = payload?.distributions?.totals || {}
+        const rareBonusMap = payload?.methodology?.adaptive?.rareBonusMap || {}
+        const items = []
+        for (let total = 3; total <= 18; total += 1) {
+          const probability = Number(totalsMap?.[total] ?? totalsMap?.[String(total)] ?? 0)
+          const rareBonus = Number(rareBonusMap?.[total] ?? rareBonusMap?.[String(total)] ?? 0)
+          items.push({
+            total,
+            result: classifyTotal(total).replace(/\s*\(\d+\)$/, ''),
+            probability,
+            rareBonus,
+          })
+        }
+        return items.some((item) => item.probability > 0 || item.rareBonus > 0) ? items : []
+      }
+
+      function applyPayload(payload) {
+        const adaptive = payload?.methodology?.adaptive || {}
+        const diagnosis = payload?.diagnosis || {}
+        const current = payload?.selectiveStrategy?.currentDecision || {}
+        const confidence = diagnosis?.confidenceModel || {}
+        const recs = diagnosis?.recommendations || {}
+        const regimeBias = adaptive?.regimeBias || {}
+        const strategyTable = adaptive?.strategyTable || []
+        const totalDistribution = Array.isArray(diagnosis?.totalDistribution) && diagnosis.totalDistribution.length
+          ? diagnosis.totalDistribution
+          : buildDistributionFallback(payload)
+
+        setText('summaryText', current?.summary || recs?.recommendationText || 'V9 đang đọc ledger đối chiếu tổng sáng giá.')
+        setText('resultValue', diagnosis?.mostLikelyResult || '--')
+        setText('totalsValue', (current?.recommendedTotals || diagnosis?.topTotals || []).slice(0, 3).map((item) => item.total).join(', ') || '--')
+        setText('confidenceValue', percent(confidence?.topProbability || 0))
+        setText('decisionValue', current?.decision || '--')
+        setText('currentStrategy', adaptive?.currentStrategy || '--')
+        setText('selectedStrategy', adaptive?.selectedLabel || adaptive?.selectedStrategy || '--')
+        setText('missStreak', adaptive?.missStreak ?? '--')
+        setText('memorySamples', adaptive?.memorySamples ?? '--')
+        setText('recentValidation', `${payload?.selectiveStrategy?.backtest?.recent2Hits ?? '--'}/${(payload?.selectiveStrategy?.backtest?.recent2Hits ?? 0) + (payload?.selectiveStrategy?.backtest?.recent2Misses ?? 0) || 2}`)
+        setText('dynamicStrategies', (adaptive?.dynamicStrategies || []).map((item) => item.label).join(' | ') || 'Chưa phát sinh')
+        setText('adaptiveWindow', payload?.dataset?.adaptiveWindow || '--')
+        setText('simHitRate', `${number(payload?.selectiveStrategy?.backtest?.totalHitRate || 0)}%`)
+        setText('tuneReason', adaptive?.tuneReason || '--')
+        setText('methodNotes', (recs?.methodNotes || []).join(' | ') || '--')
+
+        document.getElementById('regimeTable').innerHTML = `
+          <tr><td>Trung tâm</td><td>${number(regimeBias?.center || 0)}%</td></tr>
+          <tr><td>Biên trên</td><td>${number(regimeBias?.upper || 0)}%</td></tr>
+          <tr><td>Biên dưới</td><td>${number(regimeBias?.lower || 0)}%</td></tr>
+        `
+
+        document.getElementById('strategyTable').innerHTML = strategyTable.length
+          ? strategyTable.map((item) => `
+              <tr>
+                <td>${item.label}</td>
+                <td>${(item.totals || []).join(', ')}</td>
+                <td>${number(item.hitRate)}%</td>
+                <td>${item.recent2 || '--'}</td>
+                <td>${number(item.score)}%</td>
+              </tr>
+            `).join('')
+          : '<tr><td colspan="5">Chưa có dữ liệu.</td></tr>'
+
+        document.getElementById('distributionTable').innerHTML = totalDistribution.length
+          ? totalDistribution.map((item) => `
+              <tr>
+                <td>${item.total}</td>
+                <td>${item.result}</td>
+                <td>${number((item.probability || 0) * 100)}%</td>
+                <td>${number((item.rareBonus || 0) * 100)}%</td>
+              </tr>
+            `).join('')
+          : '<tr><td colspan="4">Chưa có dữ liệu 3..18.</td></tr>'
+      }
+
+      function applyRecentChecks(v9Payload) {
+        const recentChecks = Array.isArray(v9Payload?.selectiveStrategy?.backtest?.recentTotalChecks)
+          ? v9Payload.selectiveStrategy.backtest.recentTotalChecks
+          : []
+        const pendingRow = createPendingRow(v9Payload?.dataset?.nextRoundId, v9Payload?.diagnosis?.topTotals || [])
+        document.getElementById('recentChecksSummary').textContent = v9Payload?.selectiveStrategy?.backtest?.sampleSize
+          ? `V9 đang dùng đúng ${v9Payload.dataset?.adaptiveWindow || 14} kỳ trước để chọn chiến lược cho kỳ kế tiếp. Nó chỉ ưu tiên chiến lược còn giữ được thế thắng trong 2 kỳ kiểm định gần nhất. Hit-rate hiện tại là ${number(v9Payload.selectiveStrategy.backtest.totalHitRate || 0)}%.`
+          : 'Ledger đang được làm ấm, bảng dưới sẽ tự cập nhật khi có dữ liệu.'
+
+        document.getElementById('recentChecksTable').innerHTML = pendingRow + (recentChecks.length
+          ? recentChecks.map((item) => `
+              <tr>
+                <td>${item.id}</td>
+                <td>${(item.predictedTotals || []).join(', ') || '--'}</td>
+                <td>${item.actualTotal ?? '--'}</td>
+                <td>${classifyTotal(item.actualTotal)}</td>
+                <td>${item.hit ? 'Trúng' : 'Trượt'}</td>
+              </tr>
+            `).join('')
+          : '<tr><td colspan="5">Chưa đủ dữ liệu để đối chiếu theo kỳ.</td></tr>')
+      }
+
+      async function load() {
+        const v9Res = await fetch('/predict-v9', { cache: 'no-store' })
+        const v9Payload = await v9Res.json().catch(() => ({}))
+        if (!v9Res.ok) {
+          scheduleRetry(v9Payload?.message || `V9 đang warm-up (HTTP ${v9Res.status}), tự tải lại sau 5 giây...`)
+          throw new Error(v9Payload?.message || `HTTP ${v9Res.status}`)
+        }
+        applyPayload(v9Payload)
+        applyRecentChecks(v9Payload)
+      }
+
+      load().catch((error) => {
+        setText('summaryText', `Lỗi tải V9: ${error.message}`)
+      })
+      setupLiveReload()
+    </script>
+  </body>
+</html>

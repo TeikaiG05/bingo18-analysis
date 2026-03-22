@@ -65,6 +65,8 @@ function recentContext(roundsDesc) {
   }
 
   const drawCount = recentResults.filter((result) => result === 'Draw').length
+  const centerCount = recentTotals.filter((total) => total >= 9 && total <= 12).length
+  const drawCenterCount = recentTotals.filter((total) => total === 10 || total === 11).length
   const averageTotal =
     recentTotals.reduce((acc, value) => acc + (Number.isFinite(value) ? value : 0), 0) /
     (recentTotals.length || 1)
@@ -76,6 +78,8 @@ function recentContext(roundsDesc) {
     streak,
     flips,
     drawCount,
+    centerCount,
+    drawCenterCount,
     averageTotal: roundNumber(averageTotal),
   }
 }
@@ -277,6 +281,23 @@ export function buildPrediction(rounds, options = {}) {
     })
   }
 
+  const directDrawVotes = modelOutputs.filter((model) => model.recommendedResult === 'Draw').length
+  const centerTopVotes = modelOutputs.reduce((acc, model) => {
+    const topTotal = model.topTotals[0]?.total
+    return acc + (topTotal === 10 || topTotal === 11 ? 1 : 0)
+  }, 0)
+  const drawSpecialistBoost =
+    clamp(context.drawCenterCount / 3, 0, 1) * 0.18 +
+    clamp(context.centerCount / 6, 0, 1) * 0.1 +
+    clamp(directDrawVotes / modelOutputs.length, 0, 1) * 0.16 +
+    clamp(centerTopVotes / modelOutputs.length, 0, 1) * 0.12
+
+  resultScores.Draw += drawSpecialistBoost
+  if (drawSpecialistBoost > 0) {
+    resultScores.Small *= 1 - Math.min(0.09, drawSpecialistBoost * 0.18)
+    resultScores.Big *= 1 - Math.min(0.09, drawSpecialistBoost * 0.18)
+  }
+
   const normalizedResults = normalizeMap(resultScores)
   const rankedResults = RESULT_ORDER
     .map((result) => ({
@@ -293,7 +314,11 @@ export function buildPrediction(rounds, options = {}) {
   const alignedTotalScores = new Map()
   for (const [total, score] of totalScores.entries()) {
     const resultClass = classifyTotal(total)
-    const alignmentMultiplier = resultClass === topResult ? 1.12 : 0.78
+    let alignmentMultiplier = resultClass === topResult ? 1.12 : 0.78
+    if (topResult === 'Draw') {
+      if (total === 10 || total === 11) alignmentMultiplier = 1.32
+      else if (total === 9 || total === 12) alignmentMultiplier = 0.96
+    }
     alignedTotalScores.set(total, score * alignmentMultiplier)
   }
 
@@ -309,7 +334,12 @@ export function buildPrediction(rounds, options = {}) {
     .sort((a, b) => b.probability - a.probability)
     .slice(0, 6)
   const alignedTopTotals = topTotals.filter((item) => item.result === topResult)
-  const recommendedTotals = (alignedTopTotals.length ? alignedTopTotals : topTotals).slice(0, 3)
+  const recommendedTotals = topResult === 'Draw'
+    ? [
+        ...topTotals.filter((item) => item.total === 10 || item.total === 11).slice(0, 2),
+        ...topTotals.filter((item) => item.total === 9 || item.total === 12).slice(0, 1),
+      ].slice(0, 3)
+    : (alignedTopTotals.length ? alignedTopTotals : topTotals).slice(0, 3)
 
   const resultAgreementCount = modelOutputs.filter((model) => model.recommendedResult === topResult).length
   const totalAgreementCount = recommendedTotals[0] ? (totalSources.get(recommendedTotals[0].total) || []).length : 0
@@ -431,6 +461,7 @@ export function buildPrediction(rounds, options = {}) {
           `Result agreement: ${resultAgreementCount}/5`,
           `Top total: ${recommendedTotals[0]?.total ?? '--'} (${totalAgreementCount}/5)`,
           `Second result: ${RESULT_LABEL[secondResult]}`,
+          `Draw specialist boost: ${roundNumber(drawSpecialistBoost * 100, 2)}%`,
         ],
         modelVoices: modelOutputs.map((model) => ({
           id: model.id,

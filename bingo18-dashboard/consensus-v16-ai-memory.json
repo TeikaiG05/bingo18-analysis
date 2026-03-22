@@ -1,99 +1,192 @@
 {
-  "createdAt": "2026-03-21T09:56:37.487Z",
-  "latestRoundId": "0158337",
+  "createdAt": "2026-03-22T10:08:18.110Z",
+  "latestRoundId": "0158498",
   "sampleSize": 7,
-  "totalHitRate": 0.42857142857142855,
-  "recentTotalChecks": [
+  "totalHitRate": 0.2857142857142857,
+  "allTotalChecks": [
     {
-      "id": "0158337",
+      "id": "0158498",
       "predictedTotals": [
-        8,
+        9,
         12,
-        9
-      ],
-      "actualTotal": 12,
-      "actualResult": "Big",
-      "hit": true,
-      "leadTotal": 8,
-      "leadProbability": 47.34
-    },
-    {
-      "id": "0158336",
-      "predictedTotals": [
-        12,
-        13,
-        14
+        8
       ],
       "actualTotal": 14,
       "actualResult": "Big",
-      "hit": true,
-      "leadTotal": 12,
-      "leadProbability": 55.36
-    },
-    {
-      "id": "0158335",
-      "predictedTotals": [
-        12,
-        9,
-        13
-      ],
-      "actualTotal": 7,
-      "actualResult": "Small",
       "hit": false,
-      "leadTotal": 12,
-      "leadProbability": 36.81
+      "leadTotal": 9,
+      "leadProbability": 39.93
     },
     {
-      "id": "0158334",
-      "predictedTotals": [
-        12,
-        13,
-        14
-      ],
-      "actualTotal": 9,
-      "actualResult": "Small",
-      "hit": false,
-      "leadTotal": 12,
-      "leadProbability": 79.56
-    },
-    {
-      "id": "0158333",
-      "predictedTotals": [
-        12,
-        13,
-        14
-      ],
-      "actualTotal": 15,
-      "actualResult": "Big",
-      "hit": false,
-      "leadTotal": 12,
-      "leadProbability": 76.86
-    },
-    {
-      "id": "0158332",
-      "predictedTotals": [
-        12,
-        14,
-        13
-      ],
-      "actualTotal": 13,
-      "actualResult": "Big",
-      "hit": true,
-      "leadTotal": 12,
-      "leadProbability": 68.48
-    },
-    {
-      "id": "0158331",
+      "id": "0158497",
       "predictedTotals": [
         9,
         8,
-        5
+        11
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 65.87
+    },
+    {
+      "id": "0158496",
+      "predictedTotals": [
+        9,
+        11,
+        10
       ],
       "actualTotal": 12,
       "actualResult": "Big",
       "hit": false,
       "leadTotal": 9,
-      "leadProbability": 67.86
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158495",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158494",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "leadTotal": 9,
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158493",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "leadTotal": 9,
+      "leadProbability": 74.19
+    },
+    {
+      "id": "0158492",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 32.94
+    }
+  ],
+  "recentTotalChecks": [
+    {
+      "id": "0158498",
+      "predictedTotals": [
+        9,
+        12,
+        8
+      ],
+      "actualTotal": 14,
+      "actualResult": "Big",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 39.93
+    },
+    {
+      "id": "0158497",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 65.87
+    },
+    {
+      "id": "0158496",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 12,
+      "actualResult": "Big",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158495",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 5,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158494",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 10,
+      "actualResult": "Draw",
+      "hit": true,
+      "leadTotal": 9,
+      "leadProbability": 25.92
+    },
+    {
+      "id": "0158493",
+      "predictedTotals": [
+        9,
+        8,
+        11
+      ],
+      "actualTotal": 8,
+      "actualResult": "Small",
+      "hit": true,
+      "leadTotal": 9,
+      "leadProbability": 74.19
+    },
+    {
+      "id": "0158492",
+      "predictedTotals": [
+        9,
+        11,
+        10
+      ],
+      "actualTotal": 7,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 9,
+      "leadProbability": 32.94
     }
   ]
 }

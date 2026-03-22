@@ -91,15 +91,17 @@
           </div>
           <a class="tab-link" href="/">Trang chính</a>
           <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link" href="/selective-v9">V9 linh hoạt</a>
           <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
           <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
           <a class="tab-link active" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+          <a class="tab-link" href="/openai-judge">AI local/free</a>
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
       <div class="card"><div class="card-body">
         <div class="label">Hội đồng V1-V6 AI</div>
-        <h1 class="title">V1-V5 cùng bàn, V6 AI chốt</h1>
+        <h1 class="title">Hội đồng số, AI meta, V7 Hòa và V8 Regime</h1>
         <div class="subtitle" id="summaryText">Đang tải...</div>
       </div></div>
 
@@ -110,13 +112,27 @@
         <div class="metric"><div class="label">AI V6</div><div class="value" id="aiResult">--</div></div>
       </div>
 
+      <div class="grid">
+        <div class="metric"><div class="label">Xác suất Hòa</div><div class="value" id="drawProbability">--</div></div>
+        <div class="metric"><div class="label">Cụm 10/11</div><div class="value" id="drawCluster">--</div></div>
+        <div class="metric"><div class="label">Regime đồng thuận</div><div class="value" id="regimeConsensus">--</div></div>
+        <div class="metric"><div class="label">Hit-rate cụm</div><div class="value" id="clusterHitRate">--</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="metric"><div class="label">Cân nhắc Hòa</div><div class="value" id="drawHint">--</div></div>
+        <div class="metric"><div class="label">Phạt lặp cụm</div><div class="value" id="repeatPenalty">--</div></div>
+        <div class="metric"><div class="label">Regime đang bị phạt</div><div class="value" id="clusterRegime">--</div></div>
+        <div class="metric"><div class="label">Cụm đang nhớ</div><div class="value" id="clusterKey">--</div></div>
+      </div>
+
       <div class="six-grid" id="modelCards"></div>
 
       <div class="double-grid">
         <div class="card"><div class="card-body">
           <div class="label">Bảng hội đồng</div>
           <table>
-            <thead><tr><th>Mô hình</th><th>Vai trò</th><th>Quyết định</th><th>Cửa</th><th>Tổng</th><th>Tín hiệu</th></tr></thead>
+            <thead><tr><th>Mô hình</th><th>Vai trò</th><th>Regime</th><th>Quyết định</th><th>Cửa</th><th>Tổng</th><th>Tín hiệu</th></tr></thead>
             <tbody id="compareTable"></tbody>
           </table>
         </div></div>
@@ -125,6 +141,24 @@
           <table>
             <thead><tr><th>Tổng</th><th>Xác suất</th><th>Số phiếu</th><th>Mô hình</th></tr></thead>
             <tbody id="totalsTable"></tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Bộ số hay đi sau kỳ trước</div>
+          <div class="subtitle" id="followCombosSummary">Đang tải...</div>
+          <table>
+            <thead><tr><th>Bộ số</th><th>Tần suất</th><th>Xác suất</th></tr></thead>
+            <tbody id="followCombosTable"></tbody>
+          </table>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Tổng hay đi sau kỳ trước</div>
+          <table>
+            <thead><tr><th>Tổng</th><th>Cửa</th><th>Tần suất</th><th>Xác suất</th></tr></thead>
+            <tbody id="followTotalsTable"></tbody>
           </table>
         </div></div>
       </div>
@@ -165,6 +199,7 @@
 
       let retryTimer = null
       let liveSocket = null
+      let pollingTimer = null
 
       async function fetchJson(url) {
         const res = await fetch(url, { cache: 'no-store' })
@@ -220,6 +255,13 @@
         }
       }
 
+      function ensurePolling() {
+        if (pollingTimer) return
+        pollingTimer = setInterval(() => {
+          load().catch(() => {})
+        }, 6000)
+      }
+
       async function load() {
         const response = await fetchJson('/predict-consensus-v16-ai')
         if (!response.ok) {
@@ -237,6 +279,7 @@
         const models = Array.isArray(current.models) ? current.models : []
         const totalList = Array.isArray(current.topTotals) ? current.topTotals : []
         const v6 = models.find((item) => item.name === 'V6') || null
+        const followUpCombos = current.followUpCombos || {}
         const recentChecks = Array.isArray(council?.backtest?.recentTotalChecks)
           ? council.backtest.recentTotalChecks
           : []
@@ -252,18 +295,31 @@
           ? ` Bảng đối chiếu đang dùng ${council.backtest.sampleSize} kỳ gần nhất đã ghi nhớ sẵn.`
           : ''
 
-        document.getElementById('summaryText').textContent = repairMojibakeText(`AI V6 hiện nghiêng về ${v6?.result || '--'} với các tổng ${(v6?.totals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'}.${hitRateText}${pendingText}${memoryText}`)
+        document.getElementById('summaryText').textContent = repairMojibakeText(`AI V6 hiện nghiêng về ${v6?.result || '--'} với các tổng ${(v6?.totals || []).slice(0, 3).map((item) => item.total).join(', ') || '--'}. Regime hội đồng hiện là ${current.regimeConsensus || '--'}. ${council?.current?.drawConsideration || ''}${hitRateText}${pendingText}${memoryText}`)
         document.getElementById('resultConsensus').textContent = repairMojibakeText(current.resultConsensus || '--')
         document.getElementById('topTotal').textContent = current.topTotal ?? '--'
         document.getElementById('topTotalScore').textContent = totalList[0] ? fmt(totalList[0].normalized * 100) : '--'
         document.getElementById('aiResult').textContent = repairMojibakeText(v6?.result || '--')
+        document.getElementById('drawProbability').textContent = fmt(current.drawProbability || 0)
+        document.getElementById('drawCluster').textContent = (current.drawCluster || []).slice(0, 4).map((item) => item.total).join(', ') || '--'
+        document.getElementById('regimeConsensus').textContent = repairMojibakeText(current.regimeConsensus || '--')
+        document.getElementById('clusterHitRate').textContent = current.clusterMemory?.currentClusterHitRate != null ? fmt(current.clusterMemory.currentClusterHitRate * 100) : '--'
+        document.getElementById('drawHint').textContent = repairMojibakeText(current.drawConsideration || '--')
+        document.getElementById('repeatPenalty').textContent = fmt(current.adaptiveSignals?.repeatPenalty || 0)
+        document.getElementById('clusterRegime').textContent = repairMojibakeText(current.clusterMemory?.currentRegime || '--')
+        document.getElementById('clusterKey').textContent = current.clusterMemory?.currentClusterKey || '--'
+        document.getElementById('followCombosSummary').textContent = repairMojibakeText(
+          followUpCombos.support
+            ? `Khi kỳ trước có cùng bộ mặt ${followUpCombos.anchorCanonical || '--'} (không cần đúng vị trí), hệ thống tìm thấy ${followUpCombos.support}/${followUpCombos.totalRounds || 0} mẫu trong lịch sử.`
+            : 'Chưa đủ mẫu trùng bộ số kỳ trước để thống kê tiếp diễn.',
+        )
 
         document.getElementById('modelCards').innerHTML = models.map((model) => `
           <div class="role-card">
             <div class="label">${model.name}</div>
             <strong>${model.result}</strong>
             <div class="role-pill ${model.role.cls}">${model.role.label}</div>
-            <div class="subtitle" style="font-size:12px;">${model.decision} | ${model.totals.slice(0,3).map((item) => item.total).join(', ') || '--'}</div>
+            <div class="subtitle" style="font-size:12px;">${model.decision} | ${model.regime || '--'} | ${model.totals.slice(0,3).map((item) => item.total).join(', ') || '--'}</div>
           </div>
         `).join('')
 
@@ -271,6 +327,7 @@
           <tr>
             <td>${model.name}</td>
             <td>${model.role.label}</td>
+            <td>${model.regime || '--'}</td>
             <td>${model.decision}</td>
             <td>${model.result}</td>
             <td>${model.totals.slice(0,3).map((item) => item.total).join(', ') || '--'}</td>
@@ -286,6 +343,27 @@
             <td>${item.votes.join(', ')}</td>
           </tr>
         `).join('')
+
+        document.getElementById('followCombosTable').innerHTML = (Array.isArray(followUpCombos.topCombos) && followUpCombos.topCombos.length
+          ? followUpCombos.topCombos.map((item) => `
+            <tr>
+              <td>${item.combo}</td>
+              <td>${item.count}</td>
+              <td>${fmt(item.probability)}</td>
+            </tr>
+          `).join('')
+          : '<tr><td colspan="3">Chưa đủ mẫu để thống kê bộ số tiếp diễn.</td></tr>')
+
+        document.getElementById('followTotalsTable').innerHTML = (Array.isArray(followUpCombos.topTotals) && followUpCombos.topTotals.length
+          ? followUpCombos.topTotals.map((item) => `
+            <tr>
+              <td>${item.total}</td>
+              <td>${item.result}</td>
+              <td>${item.count}</td>
+              <td>${fmt(item.probability)}</td>
+            </tr>
+          `).join('')
+          : '<tr><td colspan="4">Chưa đủ mẫu để thống kê tổng tiếp diễn.</td></tr>')
 
         document.getElementById('recentChecksTable').innerHTML = pendingRow + (recentChecks.length
           ? recentChecks.map((item) => `
@@ -306,6 +384,7 @@
 
       repairTree()
       ensureLiveSocket()
+      ensurePolling()
       load().then(() => repairTree()).catch((error) => {
         document.getElementById('summaryText').textContent = repairMojibakeText(`Lỗi tải dữ liệu: ${error.message}`)
         repairTree()

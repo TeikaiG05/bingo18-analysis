@@ -8,6 +8,7 @@ import { buildPrediction as buildPredictionV3 } from './predictor_v3.js'
 import { buildPrediction as buildPredictionV4 } from './predictor_v4.js'
 import { buildPrediction as buildPredictionV5 } from './predictor_v5.js'
 import { buildPrediction as buildPredictionV6 } from './predictor_v6.js'
+import { adaptPredictionPayload } from './prediction_postprocessor.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -212,6 +213,19 @@ function buildConsensusSnapshotFromPredictions(predictions) {
 
 function buildRecentMemory() {
   const roundsDesc = normalizeStoredRounds(readData())
+  let existing = []
+  try {
+    const raw = fs.readFileSync(MEMORY_FILE, 'utf8')
+    const parsed = JSON.parse(raw)
+    existing = Array.isArray(parsed?.allTotalChecks)
+      ? parsed.allTotalChecks
+      : Array.isArray(parsed?.recentTotalChecks)
+        ? parsed.recentTotalChecks
+        : []
+  } catch {
+    existing = []
+  }
+  const existingMap = new Map(existing.map((item) => [String(item?.id || ''), item]))
   const maxEval = Math.max(0, roundsDesc.length - 900)
   const evalRounds = Math.min(7, maxEval)
   const trainWindow = 1800
@@ -220,15 +234,27 @@ function buildRecentMemory() {
 
   for (let offset = evalRounds; offset >= 1; offset -= 1) {
     const actualRound = roundsDesc[offset - 1]
+    const existingItem = existingMap.get(String(actualRound?.id || ''))
+    if (existingItem) {
+      recentTotalChecks.push(existingItem)
+      if (existingItem.hit) totalHits += 1
+      continue
+    }
     const trainRounds = roundsDesc.slice(offset, offset + trainWindow)
     if (!actualRound || trainRounds.length < 900) continue
 
-    const v1 = buildPredictionV1(trainRounds)
-    const v2 = buildPredictionFromBase(v1)
-    const v3 = buildPredictionV3(trainRounds)
-    const v4 = buildPredictionV4(trainRounds)
-    const v5 = buildPredictionV5(trainRounds)
-    const v6 = buildPredictionV6(trainRounds)
+    const rawV1 = buildPredictionV1(trainRounds)
+    const rawV2 = buildPredictionFromBase(rawV1)
+    const rawV3 = buildPredictionV3(trainRounds)
+    const rawV4 = buildPredictionV4(trainRounds)
+    const rawV5 = buildPredictionV5(trainRounds)
+    const rawV6 = buildPredictionV6(trainRounds)
+    const v1 = adaptPredictionPayload(rawV1, trainRounds, { modelId: 'v1' })
+    const v2 = adaptPredictionPayload(rawV2, trainRounds, { modelId: 'v2' })
+    const v3 = adaptPredictionPayload(rawV3, trainRounds, { modelId: 'v3' })
+    const v4 = adaptPredictionPayload(rawV4, trainRounds, { modelId: 'v4' })
+    const v5 = adaptPredictionPayload(rawV5, trainRounds, { modelId: 'v5' })
+    const v6 = adaptPredictionPayload(rawV6, trainRounds, { modelId: 'v6' })
     const snapshot = buildConsensusSnapshotFromPredictions({ v1, v2, v3, v4, v5, v6 })
     const predictedTotals = snapshot.topTotals.slice(0, 3).map((item) => Number(item.total))
     const hit = predictedTotals.includes(Number(actualRound.total))
@@ -247,12 +273,14 @@ function buildRecentMemory() {
     })
   }
 
+  const orderedChecks = recentTotalChecks.slice().reverse()
   return {
     createdAt: new Date().toISOString(),
     latestRoundId: roundsDesc[0]?.id ?? null,
-    sampleSize: recentTotalChecks.length,
-    totalHitRate: recentTotalChecks.length ? totalHits / recentTotalChecks.length : 0,
-    recentTotalChecks: recentTotalChecks.reverse(),
+    sampleSize: orderedChecks.length,
+    totalHitRate: orderedChecks.length ? totalHits / orderedChecks.length : 0,
+    allTotalChecks: orderedChecks,
+    recentTotalChecks: orderedChecks.slice(0, 7),
   }
 }
 
