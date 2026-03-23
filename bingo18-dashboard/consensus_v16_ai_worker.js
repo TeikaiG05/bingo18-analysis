@@ -181,34 +181,83 @@ function buildConsensusSnapshotFromPredictions(predictions) {
   ].map(({ name, payload }) => ({
     ...modelViewFromPayload(name, payload),
     role: roles[name],
+    rawPayload: payload
   }))
 
   const totalScores = new Map()
   const totalVotes = new Map()
+  
+  // Extract Avoidance lists from V1-V3
+  const mergedAvoidance = new Map()
+  for (const model of models.filter(m => ['V1', 'V2', 'V3'].includes(m.name))) {
+    const list = Array.isArray(model.rawPayload?.totalsToAvoid) ? model.rawPayload.totalsToAvoid : []
+    for (const item of list) {
+      if (!mergedAvoidance.has(item.total)) {
+        mergedAvoidance.set(item.total, { ...item, voteCount: 1 })
+      } else {
+        mergedAvoidance.get(item.total).voteCount++
+        if (item.severity === 'HIGH') mergedAvoidance.get(item.total).severity = 'HIGH'
+      }
+    }
+  }
+  const totalsToAvoid = Array.from(mergedAvoidance.values()).sort((a,b) => b.voteCount - a.voteCount)
 
+  const v6Model = models.find(m => m.name === 'V6')
+  const v6Decision = v6Model?.decision === 'BET' ? 'BET' : 'SKIP'
+  
   for (const model of models) {
     model.totals.slice(0, 4).forEach((item, index) => {
       const total = Number(item.total)
       if (!Number.isFinite(total)) return
+      
+      // Strict penalty if total is in HIGH severity avoidance list
+      const avoidance = mergedAvoidance.get(total)
+      if (avoidance && avoidance.severity === 'HIGH') return // Ignore this total completely
+      
       const baseWeight = Math.max(0.02, item.probability)
       const rankWeight = index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.55 : 0.35
-      const modelWeight = model.name === 'V6' ? 1.2 : 1
-      totalScores.set(total, (totalScores.get(total) || 0) + baseWeight * rankWeight * modelWeight)
+      const modelWeight = model.name === 'V6' ? 1.4 : 1
+      
+      // If V6 says SKIP, reduce all V1-V5 weights to prevent Fake Consensus
+      const consensusPenalty = (v6Decision === 'SKIP' && model.name !== 'V6') ? 0.6 : 1
+      
+      totalScores.set(total, (totalScores.get(total) || 0) + baseWeight * rankWeight * modelWeight * consensusPenalty)
       if (!totalVotes.has(total)) totalVotes.set(total, [])
       totalVotes.get(total).push(model.name)
     })
   }
 
   const totalDenominator = Array.from(totalScores.values()).reduce((sum, value) => sum + value, 0) || 1
-  const topTotals = Array.from(totalScores.entries())
+  let topTotals = Array.from(totalScores.entries())
     .map(([total, score]) => ({
-      total,
+      total: Number(total),
       normalized: score / totalDenominator,
       votes: totalVotes.get(total) || [],
     }))
     .sort((a, b) => b.normalized - a.normalized)
+    
+  // Post-Council Diversity Rule: Top 3 must not be entirely Central numbers
+  const top3 = topTotals.slice(0, 3)
+  const allCenters = top3.every(t => t.total >= 9 && t.total <= 12)
+  if (allCenters && topTotals.length > 3) {
+    const edgeIndex = topTotals.findIndex(t => t.total <= 8 || t.total >= 13)
+    if (edgeIndex > 0) {
+      // Swap the 3rd center with the highest ranked edge
+      const temp = topTotals[2]
+      topTotals[2] = topTotals[edgeIndex]
+      topTotals[edgeIndex] = temp
+      // Re-sort after slice(3) to keep others in order
+      const remaining = topTotals.slice(3).sort((a,b) => b.normalized - a.normalized)
+      topTotals = [...topTotals.slice(0,3), ...remaining]
+    }
+  }
 
-  return { models, topTotals }
+  return { 
+    models, 
+    topTotals, 
+    totalsToAvoid,
+    councilDecision: v6Decision === 'BET' ? 'BET' : 'ABSTAIN_VETO' 
+  }
 }
 
 function buildRecentMemory() {
@@ -266,10 +315,12 @@ function buildRecentMemory() {
       actualTotal: Number(actualRound.total),
       actualResult: actualRound.result,
       hit,
+      councilDecision: snapshot.councilDecision,
       leadTotal: snapshot.topTotals[0]?.total ?? null,
       leadProbability: snapshot.topTotals[0]
         ? Number((snapshot.topTotals[0].normalized * 100).toFixed(2))
         : 0,
+      totalsToAvoid: snapshot.totalsToAvoid,
     })
   }
 

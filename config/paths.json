@@ -1,0 +1,17 @@
+{
+  "source": {
+    "history_csv": "../bingo18.csv",
+    "analysis_report": "../bingo18_analysis_report.md",
+    "prediction_log": "../bingo18_prediction_log.csv",
+    "model_state": "../bingo18_model_state.json",
+    "legacy_predictor": "../bingo18_predictor.py"
+  },
+  "runtime": {
+    "history_csv": "data/runtime/bingo18_history.csv",
+    "prediction_log": "data/runtime/bingo18_prediction_log.csv",
+    "model_state": "data/runtime/bingo18_model_state.json",
+    "analysis_report": "data/source/bingo18_analysis_report.md",
+    "legacy_predictor": "data/source/bingo18_predictor.py",
+    "backups_dir": "backups"
+  }
+}

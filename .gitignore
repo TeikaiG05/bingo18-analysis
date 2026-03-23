@@ -315,6 +315,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+.pytest_cache/
+.streamlit/
+.venv/
+venv/
+data/runtime/*
+!data/runtime/.gitkeep
+backups/*
+!backups/.gitkeep
 
 # Cake - Uncomment if you are using it
 # tools/**

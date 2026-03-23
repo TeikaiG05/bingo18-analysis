@@ -1,81 +1,298 @@
 <!doctype html>
 <html lang="vi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bingo18 | AI local/free</title>
-    <style>
-      :root {
-        --bg: #eef1f8;
-        --bg2: #dde2f2;
-        --panel: rgba(255, 255, 255, 0.92);
-        --line: rgba(28, 34, 60, 0.1);
-        --text: #1c223c;
-        --muted: #6d7392;
-        --indigo: #5468d8;
-        --indigo-soft: rgba(84, 104, 216, 0.12);
-        --green: #21694b;
-        --green-soft: rgba(33, 105, 75, 0.12);
-        --red: #a33d4f;
-        --amber: #a96f1c;
-        --amber-soft: rgba(169, 111, 28, 0.12);
-        --shadow: 0 20px 60px rgba(28, 34, 60, 0.12);
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bingo18 | AI LOCAL (Self-Learning)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #0f172a;
+      --bg-gradient-end: #1e1b4b;
+      --glass-bg: rgba(30, 41, 59, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-glow: #6366f1;
+      --accent-glow-subtle: rgba(99, 102, 241, 0.2);
+      
+      --success: #10b981;
+      --success-subtle: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --danger-subtle: rgba(239, 68, 68, 0.15);
+      --warning: #f59e0b;
+      --warning-subtle: rgba(245, 158, 11, 0.15);
+    }
 
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        padding: 18px;
-        color: var(--text);
-        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-        background: linear-gradient(180deg, var(--bg), var(--bg2));
-      }
-      .app { width: min(1480px, 100%); margin: 0 auto; display: grid; gap: 18px; }
-      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
-      .tabs-drawer:hover { transform: translateX(0); }
-      .tabs-handle { display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
-      .tabs-menu { display: grid; gap: 10px; min-width: 230px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,.92); box-shadow: var(--shadow); }
-      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
-      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; }
-      .brand-mark { display: grid; gap: 2px; }
-      .brand-mark strong { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
-      .brand-mark span { font-size: 11px; color: var(--muted); }
-      .tab-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; }
-      .tab-link.active { color: var(--indigo); border-color: rgba(84,104,216,.22); background: var(--indigo-soft); }
-      .card { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
-      .card-body { padding: 20px; }
-      .grid, .double-grid { display: grid; gap: 14px; }
-      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .double-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-      .title { margin: 10px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: .95; letter-spacing: -.04em; }
-      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
-      .metric { border: 1px solid rgba(28,34,60,.08); border-radius: 18px; background: rgba(255,255,255,.72); padding: 16px; }
-      .metric .value { margin-top: 6px; font-size: 24px; font-weight: 900; }
-      .status-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
-      .status-pill.ready { color: var(--green); background: var(--green-soft); border-color: rgba(33,105,75,.2); }
-      .status-pill.warming_up { color: var(--indigo); background: var(--indigo-soft); border-color: rgba(84,104,216,.2); }
-      .status-pill.idle, .status-pill.error { color: var(--amber); background: var(--amber-soft); border-color: rgba(169,111,28,.2); }
-      table { width: 100%; border-collapse: collapse; }
-      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(28,34,60,.08); text-align: left; font-size: 14px; }
-      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-      ul { margin: 10px 0 0; padding-left: 18px; }
-      li { margin: 8px 0; }
-      .pending-wave { display: inline-block; min-width: 40px; height: 10px; border-radius: 999px; background: linear-gradient(90deg, rgba(84,104,216,.18), rgba(84,104,216,.64), rgba(84,104,216,.18)); background-size: 200% 100%; animation: wave 1.2s linear infinite; vertical-align: middle; }
-      .hit { color: var(--green); font-weight: 800; }
-      .miss { color: var(--red); font-weight: 800; }
-      @keyframes wave { from { background-position: 200% 0; } to { background-position: -200% 0; } }
-      @media (max-width: 1080px) { .grid, .double-grid { grid-template-columns: 1fr; } }
-    </style>
-  </head>
-  <body>
-    <div class="app">
-      <div class="tabs-drawer">
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient animated background blobs */
+    .ambient-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: float 20s infinite alternate linear;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(99, 102, 241, 0.3); }
+    .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: rgba(79, 70, 229, 0.2); animation-delay: -10s; }
+    .blob-3 { top: 40%; left: 60%; width: 30vw; height: 30vw; background: rgba(168, 85, 247, 0.2); animation-direction: alternate-reverse; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(10%, 15%) scale(1.1); }
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: grid;
+      gap: 24px;
+      /* grid-template-columns: 280px 1fr; */
+    }
+
+    /* Glassmorphism sidebar */
+    .sidebar {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 24px;
+      height: fit-content;
+      box-shadow: var(--glass-shadow);
+      position: sticky;
+      top: 30px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .brand img { width: 48px; border-radius: 12px; box-shadow: 0 0 15px var(--accent-glow-subtle); }
+    .brand-title { font-size: 1.25rem; font-weight: 800; background: linear-gradient(to right, #fff, #c7d2fe); -webkit-background-clip: text; color: transparent; }
+    .brand-subtitle { font-size: 0.75rem; color: var(--accent-glow); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+    .nav-links { display: grid; gap: 8px; }
+    .nav-link {
+      display: flex; align-items: center; padding: 12px 16px; border-radius: 12px;
+      color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      transition: all 0.2s ease; border: 1px solid transparent;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--text-main); }
+    .nav-link.active {
+      background: var(--accent-glow-subtle); color: #fff;
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Main Content Area */
+    .main-content { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-glow {
+      position: absolute; top: 0; left: 20%; width: 60%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::before { content: ''; width: 8px; height: 8px; background: var(--accent-glow); border-radius: 50%; box-shadow: 0 0 10px var(--accent-glow); }
+
+    /* Hero Metrics */
+    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .metric-card {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .metric-val { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .metric-val.result-highlight { color: var(--success); text-shadow: 0 0 20px var(--success-subtle); }
+
+    /* Weights Visualizer */
+    .weights-container { display: grid; gap: 16px; margin-top: 10px; }
+    .weight-row { display: grid; grid-template-columns: 140px 1fr 50px; align-items: center; gap: 12px; }
+    .weight-name { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; }
+    .weight-bar-bg { height: 8px; background: rgba(0,0,0,0.3); border-radius: 99px; overflow: hidden; }
+    .weight-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent-glow), #a855f7); width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    .weight-value { font-size: 0.8rem; font-variant-numeric: tabular-nums; text-align: right; color: var(--text-muted); }
+
+    /* Tables */
+    .table-container { width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 600px; }
+    th { text-align: left; padding: 12px 16px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); }
+    td { padding: 16px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    tr:last-child td { border-bottom: none; }
+    
+    .status-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    }
+    .status-hit { background: var(--success-subtle); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-miss { background: var(--danger-subtle); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-pending { background: var(--warning-subtle); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); animation: pulse 2s infinite; }
+
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+    .notes-list { list-style: none; display: grid; gap: 10px; }
+    .notes-list li { position: relative; padding-left: 20px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; }
+    .notes-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent-glow); font-weight: bold; }
+
+    @media (max-width: 1024px) {
+      .app-container { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: flex; flex-direction: column; gap: 16px; padding: 16px; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+      .nav-link { padding: 8px 12px; font-size: 0.8rem; }
+    }
+  
+:root[data-theme="light"] {
+  --bg: #ecf2f6; --bg2: #dfe8ef; 
+  --panel: rgba(255,255,255,.78); --panel2: rgba(255,255,255,.92);
+  --line: rgba(16,32,51,.1); --line2: rgba(16,32,51,.18); 
+  --text: #102033; --muted: #62768c;
+  --teal: #0d7a85; --teal-soft: rgba(13,122,133,.12); 
+  --amber: #c46c20; --amber-soft: rgba(196,108,32,.12);
+  --danger: #be465f; --shadow: 0 20px 60px rgba(17,35,54,.12);
+}
+
+[data-theme="light"] .ambient-blob { display: none; }
+[data-theme="light"] body::before {
+   background-image:
+     linear-gradient(rgba(16,32,51,.03) 1px, transparent 1px),
+     linear-gradient(90deg, rgba(16,32,51,.03) 1px, transparent 1px);
+}
+[data-theme="light"] .tabs-menu, 
+[data-theme="light"] .tabs-handle { background: rgba(255,255,255,0.9); border: 1px solid var(--line) !important; filter: none !important; backdrop-filter: none !important; }
+[data-theme="light"] .card, 
+[data-theme="light"] .bet-card { background: linear-gradient(180deg, var(--panel2), var(--panel)); backdrop-filter: blur(18px); }
+[data-theme="light"] .card::after, [data-theme="light"] .bet-card::after { background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 30%, transparent 70%, rgba(13,122,133,.06)); }
+[data-theme="light"] .item, 
+[data-theme="light"] .round-item, 
+[data-theme="light"] .kpi, 
+[data-theme="light"] .stat-box, 
+[data-theme="light"] .hero-metric, 
+[data-theme="light"] .prediction-focus, 
+[data-theme="light"] .dice-panel, 
+[data-theme="light"] .result-panel, 
+[data-theme="light"] .summary-panel, 
+[data-theme="light"] .analysis-panel, 
+[data-theme="light"] .bet-hero { background: rgba(255,255,255,0.62); border: 1px solid rgba(16,32,51,0.08); backdrop-filter: blur(14px); }
+[data-theme="light"] .pill, 
+[data-theme="light"] .rule-pill, 
+[data-theme="light"] .mini-link, 
+[data-theme="light"] .status-pill { background: rgba(255,255,255,0.66); color: var(--text); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link {  color: var(--text-muted); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link:hover { border-color: var(--line2); background: rgba(255,255,255,0.9); color: var(--text); }
+[data-theme="light"] .tab-link.active { color: var(--teal); border-color: rgba(13,122,133,.2); background: var(--teal-soft); box-shadow: none; }
+[data-theme="light"] .brand-badge img { box-shadow: 0 10px 24px rgba(17,35,54,.14); }
+[data-theme="light"] .brand-mark strong { background: none; -webkit-background-clip: unset; color: var(--text); }
+[data-theme="light"] .die { color: #13324d; border: 1px solid rgba(13,122,133,0.16); background: radial-gradient(circle at 25% 20%, rgba(255,255,255,0.95), transparent 28%), linear-gradient(145deg, rgba(13,122,133,0.12), rgba(196,108,32,0.12)), #fff; }
+
+
+
+    
+:root[data-theme="light"] {
+  --bg-gradient-start: #f8fafc; --bg-gradient-end: #e2e8f0;
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(16, 32, 51, 0.1);
+  --text-main: #102033; --text-muted: #62768c;
+  --glass-shadow: 0 10px 30px rgba(17,35,54,0.08);
+  --accent-glow: #0ea5e9;
+  --panel2: rgba(241, 245, 249, 0.9);
+}
+[data-theme="light"] .ambient-blob { display: none; }
+[data-theme="light"] body { background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); }
+[data-theme="light"] .metric-card { background: rgba(255,255,255,0.6); border: 1px solid rgba(16,32,51,0.1); }
+[data-theme="light"] .weight-name { color: #102033; }
+[data-theme="light"] th { color: #62768c; }
+[data-theme="light"] .notes-list li { color: #102033; }
+[data-theme="light"] td { color: #102033; }
+[data-theme="light"] #lblTopTotals { color: #102033 !important; }
+[data-theme="light"] .nav-link:not(.active) { color: #62768c; }
+[data-theme="light"] .brand-title { background: none; -webkit-background-clip: unset; color: var(--text-main); }
+     
+    
+    .tabs-drawer {
+      position: fixed;
+      top: 18px;
+      left: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: flex-start;
+      transform: translateX(calc(-100% + 54px));
+      transition: transform 0.24s ease;
+    }
+    .tabs-drawer:hover { transform: translateX(0); }
+    .tabs-handle {
+      background: rgba(15,23,42,0.7); backdrop-filter: blur(16px);
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 54px; min-height: 54px; border: 1px solid var(--glass-border); border-left: 0; border-radius: 0 18px 18px 0;
+      background: rgba(255,255,255,0.06); box-shadow: var(--glass-shadow);
+      color: var(--text-main); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed;
+    }
+    .tabs-menu {
+      background: rgba(15,23,42,0.7); backdrop-filter: blur(16px); display: grid; gap: 10px; min-width: 220px; padding: 12px;
+      border: 1px solid var(--glass-border); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,0.06); box-shadow: var(--glass-shadow);
+    }
+    .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--glass-border); margin-bottom: 4px; }
+    .brand-badge img { width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.4); }
+    .brand-mark { display: grid; gap: 2px; }
+    .brand-mark strong { background: linear-gradient(to right, #fff, var(--accent-glow)); -webkit-background-clip: text; color: transparent; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    .brand-mark span { font-size: 11px; color: var(--text-muted); }
+    .tab-link { background: rgba(255,255,255,0.05); border-color: transparent; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--glass-border); color: var(--text-main); text-decoration: none; font-size: 12px; font-weight: 800; }
+    .tab-link:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.1); transform: translateY(-1px); }
+    .tab-link.active { background: var(--accent-glow-subtle); color: #fff; border-color: rgba(99, 102, 241, 0.4); box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.1); }
+
+</style>
+</head>
+<body>
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
+
+  <div class="app-container">
+    <div class="tabs-drawer">
         <div class="tabs-menu">
           <div class="brand-badge">
             <img src="/brand-logo.svg" alt="Bingo18 logo" />
-            <div class="brand-mark"><strong>Bingo18</strong><span>AI local/free</span></div>
+            <div class="brand-mark">
+              <strong>Bingo18</strong>
+              <span>Điều hướng chẩn đoán</span>
+            </div>
           </div>
           <a class="tab-link" href="/">Trang chính</a>
           <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
@@ -84,199 +301,231 @@
           <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
           <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
           <a class="tab-link active" href="/openai-judge">AI local/free</a>
+          <a class="tab-link" href="/bingo18-top3">Top 3 xúc xắc</a>
+
+<button id="themeToggleBtn" style="margin-top:20px; width:100%; border-radius:12px; border:1px solid var(--line); background:var(--panel2); color:var(--text); padding:12px; cursor:pointer; font-family:inherit; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; transition: all 0.2s;">
+  <span id="themeIcon">☀️</span> <span>Giao diện Sáng/Tối</span>
+</button>
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('bingo_theme') || 'dark';
+    if(savedTheme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('themeToggleBtn');
+      const icon = document.getElementById('themeIcon');
+      if (savedTheme === 'light') icon.textContent = '🌙';
+      if(btn) {
+        btn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || 'dark';
+          const next = current === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('bingo_theme', next);
+          icon.textContent = next === 'light' ? '🌙' : '☀️';
+        });
+      }
+    });
+  })();
+</script>
+
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
 
-      <div class="card"><div class="card-body">
-        <div class="label">AI nội bộ</div>
-        <h1 class="title">AI local/free trạng thái hiện tại</h1>
-        <div class="subtitle" id="summaryText">
-          Trang này không dùng OpenAI, không cần API key, không có fine-tuning trả phí.
-          Nó chỉ đọc predictor nội bộ và file nhớ cục bộ của AI.
+    <main class="main-content">
+      <div class="glass-panel">
+        <div class="panel-glow"></div>
+        <div class="section-title">Nhận định AI Tự Học Hiện Tại</div>
+        <div class="hero-grid">
+          <div class="metric-card">
+            <span class="metric-label">Cửa Khuyên Đánh</span>
+            <span class="metric-val result-highlight" id="lblResult">--</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Tự tin</span>
+            <span class="metric-val" id="lblConfidence">--</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Top 3 Tổng</span>
+            <span class="metric-val" id="lblTopTotals" style="font-size: 1.5rem; color: #fff;">--</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Xác suất Hòa</span>
+            <span class="metric-val" id="lblDrawProb" style="color: var(--warning); font-size: 1.5rem;">--</span>
+          </div>
         </div>
-        <div class="status-pill idle" id="statusBadge">Đang tải</div>
-      </div></div>
-
-      <div class="grid">
-        <div class="metric"><div class="label">Trạng thái</div><div class="value" id="statusValue">--</div></div>
-        <div class="metric"><div class="label">Cửa AI</div><div class="value" id="resultValue">--</div></div>
-        <div class="metric"><div class="label">Top 3 riêng của AI</div><div class="value" id="totalsValue">--</div></div>
-        <div class="metric"><div class="label">Độ tự tin</div><div class="value" id="confidenceValue">--</div></div>
+        <div style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem; font-style: italic;" id="lblConsideration">Đang chờ dữ liệu...</div>
       </div>
 
-      <div class="grid">
-        <div class="metric"><div class="label">Cờ đoán AI</div><div class="value" id="aiBetFlag">--</div></div>
-        <div class="metric"><div class="label">Tỷ lệ trúng AI</div><div class="value" id="aiHitRate">--</div></div>
-        <div class="metric"><div class="label">Xác suất Hòa</div><div class="value" id="drawProbability">--</div></div>
-        <div class="metric"><div class="label">Cụm 10/11</div><div class="value" id="drawTotals">--</div></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;">
+        <div class="glass-panel">
+          <div class="panel-glow"></div>
+          <div class="section-title">Trọng số Tự Học (Feature Weights)</div>
+          <div style="margin-bottom: 16px; font-size: 0.8rem; color: var(--text-muted);">
+            AI quét kết quả quá khứ để tự chấm điểm độ chính xác của từng tiêu chí (tổng % = 100%). Tiêu chí nào dự đoán đúng nhiều sẽ được tăng trọng số cho kỳ tới.
+          </div>
+          <div class="weights-container" id="weightsContainer">
+            <!-- Dynamic weight bars injected here -->
+          </div>
+        </div>
+
+        <div class="glass-panel">
+          <div class="panel-glow"></div>
+          <div class="section-title">Thông tin Engine</div>
+          <div class="notes-list" id="notesList" style="margin-bottom: 24px;"></div>
+          
+          <div class="hero-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="metric-card">
+              <span class="metric-label">Tỷ lệ Trúng AI</span>
+              <span class="metric-val" id="lblAiHitRate" style="font-size: 1.25rem;">--</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Chuỗi Thua (Miss Streak)</span>
+              <span class="metric-val" id="lblMissStreak" style="font-size: 1.25rem; color: var(--warning);">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">File học / Bộ nhớ</span>
+              <span class="metric-val" id="lblMemorySize" style="font-size: 1.25rem;">--</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="grid">
-        <div class="metric"><div class="label">Khi nào cân nhắc Hòa</div><div class="value" id="drawHint">--</div></div>
-        <div class="metric"><div class="label">Phạt lặp cụm</div><div class="value" id="repeatPenalty">--</div></div>
-        <div class="metric"><div class="label">Mẫu đã học</div><div class="value" id="memorySize">--</div></div>
-        <div class="metric"><div class="label">Tỷ lệ trúng nhớ</div><div class="value" id="memoryHitRate">--</div></div>
-        <div class="metric"><div class="label">Tỷ lệ trúng cửa nhớ</div><div class="value" id="resultHitRate">--</div></div>
-        <div class="metric"><div class="label">Kỳ đang chờ chốt</div><div class="value" id="pendingRound">--</div></div>
+      <div class="glass-panel">
+        <div class="panel-glow"></div>
+        <div class="section-title">Lịch sử Đối chiếu (Top 3)</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Kỳ</th>
+                <th>Dự đoán AI (Top 3)</th>
+                <th>Tổng Thực Tế</th>
+                <th>Cửa Thực Tế</th>
+                <th>Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <!-- Render logic here -->
+            </tbody>
+          </table>
+        </div>
       </div>
+    </main>
+  </div>
 
-      <div class="double-grid">
-        <div class="card"><div class="card-body">
-          <div class="label">Thông tin hệ thống</div>
-          <table><tbody id="systemTable"></tbody></table>
-        </div></div>
-        <div class="card"><div class="card-body">
-          <div class="label">Ghi chú</div>
-          <ul id="notesList"></ul>
-        </div></div>
-      </div>
+  <script>
+    const P = val => `${(Number(val || 0) * 100).toFixed(1)}%`;
+    const getEl = id => document.getElementById(id);
+    
+    const weightLabels = {
+      shortPulse: 'Nhịp Ngắn (Lặp 6 kỳ)',
+      midTrend: 'Nhịp Trung (Lặp 12-24)',
+      gapReturn: 'Số Lâu Chưa Về (Gap)',
+      transitionFlow: 'Dòng Chảy (Lịch sử Nhảy Số)',
+      centerBias: 'Hút Trung Tâm (9-12)'
+    };
 
-      <div class="card"><div class="card-body">
-        <div class="label">Đối chiếu tổng sáng giá theo kỳ</div>
-        <table>
-          <thead>
+    function renderWeights(weights) {
+      if (!weights) return;
+      const container = getEl('weightsContainer');
+      let html = '';
+      const entries = Object.entries(weights).sort((a,b) => b[1] - a[1]);
+      
+      for (const [key, val] of entries) {
+        const pct = (val * 100).toFixed(1);
+        const name = weightLabels[key] || key;
+        html += `
+          <div class="weight-row">
+            <span class="weight-name" title="${key}">${name}</span>
+            <div class="weight-bar-bg">
+              <div class="weight-bar-fill" style="width: ${pct}%"></div>
+            </div>
+            <span class="weight-value">${pct}%</span>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function renderHistory(checks, pending) {
+      const tbody = getEl('historyTableBody');
+      let rows = '';
+
+      if (pending && pending.roundId) {
+        rows += `
+          <tr>
+            <td style="color:#fff; font-weight: bold;">${pending.roundId}</td>
+            <td>${(pending.predictedTotals || []).join(', ')}</td>
+            <td style="color: var(--text-muted);">Đang chờ...</td>
+            <td style="color: var(--text-muted);">Đang chờ...</td>
+            <td><span class="status-badge status-pending">PENDING</span></td>
+          </tr>
+        `;
+      }
+
+      if (Array.isArray(checks)) {
+        checks.forEach(item => {
+          const isHit = item.hit === true;
+          rows += `
             <tr>
-              <th>Kỳ</th>
-              <th>Top 3 riêng của AI</th>
-              <th>Tổng thực tế</th>
-              <th>Cửa thực tế</th>
-              <th>Kết quả</th>
+              <td>${item.id || item.roundId || '--'}</td>
+              <td>${(item.predictedTotals || []).join(', ')}</td>
+              <td style="color:#fff; font-weight:600;">${item.actualTotal ?? '--'}</td>
+              <td>${item.actualResult || '--'}</td>
+              <td>
+                <span class="status-badge ${isHit ? 'status-hit' : 'status-miss'}">
+                  ${isHit ? 'TRÚNG' : 'TRƯỢT'}
+                </span>
+              </td>
             </tr>
-          </thead>
-          <tbody id="aiRecentChecksTable"></tbody>
-        </table>
-      </div></div>
-    </div>
-
-    <script>
-      const badge = document.getElementById('statusBadge')
-      const summary = document.getElementById('summaryText')
-      const percent = (value) => `${new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(Number(value || 0) * 100)}%`
-      const wave = () => '<span class="pending-wave"></span>'
-
-      function setText(id, value) {
-        document.getElementById(id).textContent = value
+          `;
+        });
       }
 
-      function renderRows(id, rows) {
-        document.getElementById(id).innerHTML = rows.join('')
+      tbody.innerHTML = rows || '<tr><td colspan="5" style="text-align:center;">Chưa có dữ liệu</td></tr>';
+    }
+
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/openai-v7/state', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+        const data = await res.json();
+        
+        getEl('lblResult').textContent = data.result || '--';
+        getEl('lblConfidence').textContent = P(data.confidence);
+        getEl('lblTopTotals').textContent = (data.aiOwnTopTotals || []).map(t => t.total).join(', ') || '--';
+        getEl('lblDrawProb').textContent = P(data.drawProbability);
+        getEl('lblConsideration').innerHTML = `<strong>Tư duy AI:</strong> ${data.drawConsideration || '--'}`;
+        
+        // Notes
+        const notesHtml = (data.notes || []).map(n => `<li>${n}</li>`).join('');
+        getEl('notesList').innerHTML = notesHtml || '<li>Không có ghi chú.</li>';
+        
+        // Metrics
+        getEl('lblAiHitRate').textContent = typeof data.aiHitRate === 'number' ? P(data.aiHitRate) : (data.aiHitRate || '--');
+        getEl('lblMemorySize').textContent = `${data.memorySampleSize || 0} mẫu / Tổng: ${data.totalRounds || 0}`;
+
+        // Miss streak
+        const ms = data.adaptiveSignals?.missStreak || 0;
+        getEl('lblMissStreak').textContent = ms;
+        getEl('lblMissStreak').style.color = ms >= 3 ? 'var(--danger)' : (ms >= 2 ? 'var(--warning)' : '#10b981');
+
+        // Weights
+        renderWeights(data.adaptiveSignals?.trainedWeights || {});
+        
+        // History
+        renderHistory(data.aiRecentTotalChecks, data.aiPendingTotalCheck);
+      } catch (err) {
+        console.error('Fetch error:', err);
+        getEl('lblResult').textContent = 'LỖI';
+        getEl('lblConsideration').textContent = `Lỗi hệ thống: ${err.message}`;
       }
+    }
 
-      function renderNotes(items) {
-        document.getElementById('notesList').innerHTML = (items || []).length
-          ? items.map((item) => `<li>${item}</li>`).join('')
-          : '<li>Chưa có ghi chú.</li>'
-      }
-
-      function renderRecentChecks(state) {
-        const pending = state?.aiPendingTotalCheck
-        const history = Array.isArray(state?.aiRecentTotalChecks) ? state.aiRecentTotalChecks : []
-        const lockedIds = new Set(history.map((item) => String(item?.id || '')).filter(Boolean))
-        const currentAiTop3 = (state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || [])
-          .slice(0, 3)
-          .map((item) => Number(item?.total))
-          .filter(Number.isFinite)
-        const rows = []
-
-        if (pending && !lockedIds.has(String(pending.id || ''))) {
-          rows.push(`
-            <tr>
-              <td>${pending.id || '--'}</td>
-              <td>${(pending.predictedTotals || []).join(', ') || currentAiTop3.join(', ') || '--'}</td>
-              <td>${wave()}</td>
-              <td>${wave()}</td>
-              <td>${wave()}</td>
-            </tr>
-          `)
-        }
-
-        history.forEach((item) => {
-          const actualTotal = Number(item?.actualTotal)
-          const hit = item?.hit === true
-          rows.push(`
-            <tr>
-              <td>${item?.id || '--'}</td>
-              <td>${(item?.predictedTotals || []).join(', ') || '--'}</td>
-              <td>${Number.isFinite(actualTotal) ? actualTotal : '--'}</td>
-              <td>${Number.isFinite(actualTotal) ? `${item?.actualResult || '--'} (${actualTotal})` : (item?.actualResult || '--')}</td>
-              <td class="${hit ? 'hit' : 'miss'}">${hit ? 'Trúng' : 'Trượt'}</td>
-            </tr>
-          `)
-        })
-
-        document.getElementById('aiRecentChecksTable').innerHTML = rows.length
-          ? rows.join('')
-          : '<tr><td colspan="5">Chưa có dữ liệu đối chiếu cho AI local/free.</td></tr>'
-      }
-
-      function applyState(state) {
-        const status = String(state?.status || 'idle')
-        badge.textContent = status
-        badge.className = `status-pill ${status === 'ready' ? 'ready' : status}`
-        summary.textContent = state?.lastError
-          ? `AI local/free đang ở trạng thái ${status}. Lỗi gần nhất: ${state.lastError}`
-          : `AI local/free đang ở trạng thái ${status}. ${state?.drawConsideration || 'Dữ liệu hiện lấy từ predictor nội bộ.'}`
-
-        setText('statusValue', status)
-        setText('resultValue', state?.result || '--')
-        setText('totalsValue', (state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || state?.topTotals || []).map((item) => item.total).join(', ') || '--')
-        setText('confidenceValue', percent(state?.confidence || 0))
-        setText('aiBetFlag', state?.aiBetFlag || state?.decision || '--')
-        setText('aiHitRate', percent(state?.aiHitRate || 0))
-        setText('drawProbability', percent(state?.drawProbability || 0))
-        setText('drawTotals', (state?.drawTopTotals || []).map((item) => item.total).join(', ') || '--')
-        setText('drawHint', state?.drawConsideration || '--')
-        setText('repeatPenalty', percent(state?.adaptiveSignals?.repeatPenalty || 0))
-        setText(
-          'memorySize',
-          state?.memoryHistorySize != null
-            ? `${state?.memorySampleSize ?? '--'}/${state.memoryHistorySize}`
-            : (state?.memorySampleSize ?? '--'),
-        )
-        setText('memoryHitRate', percent(state?.memoryHitRate || 0))
-        setText('resultHitRate', state?.resultEmpiricalHitRate != null ? percent(state.resultEmpiricalHitRate) : '--')
-        setText('pendingRound', state?.pendingPrediction?.roundId || '--')
-
-        renderRows('systemTable', [
-          `<tr><td>Engine</td><td>${state?.engine || '--'}</td></tr>`,
-          `<tr><td>Quyết định</td><td>${state?.decision || '--'}</td></tr>`,
-          `<tr><td>Cờ đoán AI</td><td>${state?.aiBetFlag || '--'}</td></tr>`,
-          `<tr><td>Tỷ lệ trúng AI</td><td>${percent(state?.aiHitRate || 0)}</td></tr>`,
-          `<tr><td>Mẫu live đã khóa</td><td>${state?.liveMemorySampleSize ?? '--'}</td></tr>`,
-          `<tr><td>Mẫu replay/backfill</td><td>${state?.replayMemorySampleSize ?? '--'}</td></tr>`,
-          `<tr><td>Tỷ lệ trúng replay</td><td>${state?.replayHitRate != null ? percent(state.replayHitRate) : '--'}</td></tr>`,
-          `<tr><td>Độ chênh</td><td>${percent(state?.spread || 0)}</td></tr>`,
-          `<tr><td>Cửa hội đồng</td><td>${state?.consensusResult || '--'}</td></tr>`,
-          `<tr><td>Tổng hội đồng sáng nhất</td><td>${state?.consensusTopTotal ?? '--'}</td></tr>`,
-          `<tr><td>Top 3 riêng của AI</td><td>${(state?.aiOwnTopTotalsDisplay || state?.aiOwnTopTotals || []).map((item) => `${item.total} (${item.origin})`).join(', ') || '--'}</td></tr>`,
-          `<tr><td>Tổng số kỳ đang lưu</td><td>${state?.totalRounds ?? '--'}</td></tr>`,
-          `<tr><td>Cập nhật dữ liệu</td><td>${state?.updatedAt || '--'}</td></tr>`,
-          `<tr><td>Top 3 đang chờ chốt</td><td>${(state?.pendingPrediction?.predictedTotals || []).join(', ') || '--'}</td></tr>`,
-          `<tr><td>Startup phase</td><td>${state?.startupPhase || '--'}</td></tr>`,
-          `<tr><td>Cache build</td><td>${state?.cacheBuildState || '--'}</td></tr>`,
-          `<tr><td>Miss streak</td><td>${state?.adaptiveSignals?.missStreak ?? '--'}</td></tr>`,
-          `<tr><td>Repeated cluster misses</td><td>${state?.adaptiveSignals?.repeatedClusterMisses ?? '--'}</td></tr>`,
-          `<tr><td>Draw center miss weight</td><td>${percent(state?.adaptiveSignals?.drawCenterMissWeight || 0)}</td></tr>`,
-        ])
-
-        renderNotes(state?.notes || [])
-        renderRecentChecks(state)
-      }
-
-      async function load() {
-        const res = await fetch('/api/openai-v7/state', { cache: 'no-store' })
-        const payload = await res.json().catch(() => ({}))
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        applyState(payload)
-      }
-
-      load().catch((error) => {
-        badge.textContent = 'lỗi'
-        badge.className = 'status-pill error'
-        summary.textContent = `Lỗi tải AI local/free: ${error.message}`
-      })
-      setInterval(() => load().catch(() => {}), 10000)
-    </script>
-  </body>
+    // Auto refresh
+    fetchData();
+    setInterval(fetchData, 8000);
+  </script>
+</body>
 </html>

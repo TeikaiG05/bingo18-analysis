@@ -1,0 +1,10 @@
+0158676 -> Pred: [10, 12, 11] / Act: 6 / Hit: false / Strat: undefined
+0158675 -> Pred: [8, 12, 10] / Act: 6 / Hit: false / Strat: undefined
+0158674 -> Pred: [11, 5, 7] / Act: 11 / Hit: true / Strat: Transition Flow (Nhịp Nhảy)
+0158673 -> Pred: [10, 12, 13] / Act: 10 / Hit: true / Strat: Transition Flow (Nhịp Nhảy)
+0158672 -> Pred: [10, 12, 16] / Act: 8 / Hit: false / Strat: Transition Flow (Nhịp Nhảy)
+0158671 -> Pred: [11, 8, 18] / Act: 6 / Hit: false / Strat: Transition Flow (Nhịp Nhảy)
+0158670 -> Pred: [10, 13, 12] / Act: 12 / Hit: true / Strat: Transition Flow (Nhịp Nhảy)
+0158669 -> Pred: [13, 10, 15] / Act: 8 / Hit: false / Strat: Transition Flow (Nhịp Nhảy)
+0158668 -> Pred: [11, 5, 12] / Act: 7 / Hit: false / Strat: Transition Flow (Nhịp Nhảy)
+0158667 -> Pred: [10, 7, 9] / Act: 10 / Hit: true / Strat: Transition Flow (Nhịp Nhảy)

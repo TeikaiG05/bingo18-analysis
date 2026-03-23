@@ -193,6 +193,7 @@ function buildContext(roundsDesc = []) {
     .map((round) => Number(round?.total))
     .filter(Number.isFinite)
   const recent12CountMap = buildRecentCountMap(roundsDesc, 12)
+  const recent6CountMap = buildRecentCountMap(roundsDesc, 6)
   const centerCount6 = recent6Totals.filter((total) => total >= 9 && total <= 12).length
   const edgeCount6 = recent6Totals.filter((total) => total <= 5 || total >= 15).length
 
@@ -208,6 +209,7 @@ function buildContext(roundsDesc = []) {
     recent24Totals,
     recent6Totals,
     recent12CountMap,
+    recent6CountMap,
     centerShare6: recent6Totals.length ? centerCount6 / recent6Totals.length : 0,
     edgeShare6: recent6Totals.length ? edgeCount6 / recent6Totals.length : 0,
   }
@@ -239,6 +241,72 @@ function uniqueRecords(records = []) {
     seen.add(total)
     return true
   })
+}
+
+function isHardEdgeTotal(total) {
+  const numeric = Number(total)
+  return Number.isFinite(numeric) && (numeric <= 4 || numeric >= 17)
+}
+
+function isEdgeTotal(total) {
+  const numeric = Number(total)
+  return Number.isFinite(numeric) && (numeric <= 5 || numeric >= 16)
+}
+
+function drawHangoverMultiplier(total, streakLength = 1) {
+  const numeric = Number(total)
+  if (!Number.isFinite(numeric)) return 1
+  if (numeric === 10 || numeric === 11) {
+    return streakLength >= 2 ? 0.34 : 0.5
+  }
+  if (numeric === 9 || numeric === 12) {
+    return streakLength >= 2 ? 0.56 : 0.72
+  }
+  return 1
+}
+
+function edgeGapLift(total, gap, recent12Count = 0, recent6Count = 0) {
+  const numeric = Number(total)
+  if (!Number.isFinite(numeric) || !isEdgeTotal(numeric)) return 0
+  const hardEdge = isHardEdgeTotal(numeric)
+  const pressure = clamp(
+    (Number(gap || 0) - (hardEdge ? 7 : 9)) / (hardEdge ? 18 : 20),
+    0,
+    hardEdge ? 1.45 : 1.18,
+  )
+  // Bug #5 FIX: Giảm magnitude xuống để tránh double-boost số biên
+  // local_ai_pipeline.js đã boost biên lần 1 (max=0.045), postprocessor này là lần 2
+  // Giảm base từ 0.085/0.058 xuống 0.052/0.038, max từ 0.12/0.085 xuống 0.065/0.045
+  let lift = pressure * (hardEdge ? 0.052 : 0.038)
+  if (Number(recent12Count || 0) === 0) {
+    lift += hardEdge ? 0.012 : 0.008
+  }
+  if (Number(recent6Count || 0) > 0) {
+    lift *= hardEdge ? 0.68 : 0.76
+  }
+  if (Number(gap || 0) <= (hardEdge ? 3 : 4)) {
+    lift *= 0.35
+  }
+  return clamp(lift, 0, hardEdge ? 0.065 : 0.045)
+}
+
+function normalizeNumericMapOption(value) {
+  if (value instanceof Map) return value
+  if (Array.isArray(value)) {
+    return new Map(
+      value
+        .map((entry) => [Number(entry?.[0]), Number(entry?.[1])])
+        .filter(([key, numeric]) => Number.isFinite(key) && Number.isFinite(numeric)),
+    )
+  }
+  if (value && typeof value === 'object') {
+    return new Map(
+      Object.entries(value)
+        .map(([key, numeric]) => [Number(key), Number(numeric)])
+        .filter(([key, numeric]) => Number.isFinite(key) && Number.isFinite(numeric)),
+    )
+  }
+  return new Map()
 }
 
 function buildScoreMapFromRecords(records = []) {
@@ -301,8 +369,10 @@ function applyAdaptiveScoreMap(scoreMap, roundsDesc = [], options = {}) {
     const day = Number(context.day?.get(total) || 0)
     const recentGap = Number(context.gapByTotal.get(total) || 0)
     const recent12Count = Number(context.recent12CountMap.get(total) || 0)
+    const recent6Count = Number(context.recent6CountMap.get(total) || 0)
     const recoveryWeight = Number(TOTAL_RECOVERY_PROFILE[total] || 0.24)
     const drawEscapeWeight = Number(TOTAL_DRAW_ESCAPE_PROFILE[total] || 0)
+    const edgeLift = edgeGapLift(total, recentGap, recent12Count, recent6Count)
     const priorShare = (TOTAL_PRIOR[total] || 1) / 216
     const recentBlend = recent18 * 0.62 + recent50 * 0.38
     const scarcity =
@@ -332,6 +402,7 @@ function applyAdaptiveScoreMap(scoreMap, roundsDesc = [], options = {}) {
     factor += scarcity * (0.026 + recoveryWeight * 0.026) * strength
     factor += gapPressure * recoveryWeight * 0.034 * strength
     factor += deficitPressure * (0.018 + recoveryWeight * 0.026) * strength
+    if (edgeLift > 0) factor += edgeLift * Math.max(0.7, strength)
     if (underExposed) factor += recoveryWeight * 0.015 * strength
     if (!context.recent12Totals.has(total)) factor += recoveryWeight * 0.008 * strength
     if (!context.recent24Totals.has(total)) factor += recoveryWeight * 0.006 * strength
@@ -340,11 +411,29 @@ function applyAdaptiveScoreMap(scoreMap, roundsDesc = [], options = {}) {
     if (recent12Count >= 2) {
       factor *= 1 - Math.min(0.15, recent12Count * 0.028 * strength)
     }
+    if (recent6Count >= 2) {
+      factor *=
+        1 -
+        Math.min(
+          total >= 9 && total <= 13 ? 0.2 : 0.16,
+          (0.045 + recent6Count * 0.028) * strength,
+        )
+    } else if (
+      recent6Count === 1 &&
+      context.centerShare6 >= 0.5 &&
+      total >= 9 &&
+      total <= 12
+    ) {
+      factor *= 1 - 0.022 * strength
+    }
     if (context.recent6Totals.includes(total)) {
       factor *= 1 - 0.024 * strength
     }
     if (context.centerShare6 >= 0.52 && total >= 9 && total <= 12) {
       factor *= 1 - 0.028 * strength
+    }
+    if (recent12Count >= 3 && total >= 9 && total <= 12) {
+      factor *= 1 - Math.min(0.14, recent12Count * 0.026 * strength)
     }
     if (context.edgeShare6 >= 0.34 && (total <= 5 || total >= 15)) {
       factor *= 1 - 0.016 * strength
@@ -360,13 +449,12 @@ function applyAdaptiveScoreMap(scoreMap, roundsDesc = [], options = {}) {
     }
 
     if (context.latestResult === 'Draw') {
-      const heavyDrawPenalty = context.streak.length >= 2 ? 0.52 : 0.38
-      if (total === 10 || total === 11) {
-        factor *= 1 - heavyDrawPenalty * strength
-      } else if (total === 9 || total === 12) {
-        factor *= 1 - heavyDrawPenalty * 0.52 * strength
-      } else {
-        factor *= 1 + drawEscapeWeight * 0.12 * strength
+      factor *= drawHangoverMultiplier(total, context.streak.length)
+      if (total !== 10 && total !== 11 && total !== 9 && total !== 12) {
+        factor *= 1 + drawEscapeWeight * 0.12 * Math.max(0.7, strength)
+        if (edgeLift > 0) {
+          factor *= 1 + edgeLift * 0.6
+        }
       }
     } else if (
       context.streak.key &&
@@ -430,6 +518,27 @@ function selectStrategicTopTotalRecords(
 ) {
   const limit = Math.max(1, Number(options.limit || 3))
   const context = buildContext(roundsDesc)
+  const preferredResult = RESULT_ORDER.includes(options.preferredResult)
+    ? options.preferredResult
+    : null
+  const drawdownLevel = ['normal', 'soft', 'hard'].includes(options.drawdownLevel)
+    ? options.drawdownLevel
+    : 'normal'
+  const blacklistedClusterKeys = options.blacklistedClusterKeys instanceof Set
+    ? options.blacklistedClusterKeys
+    : new Set(Array.isArray(options.blacklistedClusterKeys) ? options.blacklistedClusterKeys : [])
+  const cooldownByTotal = options.cooldownByTotal instanceof Map
+    ? options.cooldownByTotal
+    : new Map(
+        Array.isArray(options.cooldownByTotal)
+          ? options.cooldownByTotal
+          : Object.entries(options.cooldownByTotal || {}).map(([key, value]) => [
+              Number(key),
+              Number(value),
+            ]),
+      )
+  const penaltyByTotal = normalizeNumericMapOption(options.penaltyByTotal)
+  const bonusByTotal = normalizeNumericMapOption(options.bonusByTotal)
   const candidatePool = (Array.isArray(records) ? records : [])
     .filter((item) => Number.isFinite(Number(item?.total)))
     .slice(0, Math.max(6, limit + 6))
@@ -472,18 +581,50 @@ function selectStrategicTopTotalRecords(
         const trio = [candidatePool[i], candidatePool[j], candidatePool[k]]
         const totals = trio.map((item) => Number(item.total))
         const sortedTotals = [...totals].sort((left, right) => left - right)
+        const trioKey = sortedTotals.join('|')
         const results = new Set(totals.map((total) => classifyTotal(total)))
         const regimes = new Set(
           totals.map((total) =>
             total >= 13 ? 'upper' : total <= 8 ? 'lower' : 'center',
           ),
         )
+        const streakKey = context.streak?.key || null
+        const streakLength = Number(context.streak?.length || 0)
+        const streakMatchCount = streakKey
+          ? totals.filter((total) => classifyTotal(total) === streakKey).length
+          : 0
+        const preferredMatchCount = preferredResult
+          ? totals.filter((total) => classifyTotal(total) === preferredResult).length
+          : 0
+        const centerCount = totals.filter((total) => total >= 9 && total <= 12).length
+        const hardDrawCount = totals.filter((total) => total === 10 || total === 11).length
         const baseScore = totals.reduce(
           (acc, total) => acc + Number(baseScoreByTotal.get(total) || 0),
           0,
         )
         const carryBoost = totals.reduce(
           (acc, total) => acc + Number(carryBoostByTotal.get(total) || 0),
+          0,
+        )
+        const edgeGapBonus = totals.reduce((acc, total) => {
+          const recentGap = Number(context.gapByTotal.get(total) || 0)
+          const recent12Count = Number(context.recent12CountMap.get(total) || 0)
+          const recent6Count = Number(context.recent6CountMap.get(total) || 0)
+          return (
+            acc +
+            edgeGapLift(total, recentGap, recent12Count, recent6Count) * 0.72
+          )
+        }, 0)
+        const cooldownPenalty = totals.reduce(
+          (acc, total) => acc + Number(cooldownByTotal.get(total) || 0),
+          0,
+        )
+        const extraPenalty = totals.reduce(
+          (acc, total) => acc + Number(penaltyByTotal.get(total) || 0),
+          0,
+        )
+        const extraBonus = totals.reduce(
+          (acc, total) => acc + Number(bonusByTotal.get(total) || 0),
           0,
         )
         const spread = sortedTotals[2] - sortedTotals[0]
@@ -506,6 +647,93 @@ function selectStrategicTopTotalRecords(
           context.centerShare6 >= 0.5
             ? totals.filter((total) => total >= 9 && total <= 12).length * 0.018
             : 0
+        const repeatLoadPenalty = totals.reduce((acc, total) => {
+          const recent12Count = Number(context.recent12CountMap.get(total) || 0)
+          const recent6Count = Number(context.recent6CountMap.get(total) || 0)
+          let penalty =
+            recent12Count * (total >= 9 && total <= 12 ? 0.014 : 0.01) +
+            recent6Count * (total >= 9 && total <= 12 ? 0.022 : 0.015)
+          if (recent6Count >= 2) {
+            penalty += total >= 9 && total <= 12 ? 0.04 : 0.026
+          }
+          return acc + penalty
+        }, 0)
+        const centerLockPenalty =
+          preferredResult !== 'Draw' && centerCount >= 2
+            ? context.centerShare6 >= 0.5
+              ? 0.085
+              : 0.05
+            : 0
+        const postDrawPenalty =
+          context.latestResult === 'Draw'
+            ? totals.reduce((acc, total) => {
+                if (total === 10 || total === 11) {
+                  return (
+                    acc + (context.streak.length >= 2 ? 0.24 : 0.17)
+                  )
+                }
+                if (total === 9 || total === 12) {
+                  return acc + (context.streak.length >= 2 ? 0.11 : 0.07)
+                }
+                return acc
+              }, 0)
+            : 0
+        const balancedMixPenalty =
+          streakLength >= 2 && streakKey && streakKey !== 'Draw' && results.size === 3
+            ? 0.045
+            : 0
+        const resultConstraintPenalty =
+          preferredResult === 'Small' || preferredResult === 'Big'
+            ? preferredMatchCount >= 2
+              ? 0
+              : preferredMatchCount === 1
+                ? 0.16
+                : 0.28
+            : preferredResult === 'Draw'
+              ? hardDrawCount >= 1
+                ? 0
+                : 0.14
+              : 0
+        const blacklistPenalty = blacklistedClusterKeys.has(trioKey)
+          ? drawdownLevel === 'hard'
+            ? 0.52
+            : drawdownLevel === 'soft'
+              ? 0.34
+              : 0.22
+          : 0
+        const drawdownPenalty =
+          drawdownLevel === 'hard'
+            ? cooldownPenalty * 1.2
+            : drawdownLevel === 'soft'
+              ? cooldownPenalty
+              : cooldownPenalty * 0.7
+        let streakShapeBonus = 0
+        let preferredResultBonus = 0
+        if (preferredResult === 'Small' || preferredResult === 'Big') {
+          if (preferredMatchCount >= 2) preferredResultBonus += 0.082
+          else if (preferredMatchCount === 1) preferredResultBonus -= 0.038
+          else preferredResultBonus -= 0.11
+        } else if (preferredResult === 'Draw') {
+          if (hardDrawCount === 1 || hardDrawCount === 2) preferredResultBonus += 0.04
+          else if (hardDrawCount === 0) preferredResultBonus -= 0.05
+          if (centerCount >= 3) preferredResultBonus -= 0.03
+        }
+        if (streakKey === 'Small' && streakLength >= 2) {
+          if (streakMatchCount >= 2) streakShapeBonus += 0.062
+          else if (streakMatchCount === 0) streakShapeBonus -= 0.078
+          if (centerCount >= 2) streakShapeBonus -= 0.03
+          if (hardDrawCount >= 1) streakShapeBonus -= 0.022 * hardDrawCount
+        } else if (streakKey === 'Big' && streakLength >= 2) {
+          if (streakMatchCount >= 2) streakShapeBonus += 0.062
+          else if (streakMatchCount === 0) streakShapeBonus -= 0.078
+          if (centerCount >= 2) streakShapeBonus -= 0.028
+          if (totals.filter((total) => total <= 8).length >= 1) {
+            streakShapeBonus -= 0.018
+          }
+        } else if (streakKey === 'Draw' && streakLength >= 1) {
+          if (hardDrawCount >= 2) streakShapeBonus -= streakLength >= 2 ? 0.06 : 0.035
+          else if (centerCount === 1) streakShapeBonus += 0.02
+        }
         const diversityBonus =
           (results.size >= 2 ? 0.04 : 0) +
           (regimes.size >= 2 ? 0.05 : 0) +
@@ -513,11 +741,23 @@ function selectStrategicTopTotalRecords(
         const score =
           baseScore +
           carryBoost +
+          edgeGapBonus +
+          streakShapeBonus +
+          preferredResultBonus +
+          extraBonus +
           diversityBonus -
           adjacencyPenalty -
           sameResultPenalty -
           latestOverlapPenalty -
-          centerSpamPenalty
+          centerSpamPenalty -
+          repeatLoadPenalty -
+          centerLockPenalty -
+          postDrawPenalty -
+          balancedMixPenalty -
+          resultConstraintPenalty -
+          blacklistPenalty -
+          extraPenalty -
+          drawdownPenalty
 
         if (score > bestScore) {
           bestScore = score
@@ -528,12 +768,16 @@ function selectStrategicTopTotalRecords(
   }
 
   const selectedTotals = new Set(best.map((item) => Number(item.total)))
+  const rankingScoreForTotal = (total) =>
+    Number(baseScoreByTotal.get(Number(total)) || 0) +
+    Number(bonusByTotal.get(Number(total)) || 0) -
+    Number(penaltyByTotal.get(Number(total)) || 0)
   const orderedBest = best
     .slice()
     .sort(
       (left, right) =>
-        Number(baseScoreByTotal.get(Number(right.total)) || 0) -
-        Number(baseScoreByTotal.get(Number(left.total)) || 0),
+        rankingScoreForTotal(Number(right.total)) -
+        rankingScoreForTotal(Number(left.total)),
     )
   if (limit <= 3) return orderedBest.slice(0, limit)
 
@@ -541,8 +785,8 @@ function selectStrategicTopTotalRecords(
     .filter((item) => !selectedTotals.has(Number(item.total)))
     .sort(
       (left, right) =>
-        Number(baseScoreByTotal.get(Number(right.total)) || 0) -
-        Number(baseScoreByTotal.get(Number(left.total)) || 0),
+        rankingScoreForTotal(Number(right.total)) -
+        rankingScoreForTotal(Number(left.total)),
     )
 
   return [...orderedBest, ...remainder].slice(0, limit)
@@ -563,9 +807,11 @@ export function buildAdaptiveResultProbabilities(
     scores[classifyTotal(total)] += probability
   }
 
-  if (buildContext(roundsDesc).latestResult === 'Draw') {
-    const streak = buildContext(roundsDesc).streak
-    const drawPenalty = streak.length >= 2 ? 0.22 : 0.15
+  // Bug #6 FIX: Reuse context thay vì gọi buildContext 2 lần riêng biệt
+  const ctx = buildContext(roundsDesc)
+  if (ctx.latestResult === 'Draw') {
+    const streak = ctx.streak
+    const drawPenalty = streak.length >= 2 ? 0.38 : 0.28
     scores.Draw *= 1 - drawPenalty
     scores.Small += drawPenalty * 0.52
     scores.Big += drawPenalty * 0.48
@@ -666,7 +912,7 @@ function blendedResultProbabilities(payload, adaptedFromTotals, roundsDesc, opti
   }
 
   if (context.latestResult === 'Draw') {
-    const drawPenalty = context.streak.length >= 2 ? 0.18 : 0.12
+    const drawPenalty = context.streak.length >= 2 ? 0.34 : 0.24
     blended.Draw *= 1 - drawPenalty
     blended.Small += drawPenalty * 0.52
     blended.Big += drawPenalty * 0.48
@@ -703,11 +949,6 @@ export function adaptPredictionPayload(payload, roundsDesc = [], options = {}) {
     modelId,
     sourceLabel: `${modelId || 'prediction'}-adaptive`,
   })
-  const adaptedTopTotals = selectStrategicTopTotalRecords(
-    adaptedDistribution,
-    roundsDesc,
-    { limit: 4, modelId },
-  )
   const adaptedResults = blendedResultProbabilities(
     payload,
     buildAdaptiveResultProbabilities(records, roundsDesc, { modelId }),
@@ -715,6 +956,11 @@ export function adaptPredictionPayload(payload, roundsDesc = [], options = {}) {
     { modelId },
   )
   const recommendedResult = topResultFromProbabilities(adaptedResults)
+  const adaptedTopTotals = selectStrategicTopTotalRecords(
+    adaptedDistribution,
+    roundsDesc,
+    { limit: 4, modelId, preferredResult: recommendedResult },
+  )
   const current = payload?.selectiveStrategy?.currentDecision || {}
   const diagnosis = payload?.diagnosis || {}
   const topProbability = Number(adaptedTopTotals?.[0]?.probability || 0)

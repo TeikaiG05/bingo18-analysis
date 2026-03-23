@@ -6,12 +6,14 @@ import { fileURLToPath } from 'url'
 import { fork } from 'child_process'
 import { WebSocketServer } from 'ws'
 import { buildTemporalFlowBundle } from './temporal_flow.js'
+import { createBingo18Top3Service } from './bingo18_top3_service.js'
 import {
   adaptPredictionPayload,
   adaptTopTotalRecords,
   buildAdaptiveResultProbabilities,
   selectAdaptiveTopTotalRecords,
 } from './prediction_postprocessor.js'
+import { predictNextRound } from './local_ai_pipeline.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -19,6 +21,7 @@ const __dirname = path.dirname(__filename)
 const app = express()
 const server = http.createServer(app)
 const wss = new WebSocketServer({ server })
+const bingo18Top3Service = createBingo18Top3Service({ baseDir: __dirname })
 
 process.on('unhandledRejection', (reason) => {
   startupError =
@@ -102,6 +105,7 @@ let localAIBackfillState = 'idle'
 let fullSyncState = 'idle'
 let fullSyncPromise = null
 
+app.use(express.json({ limit: '20mb' }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 if (!fs.existsSync(DATA_DIR)) {
@@ -428,15 +432,19 @@ function buildLocalAIHistoryBuckets(history = []) {
     ...item,
     learningWeight: 1,
   }))
+  const targetLearningCount = Math.max(
+    36,
+    Math.min(48, liveLearningHistory.length || 0),
+  )
   const replayWarmupCount = Math.max(
     0,
-    Math.min(36, liveHistory.length >= 12 ? 18 : 36) - liveLearningHistory.length,
+    Math.min(36, targetLearningCount - liveLearningHistory.length),
   )
   const replayLearningHistory = replayHistory
     .slice(0, replayWarmupCount)
     .map((item) => ({
       ...item,
-      learningWeight: liveLearningHistory.length ? 0.22 : 0.35,
+      learningWeight: liveLearningHistory.length >= 24 ? 0.18 : liveLearningHistory.length ? 0.22 : 0.35,
     }))
   const learningHistory = [...liveLearningHistory, ...replayLearningHistory]
 
@@ -453,17 +461,7 @@ function buildLocalAIHistoryBuckets(history = []) {
     adaptiveHistory: liveHistory.length
       ? liveHistory.slice(0, 24)
       : replayHistory.slice(0, 12),
-    clusterHistory: liveHistory.length >= 10
-      ? liveHistory.slice(0, 90)
-      : [
-          ...liveHistory.slice(0, 24),
-          ...replayHistory
-            .slice(0, Math.max(0, 30 - liveHistory.length))
-            .map((item) => ({
-              ...item,
-              learningWeight: 0.28,
-            })),
-        ],
+    clusterHistory: liveHistory.length ? liveHistory.slice(0, 90) : [],
   }
 }
 
@@ -918,6 +916,8 @@ function buildLocalAIFreeLearning(history) {
 
 function buildAdaptiveMemorySignals(history, currentTopTotals = []) {
   const recent = (Array.isArray(history) ? history : []).slice(0, 12)
+  const recent5 = recent.slice(0, 5)
+  const recent8 = recent.slice(0, 8)
   const normalizedCurrent = currentTopTotals
     .slice(0, 3)
     .map(Number)
@@ -927,19 +927,41 @@ function buildAdaptiveMemorySignals(history, currentTopTotals = []) {
   let missStreak = 0
   for (const item of recent) {
     if (item?.hit) break
-    missStreak += 1
+    const actual = Number(item?.actualTotal)
+    const preds = (Array.isArray(item?.predictedTotals) ? item.predictedTotals : []).map(Number)
+    let minDistance = 99
+    if (Number.isFinite(actual) && preds.length > 0) {
+      minDistance = Math.min(...preds.map(p => Math.abs(p - actual)))
+    }
+    // Near-miss softens the miss streak accumulation
+    if (minDistance === 1) {
+      missStreak += 0.35 // Trượt sát
+    } else if (minDistance === 2) {
+      missStreak += 0.7
+    } else {
+      missStreak += 1
+    }
   }
 
   let repeatedClusterMisses = 0
   for (const item of recent) {
-    const itemKey = (
-      Array.isArray(item?.predictedTotals) ? item.predictedTotals : []
-    )
-      .slice(0, 3)
-      .map(Number)
-      .join('|')
+    const preds = (Array.isArray(item?.predictedTotals) ? item.predictedTotals : []).slice(0, 3).map(Number)
+    const itemKey = preds.join('|')
     if (itemKey !== currentKey || item?.hit) break
-    repeatedClusterMisses += 1
+    
+    const actual = Number(item?.actualTotal)
+    let minDistance = 99
+    if (Number.isFinite(actual) && preds.length > 0) {
+      minDistance = Math.min(...preds.map(p => Math.abs(p - actual)))
+    }
+    
+    if (minDistance === 1) {
+      repeatedClusterMisses += 0.25 // Near-miss on the same cluster is a much softer penalty
+    } else if (minDistance === 2) {
+      repeatedClusterMisses += 0.6
+    } else {
+      repeatedClusterMisses += 1
+    }
   }
 
   const recentRepeatCount = recent.filter((item) => {
@@ -955,17 +977,43 @@ function buildAdaptiveMemorySignals(history, currentTopTotals = []) {
   const missTotalWeights = new Map()
   const missResultWeights = { Small: 0, Draw: 0, Big: 0 }
   const predictedExposureWeights = new Map()
+  const cooldownByTotal = new Map()
   recent.forEach((item, index) => {
     const predictionWeight = 1 / (1 + index * 0.42)
-    ;(Array.isArray(item?.predictedTotals) ? item.predictedTotals : [])
-      .slice(0, 3)
-      .map(Number)
-      .filter(Number.isFinite)
-      .forEach((total) => {
+    const preds = (Array.isArray(item?.predictedTotals) ? item.predictedTotals : []).slice(0, 3).map(Number).filter(Number.isFinite)
+    const actual = Number(item?.actualTotal)
+    
+    let minDistance = 99
+    if (Number.isFinite(actual) && preds.length > 0) {
+      minDistance = Math.min(...preds.map(p => Math.abs(p - actual)))
+    }
+
+    preds.forEach((total) => {
+        let isNearMissThisTotal = false
+        if (Number.isFinite(actual)) {
+           isNearMissThisTotal = Math.abs(total - actual) === 1
+        }
+        
+        let exposureWeight = predictionWeight * (item?.hit ? 0.45 : 1)
+        if (!item?.hit && isNearMissThisTotal) {
+           exposureWeight *= 0.6 // Giảm áp lực phạt exposure nếu tổng này trượt sát
+        }
+        
         predictedExposureWeights.set(
           total,
           (predictedExposureWeights.get(total) || 0) +
-            predictionWeight * (item?.hit ? 0.45 : 1),
+            exposureWeight,
+        )
+        
+        let cooldownWeight = exposureWeight * (item?.hit ? 0.42 : 0.94)
+        if (!item?.hit && isNearMissThisTotal) {
+           cooldownWeight *= 0.5 // Phạt cooldown cực nhẹ nếu nó trượt sát
+        }
+        cooldownWeight += (index === 0 && item?.hit === false && minDistance > 1 ? 0.12 : 0)
+        
+        cooldownByTotal.set(
+          total,
+          (cooldownByTotal.get(total) || 0) + cooldownWeight,
         )
       })
 
@@ -988,11 +1036,40 @@ function buildAdaptiveMemorySignals(history, currentTopTotals = []) {
     (missTotalWeights.get(10) || 0) +
     (missTotalWeights.get(11) || 0) +
     ((missTotalWeights.get(9) || 0) + (missTotalWeights.get(12) || 0)) * 0.45
+  const recentHitRate5 = recent5.length
+    ? recent5.filter((item) => item?.hit).length / recent5.length
+    : 0
+  const recentHitRate8 = recent8.length
+    ? recent8.filter((item) => item?.hit).length / recent8.length
+    : 0
+  const drawdownLevel =
+    missStreak >= 4 ||
+    (recent5.length >= 5 && recentHitRate5 <= 0.2)
+      ? 'hard'
+      : missStreak >= 2 ||
+          (recent8.length >= 6 && recentHitRate8 <= 0.28)
+        ? 'soft'
+        : 'normal'
+
+  for (const [total, rawPenalty] of cooldownByTotal.entries()) {
+    cooldownByTotal.set(
+      total,
+      clamp(
+        Number(rawPenalty || 0) *
+          (drawdownLevel === 'hard' ? 0.14 : drawdownLevel === 'soft' ? 0.1 : 0.075),
+        0,
+        drawdownLevel === 'hard' ? 0.28 : 0.2,
+      ),
+    )
+  }
 
   return {
     missStreak,
     repeatedClusterMisses,
     recentRepeatCount,
+    recentHitRate5,
+    recentHitRate8,
+    drawdownLevel,
     repeatPenalty: clamp(
       repeatedClusterMisses * 0.11 + Math.max(0, recentRepeatCount - 1) * 0.035,
       0,
@@ -1001,7 +1078,9 @@ function buildAdaptiveMemorySignals(history, currentTopTotals = []) {
     missTotalWeights,
     missResultWeights,
     predictedExposureWeights,
+    cooldownByTotal,
     drawCenterMissWeight,
+    drawCenterMissPressure: clamp(drawCenterMissWeight / 3.5, 0, 1),
     shouldConsiderDraw:
       drawCenterMissWeight >= 1.1 ||
       missResultWeights.Draw >= 1.2 ||
@@ -1015,6 +1094,80 @@ function totalRegime(total) {
   if (numeric >= 13) return 'upper'
   if (numeric <= 8) return 'lower'
   return 'center'
+}
+
+function isHardEdgeTotal(total) {
+  const numeric = Number(total)
+  return Number.isFinite(numeric) && (numeric <= 4 || numeric >= 17)
+}
+
+function isEdgeTotal(total) {
+  const numeric = Number(total)
+  return Number.isFinite(numeric) && (numeric <= 5 || numeric >= 16)
+}
+
+function drawHangoverMultiplier(total, streakLength = 1) {
+  const numeric = Number(total)
+  if (!Number.isFinite(numeric)) return 1
+  if (numeric === 10 || numeric === 11) {
+    return streakLength >= 2 ? 0.34 : 0.5
+  }
+  if (numeric === 9 || numeric === 12) {
+    return streakLength >= 2 ? 0.56 : 0.72
+  }
+  return 1
+}
+
+function buildActualGapMap(roundsDesc = [], limit = 36) {
+  const gapByTotal = new Map()
+  for (let total = 3; total <= 18; total += 1) {
+    gapByTotal.set(total, limit)
+  }
+  ;(Array.isArray(roundsDesc) ? roundsDesc : [])
+    .slice(0, limit)
+    .forEach((round, index) => {
+      const total = Number(round?.total)
+      if (!Number.isFinite(total) || !gapByTotal.has(total)) return
+      if (gapByTotal.get(total) === limit) gapByTotal.set(total, index)
+    })
+  return gapByTotal
+}
+
+function buildActualCountMap(roundsDesc = [], limit = 12) {
+  const counts = new Map()
+  for (let total = 3; total <= 18; total += 1) {
+    counts.set(total, 0)
+  }
+  ;(Array.isArray(roundsDesc) ? roundsDesc : [])
+    .slice(0, limit)
+    .forEach((round) => {
+      const total = Number(round?.total)
+      if (!Number.isFinite(total) || !counts.has(total)) return
+      counts.set(total, counts.get(total) + 1)
+    })
+  return counts
+}
+
+function calculateEdgeGapLift(total, gap, recent12Count = 0, recent6Count = 0) {
+  const numeric = Number(total)
+  if (!Number.isFinite(numeric) || !isEdgeTotal(numeric)) return 0
+  const hardEdge = isHardEdgeTotal(numeric)
+  const pressure = clamp(
+    (Number(gap || 0) - (hardEdge ? 7 : 9)) / (hardEdge ? 18 : 20),
+    0,
+    hardEdge ? 1.45 : 1.18,
+  )
+  let boost = pressure * (hardEdge ? 0.024 : 0.017)
+  if (Number(recent12Count || 0) === 0) {
+    boost += hardEdge ? 0.006 : 0.004
+  }
+  if (Number(recent6Count || 0) > 0) {
+    boost *= hardEdge ? 0.68 : 0.76
+  }
+  if (Number(gap || 0) <= (hardEdge ? 3 : 4)) {
+    boost *= 0.35
+  }
+  return clamp(boost, 0, hardEdge ? 0.032 : 0.024)
 }
 
 function regimeLabel(regime) {
@@ -1056,6 +1209,7 @@ function buildClusterHitRateMemory(history, candidateTotals = []) {
   const recent = (Array.isArray(history) ? history : []).slice(0, 180)
   const clusterStats = new Map()
   const regimeStats = new Map()
+  const recentMissClusters = new Map()
 
   for (const item of recent) {
     const weight = clamp(Number(item?.learningWeight ?? 1), 0.05, 1)
@@ -1069,6 +1223,11 @@ function buildClusterHitRateMemory(history, candidateTotals = []) {
       clusterStat.seen += weight
       if (item?.hit) clusterStat.hit += weight
       clusterStats.set(clusterKey, clusterStat)
+
+       const recentMissStat = recentMissClusters.get(clusterKey) || { seen: 0, recentMisses: 0 }
+       recentMissStat.seen += 1
+       if (item?.hit === false && recentMissStat.seen <= 8) recentMissStat.recentMisses += 1
+       recentMissClusters.set(clusterKey, recentMissStat)
     }
 
     const regimeStat = regimeStats.get(regimeKey) || { seen: 0, hit: 0 }
@@ -1083,6 +1242,20 @@ function buildClusterHitRateMemory(history, candidateTotals = []) {
     ? clusterStats.get(currentClusterKey) || null
     : null
   const currentRegimeStat = regimeStats.get(currentRegime) || null
+  const blacklistedClusters = new Set()
+  for (const [clusterKey, stat] of clusterStats.entries()) {
+    const hitRate = stat?.seen ? stat.hit / stat.seen : 0
+    const missProfile = recentMissClusters.get(clusterKey) || {
+      seen: 0,
+      recentMisses: 0,
+    }
+    if (
+      (stat.seen >= 3 && hitRate <= 0.22) ||
+      (missProfile.seen >= 2 && missProfile.recentMisses >= 2)
+    ) {
+      blacklistedClusters.add(clusterKey)
+    }
+  }
   const clusterPenalty =
     currentClusterStat && currentClusterStat.seen >= 2
       ? clamp(
@@ -1091,11 +1264,15 @@ function buildClusterHitRateMemory(history, candidateTotals = []) {
           0.18,
         )
       : 0
+  const currentClusterBlacklisted =
+    currentClusterKey != null && blacklistedClusters.has(currentClusterKey)
 
   return {
     currentClusterKey,
     currentRegime,
     clusterPenalty,
+    currentClusterBlacklisted,
+    blacklistedClusters,
     currentClusterHitRate:
       currentClusterStat && currentClusterStat.seen
         ? currentClusterStat.hit / currentClusterStat.seen
@@ -1653,360 +1830,75 @@ function collectPredictionCandidates(payload, limit = 12) {
 function readLocalAIFreeState() {
   const store = readData()
   const roundsDesc = normalizeStoredRounds(store).rounds
-  const current = predictionCacheV6 || null
-  const drawSpecialist = predictionCacheV7 || null
-  const numberSpecialist = predictionCacheV8 || null
-  const currentDecision = current?.selectiveStrategy?.currentDecision || {}
-  const currentTopTotals = Array.isArray(currentDecision.recommendedTotals)
-    ? currentDecision.recommendedTotals
-        .map((item, index) => ({
-          total: Number(item?.total),
-          probability: normalizeUnitProbability(
-            item?.probability ?? item?.score,
-            Math.max(0.03, 0.16 - index * 0.018),
-          ),
-          result:
-            item?.result ||
-            item?.resultClass ||
-            item?.classification ||
-            classifyTotal(Number(item?.total)),
-        }))
-        .filter((item) => Number.isFinite(item.total))
-    : []
-  const topTotals = collectPredictionCandidates(current, 10)
-  const primarySignalTotals = (currentTopTotals.length ? currentTopTotals : topTotals)
-    .slice(0, 3)
-    .map((item) => Number(item?.total))
-    .filter(Number.isFinite)
-  const consensus = consensusV16AICache?.current || null
+  
   const memory = readLocalAIMemory()
   const history = Array.isArray(memory.history) ? memory.history : []
-  const {
-    allHistory,
-    liveHistory,
-    replayHistory,
-    learningHistory,
-    adaptiveHistory,
-    clusterHistory,
-  } = buildLocalAIHistoryBuckets(history)
-  const { totalStats, resultStats } = buildLocalAIFreeLearning(learningHistory)
-  const adaptive = buildAdaptiveMemorySignals(
-    adaptiveHistory.length ? adaptiveHistory : learningHistory,
-    primarySignalTotals,
-  )
-  const clusterMemory = buildClusterHitRateMemory(
-    clusterHistory.length ? clusterHistory : learningHistory,
-    primarySignalTotals,
-  )
-  const primarySignalSet = new Set(primarySignalTotals)
-  const adjustedTopTotals = topTotals
-    .slice(0, Math.max(6, topTotals.length))
-    .map((item, index) => {
-      const total = Number(item?.total)
-      const baseProbability = normalizeUnitProbability(
-        item?.probability ?? item?.score,
-        0,
-      )
-      const stat = totalStats.get(String(total))
-      const empirical =
-        stat && stat.seen >= 2
-          ? stat.hit / stat.seen
-          : Math.max(0.18, baseProbability * 0.82)
-      const predictedExposure = Number(
-        adaptive.predictedExposureWeights.get(total) || 0,
-      )
-      let adjustedProbability = baseProbability * 0.58 + empirical * 0.24
-      if (primarySignalSet.has(total) && adaptive.repeatPenalty > 0) {
-        adjustedProbability *= 1 - adaptive.repeatPenalty * 0.58
-      } else if (!primarySignalSet.has(total) && adaptive.repeatPenalty > 0) {
-        adjustedProbability +=
-          adaptive.repeatPenalty * Math.max(0.014, 0.032 - index * 0.003)
-      }
-      adjustedProbability -= Math.min(0.14, predictedExposure * 0.036)
-      adjustedProbability += (adaptive.missTotalWeights.get(total) || 0) * 0.045
-      if (total === 10 || total === 11) {
-        adjustedProbability += adaptive.drawCenterMissWeight * 0.012
-      } else if (total === 9 || total === 12) {
-        adjustedProbability += adaptive.drawCenterMissWeight * 0.006
-      }
-      if (
-        clusterMemory.currentRegime === totalRegime(total) &&
-        clusterMemory.currentRegimeHitRate != null
-      ) {
-        adjustedProbability += clusterMemory.currentRegimeHitRate * 0.04
-      }
-      if (primarySignalSet.has(total) && clusterMemory.clusterPenalty > 0) {
-        adjustedProbability *= 1 - clusterMemory.clusterPenalty * 0.9
-      } else if (!primarySignalSet.has(total) && clusterMemory.clusterPenalty > 0) {
-        adjustedProbability += clusterMemory.clusterPenalty * 0.05
-      }
-      return {
-        total,
-        probability: Math.max(0.0005, adjustedProbability),
-        seen: stat?.seen || 0,
-        hitRate: stat && stat.seen ? stat.hit / stat.seen : null,
-        origin: primarySignalSet.has(total) ? 'v6-core' : 'adaptive-memory',
-      }
-    })
-    .sort((a, b) => b.probability - a.probability)
-  const currentResult =
-    currentDecision.recommendedResult ||
-    current?.diagnosis?.mostLikelyResult ||
-    '--'
-  const resultStat = resultStats.get(String(currentResult))
-  const resultEmpirical =
-    resultStat && resultStat.seen >= 3 ? resultStat.hit / resultStat.seen : null
-  const drawProbability = normalizeUnitProbability(
-    currentDecision.drawProbability ??
-      current?.diagnosis?.resultProbabilities?.Draw,
-    0,
-  )
-  const drawTopTotals = collectPredictionCandidates(drawSpecialist, 6)
-  const numberTopTotals = collectPredictionCandidates(numberSpecialist, 6)
-  const candidateOrigins = new Map()
-  const mergedCandidatePool = [
-    ...adjustedTopTotals.map((item) => ({
-      ...item,
-      origin: item.origin || 'adaptive-memory',
-    })),
-    ...drawTopTotals.map((item) => ({
-      total: Number(item?.total),
-      probability:
-        normalizeUnitProbability(item?.probability ?? item?.score, 0) *
-        (adaptive.shouldConsiderDraw ? 0.84 : 0.66),
-      seen: totalStats.get(String(Number(item?.total)))?.seen || 0,
-      hitRate: totalStats.get(String(Number(item?.total)))
-        ? totalStats.get(String(Number(item?.total))).hit /
-          totalStats.get(String(Number(item?.total))).seen
-        : null,
-      origin: 'draw-specialist',
-    })),
-    ...numberTopTotals.map((item) => ({
-      total: Number(item?.total),
-      probability:
-        normalizeUnitProbability(item?.probability ?? item?.score, 0) * 0.82,
-      seen: totalStats.get(String(Number(item?.total)))?.seen || 0,
-      hitRate: totalStats.get(String(Number(item?.total)))
-        ? totalStats.get(String(Number(item?.total))).hit /
-          totalStats.get(String(Number(item?.total))).seen
-        : null,
-      origin: 'number-regime',
-    })),
-  ]
-    .filter((item) => Number.isFinite(item.total))
-    .reduce((acc, item) => {
-      const total = Number(item.total)
-      const existing = acc.get(total)
-      if (!existing || Number(existing.probability || 0) < Number(item.probability || 0)) {
-        acc.set(total, item)
-        candidateOrigins.set(total, item.origin)
-      }
-      return acc
-    }, new Map())
-  const mergedTopTotals = [...mergedCandidatePool.values()]
-    .sort((a, b) => b.probability - a.probability)
-    .slice(0, 12)
-  const localAdaptiveDistribution = adaptTopTotalRecords(
-    mergedTopTotals,
-    roundsDesc,
-    {
-      limit: 12,
-      modelId: 'local',
-      sourceLabel: 'local-adaptive',
-    },
-  )
-  const localAdaptiveTopTotals = selectAdaptiveTopTotalRecords(
-    localAdaptiveDistribution,
-    roundsDesc,
-    {
-      limit: 3,
-      modelId: 'local',
-    },
-  ).map((item) => ({
-    total: Number(item.total),
-    probability: Number(item.probability || 0),
-    seen: Number(item?.seen || 0),
-    hitRate: item?.hitRate != null ? Number(item.hitRate) : null,
-  }))
-  const localAdaptiveResultProbabilities = buildAdaptiveResultProbabilities(
-    mergedTopTotals,
-    roundsDesc,
-    { modelId: 'local' },
-  )
-  const localAdaptiveResult = RESULT_ORDER.slice().sort(
-    (left, right) =>
-      localAdaptiveResultProbabilities[right] -
-      localAdaptiveResultProbabilities[left],
-  )[0]
-  const aiOwnTopTotals = localAdaptiveTopTotals.slice(0, 3).map((item, index) => ({
-    total: Number(item.total),
-    probability: Number(item.probability || 0),
+  
+  const aiPrediction = predictNextRound(roundsDesc, { windowSize: 50 }, history)
+  let hitRateText = 0
+  if (history.length) {
+    hitRateText = Number((history.filter(i => i.hit).length / history.length).toFixed(4))
+  }
+
+  const aiTopTotals = aiPrediction.topTotals.map((item, index) => ({
+    total: item.total,
+    probability: item.probability,
     rank: index + 1,
-    origin: candidateOrigins.get(Number(item.total)) || 'adaptive-memory',
+    origin: 'smart-learning'
   }))
-  const displayHistory = liveHistory.length ? liveHistory : learningHistory
-  const recentTotalChecks = displayHistory.slice(0, 7).map((item) => ({
-    id: String(item?.roundId || ''),
-    predictedTotals: Array.isArray(item?.predictedTotals)
-      ? item.predictedTotals.map(Number).filter(Number.isFinite).slice(0, 3)
-      : [],
-    actualTotal: Number(item?.actualTotal),
-    actualResult: String(
-      item?.actualResult || classifyTotal(Number(item?.actualTotal)),
-    ),
-    hit: Boolean(item?.hit),
-  }))
-  const pendingTotalCheck =
-    memory.pendingPrediction && memory.pendingPrediction.roundId
-      ? {
-          id: String(memory.pendingPrediction.roundId),
-          predictedTotals: Array.isArray(
-            memory.pendingPrediction.predictedTotals,
-          )
-            ? memory.pendingPrediction.predictedTotals
-                .map(Number)
-                .filter(Number.isFinite)
-                .slice(0, 3)
-            : aiOwnTopTotals.slice(0, 3).map((item) => Number(item.total)),
-          actualTotal: null,
-          actualResult: null,
-          hit: null,
-          pending: true,
-        }
-      : null
-  const finalDrawProbability = Number(
-    (
-      drawProbability * 0.58 +
-      Number(localAdaptiveResultProbabilities.Draw || 0) * 0.42
-    ).toFixed(6),
-  )
-  const liveHitRate = liveHistory.length
-    ? liveHistory.filter((item) => item.hit).length / liveHistory.length
-    : null
-  const replayHitRate = replayHistory.length
-    ? replayHistory.filter((item) => item.hit).length / replayHistory.length
-    : null
-  const learningWeightTotal = learningHistory.reduce(
-    (acc, item) => acc + Number(item?.learningWeight ?? 1),
-    0,
-  )
-  const learningHitRate = learningWeightTotal
-    ? learningHistory.reduce(
-        (acc, item) =>
-          acc + (item?.hit ? Number(item?.learningWeight ?? 1) : 0),
-        0,
-      ) / learningWeightTotal
-    : 0
-  const drawConsideration = adaptive.shouldConsiderDraw
-    ? 'Nên cân nhắc Hòa vì cụm 10/11 đang bị bỏ lỡ hoặc chuỗi đang trượt lặp.'
-    : drawProbability >= 0.28
-      ? 'Có thể theo dõi Hòa nếu cụm 10/11 tiếp tục sáng thêm vài kỳ.'
-      : 'Hiện chưa nên ưu tiên Hòa, nhưng vẫn theo dõi cụm 10/11.'
 
   return {
     provider: 'local',
-    version: 'v6-v7-adaptive',
-    status: current
-      ? 'ready'
-      : cacheBuildState === 'building'
-        ? 'warming_up'
-        : 'idle',
-    engine: 'V6 noi bo + V7 Draw Specialist + V8 Number Regime / local-free',
-    result: localAdaptiveResult || currentResult,
-    decision:
-      currentDecision.decision || (currentDecision.shouldBet ? 'BET' : 'SKIP'),
-    aiBetFlag:
-      currentDecision.decision || (currentDecision.shouldBet ? 'BET' : 'SKIP'),
-    confidence: normalizeUnitProbability(
-      currentDecision.topProbability ??
-        current?.diagnosis?.confidenceModel?.topProbability,
-      0,
-    ),
-    spread: normalizeUnitProbability(
-      currentDecision.topSpread ?? current?.diagnosis?.confidenceModel?.topGap,
-      0,
-    ),
-    topTotals: localAdaptiveTopTotals,
-    aiOwnTopTotals: localAdaptiveTopTotals.slice(0, 3).map((item, index) => ({
-      total: Number(item.total),
-      probability: Number(item.probability || 0),
-      rank: index + 1,
-      origin:
-        aiOwnTopTotals.find(
-          (entry) => Number(entry.total) === Number(item.total),
-        )?.origin || 'adaptive-memory',
+    version: 'smart-learning-v1',
+    status: 'ready',
+    engine: 'AI LOCAL (Feature-Weighted Voter)',
+    result: aiPrediction.result,
+    decision: 'BET',
+    aiBetFlag: 'BET',
+    confidence: aiPrediction.confidence,
+    spread: 0,
+    topTotals: aiPrediction.topTotals,
+    aiOwnTopTotals: aiTopTotals.slice(0, 3),
+    aiOwnTopTotalsDisplay: aiTopTotals.slice(0, 3),
+    drawProbability: aiPrediction.resultProbabilities?.Draw || 0,
+    drawTopTotals: [],
+    drawConsideration: aiPrediction.explanation || 'Dựa trên trọng số tự học mới.',
+    consensusResult: aiPrediction.result,
+    consensusTopTotal: aiPrediction.topTotals[0]?.total || null,
+    totalRounds: roundsDesc.length,
+    updatedAt: store.updatedAt,
+    memorySampleSize: history.length,
+    memoryHistorySize: history.length,
+    liveMemorySampleSize: history.length,
+    replayMemorySampleSize: history.length,
+    memoryHitRate: hitRateText,
+    aiHitRate: hitRateText,
+    aiRecentTotalChecks: history.slice(0, 10).map(item => ({
+      id: String(item.roundId),
+      predictedTotals: Array.isArray(item.predictedTotals) ? item.predictedTotals : [],
+      actualTotal: Number(item.actualTotal),
+      actualResult: String(item.actualResult),
+      hit: Boolean(item.hit),
+      trainedWeights: item.trainedWeights
     })),
-    aiOwnTopTotalsDisplay:
-      Array.isArray(memory.pendingPrediction?.predictedTotals) &&
-      memory.pendingPrediction.predictedTotals.length
-        ? memory.pendingPrediction.predictedTotals
-            .map((total, index) => ({
-              total: Number(total),
-              probability:
-                memory.pendingPrediction?.predictedScores?.[index]
-                  ?.probability ||
-                aiOwnTopTotals[index]?.probability ||
-                0,
-              rank: index + 1,
-              origin:
-                aiOwnTopTotals.find(
-                  (entry) => Number(entry.total) === Number(total),
-                )?.origin || 'pending-lock',
-            }))
-            .filter((item) => Number.isFinite(item.total))
-        : localAdaptiveTopTotals.slice(0, 3).map((item, index) => ({
-            total: Number(item.total),
-            probability: Number(item.probability || 0),
-            rank: index + 1,
-            origin:
-              aiOwnTopTotals.find(
-                (entry) => Number(entry.total) === Number(item.total),
-              )?.origin || 'local-adaptive',
-          })),
-    drawProbability: finalDrawProbability,
-    drawTopTotals: drawTopTotals.slice(0, 3),
-    drawConsideration,
-    consensusResult: consensus?.resultConsensus || '--',
-    consensusTopTotal: consensus?.topTotal ?? null,
-    totalRounds: Array.isArray(store.rounds) ? store.rounds.length : 0,
-    updatedAt: store.updatedAt ?? null,
-    memorySampleSize: learningHistory.length,
-    memoryHistorySize: allHistory.length,
-    liveMemorySampleSize: liveHistory.length,
-    replayMemorySampleSize: replayHistory.length,
-    memoryBackfillState: localAIBackfillState,
-    memoryHitRate: learningHitRate,
-    replayHitRate,
-    aiHitRate: liveHitRate ?? learningHitRate,
-    aiRecentTotalChecks: recentTotalChecks,
-    aiPendingTotalCheck: pendingTotalCheck,
-    resultEmpiricalHitRate: resultEmpirical,
+    aiPendingTotalCheck: memory.pendingPrediction || null,
     adaptiveSignals: {
-      missStreak: adaptive.missStreak,
-      repeatedClusterMisses: adaptive.repeatedClusterMisses,
-      repeatPenalty: adaptive.repeatPenalty,
-      shouldConsiderDraw: adaptive.shouldConsiderDraw,
-      drawCenterMissWeight: adaptive.drawCenterMissWeight,
-      adaptiveResultProbabilities: localAdaptiveResultProbabilities,
-      clusterPenalty: clusterMemory.clusterPenalty,
-      currentRegime: clusterMemory.currentRegime,
-      currentRegimeHitRate: clusterMemory.currentRegimeHitRate,
+      trainedWeights: aiPrediction.trainedWeights,
+      missStreak: aiPrediction.missStreak || 0,
+      repeatPenalty: 0,
+      drawdownLevel: 'normal',
+      safetyMode: false,
+      guardedMode: false,
+      championSource: 'smart-learning'
     },
     pendingPrediction: memory.pendingPrediction || null,
-    startupPhase,
-    cacheBuildState,
-    lastError: startupError ? startupError.message : null,
+    startupPhase: startupPhase,
+    cacheBuildState: cacheBuildState,
     notes: [
-      'Khong can API key hoac billing.',
-      'Khong fine-tune tra phi va khong goi model ngoai.',
-      'Chi su dung du lieu local va predictor V6 hien co.',
-      `AI local/free tu chot Top 3 rieng: ${localAdaptiveTopTotals.map((item) => item.total).join(', ') || '--'}.`,
-      `Ty le trung AI chi tinh tren du doan live da khoa: ${liveHistory.length} mau.`,
-      `Bo nho hoc dung ${learningHistory.length} mau huu hieu, trong do replay/backfill ${replayHistory.length} mau de warm-up.`,
-      `Neu file nho duoi ${LOCAL_AI_MEMORY_MIN_SAMPLES} mau, he thong se backfill lich su den khoang ${LOCAL_AI_MEMORY_BACKFILL_TARGET} ky.`,
-      'Co bo nho chong lap lai cum tong va tu tang trong so cho cac tong da bi bo lo.',
-      `Regime local/free hien tai: ${clusterMemory.currentRegime || '--'}, hit-rate cum: ${clusterMemory.currentClusterHitRate != null ? `${Number((clusterMemory.currentClusterHitRate * 100).toFixed(2))}%` : '--'}.`,
-    ],
+      'Giao diện và Logic AI LOCAL tái cấu trúc 100%!',
+      'Model: Feature Weighted Voter (Self-Learning).',
+      `Tỷ trọng: ${Object.entries(aiPrediction.trainedWeights || {}).map(([k,v]) => `${k}:${(Number(v)*100).toFixed(1)}%`).join(', ')}`
+    ]
   }
 }
 
@@ -2898,6 +2790,7 @@ function buildConsensusSnapshotFromPredictionsV2(
 
   return {
     models,
+    totalsToAvoid: predictions.v6?.selectiveStrategy?.currentDecision?.totalsToAvoid || [],
     resultList,
     regimeList,
     regimeConsensus,
@@ -3451,6 +3344,7 @@ async function pollLatestRound() {
       nextRoundId: nextRoundIdFromStore(store),
     })
     scheduleCacheBuild(predictionCache ? 1200 : 250, store)
+    broadcastReload()
 
     console.log('[crawler] added new round:', latest)
   } catch (err) {
@@ -3508,6 +3402,10 @@ app.get('/consensus-v16-ai', (req, res) => {
 
 app.get('/openai-judge', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'openai-judge.html'))
+})
+
+app.get('/bingo18-top3', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'bingo18-top3.html'))
 })
 
 app.get('/stats', (req, res) => {
@@ -3766,6 +3664,50 @@ app.get('/predict-openai-judge', async (req, res) => {
 app.get('/api/openai-v7/state', (req, res) => {
   updateLocalAIPendingPrediction(readData())
   res.json(readLocalAIFreeState())
+})
+
+app.get('/api/bingo18-top3/dashboard', (req, res) => {
+  try {
+    res.json(bingo18Top3Service.getDashboardSnapshot())
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: error?.message || 'Không tải được dashboard Bingo18 Top 3.',
+    })
+  }
+})
+
+app.get('/api/bingo18-top3/logs', (req, res) => {
+  try {
+    res.json(bingo18Top3Service.getLogs(req.query))
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: error?.message || 'Không tải được lịch sử Bingo18 Top 3.',
+    })
+  }
+})
+
+app.post('/api/bingo18-top3/actual', (req, res) => {
+  try {
+    res.json(bingo18Top3Service.submitActualResult(req.body || {}))
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      message: error?.message || 'Không lưu được kết quả thực tế.',
+    })
+  }
+})
+
+app.post('/api/bingo18-top3/import', (req, res) => {
+  try {
+    res.json(bingo18Top3Service.importHistoryCsv(req.body?.csvContent || ''))
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      message: error?.message || 'Không import được dữ liệu lịch sử.',
+    })
+  }
 })
 
 app.post('/api/openai-v7/start', (req, res) => {

@@ -19,7 +19,8 @@
     "benchmark:v45": "node benchmark-v45.js",
     "benchmark:core": "node benchmark-core.js",
     "benchmark:quick": "node benchmark-runner.js 30",
-    "benchmark:standard": "node benchmark-runner.js 120"
+    "benchmark:standard": "node benchmark-runner.js 120",
+    "local:maintenance": "node local_ai_maintenance_runner.js"
   },
   "dependencies": {
     "express": "^4.19.2",

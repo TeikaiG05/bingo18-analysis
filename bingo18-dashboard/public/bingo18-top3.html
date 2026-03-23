@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bingo18 | Top 3 xúc xắc</title>
+    <style>
+      :root {
+  --bg: #0f172a; --bg2: #1e1b4b; 
+  --panel: rgba(15, 23, 42, 0.45); --panel2: rgba(30, 41, 59, 0.55);
+  --line: rgba(255,255,255,0.08); --line2: rgba(255,255,255,0.15); 
+  --text: #f8fafc; --muted: #94a3b8;
+  --teal: #38bdf8; --teal-soft: rgba(56,189,248,0.15); 
+  --amber: #fbbf24; --amber-soft: rgba(251,191,36,0.15);
+  --danger: #ef4444; --shadow: 0 20px 60px rgba(0,0,0,0.4); 
+  --r1: 28px; --r2: 20px;
+  --glass-bg: rgba(30, 41, 59, 0.45);
+}
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh; padding: 0px;
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(23,107,95,.14), transparent 28%),
+          radial-gradient(circle at top right, rgba(185,122,33,.11), transparent 24%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      .app { width: min(1540px, 100%); margin: 0 auto; display: grid; gap: 18px; }
+      .tabs-drawer { position: fixed; top: 18px; left: 0; z-index: 1000; display: flex; align-items: flex-start; transform: translateX(calc(-100% + 54px)); transition: transform .24s ease; }
+      .tabs-drawer:hover { transform: translateX(0); }
+      .tabs-handle { background: rgba(15,23,42,0.7); backdrop-filter: blur(16px); display: inline-flex; align-items: center; justify-content: center; min-width: 54px; min-height: 54px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,0.06); box-shadow: var(--shadow); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; }
+      .tabs-menu { background: rgba(15,23,42,0.7); backdrop-filter: blur(16px); display: grid; gap: 10px; min-width: 230px; padding: 12px; border: 1px solid var(--line); border-left: 0; border-radius: 0 18px 18px 0; background: rgba(255,255,255,0.06); box-shadow: var(--shadow); }
+      .brand-badge { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+      .brand-badge img { width: 42px; height: 42px; border-radius: 14px; }
+      .brand-mark { display: grid; gap: 2px; }
+      .brand-mark strong { background: linear-gradient(to right, #fff, var(--teal)); -webkit-background-clip: text; color: transparent; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .brand-mark span { font-size: 11px; color: var(--muted); }
+      .tab-link { background: rgba(255,255,255,0.05); color: var(--text-muted); border-color: transparent; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; }
+      .tab-link.active { background: rgba(56,189,248,0.15); color: #fff; border-color: rgba(56,189,248,0.4); box-shadow: inset 0 0 20px rgba(56,189,248,0.1); color: var(--teal); border-color: rgba(23,107,95,.22); background: var(--teal-soft); }
+      .card { border: 1px solid var(--line); border-radius: 26px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+      .card-body { padding: 20px; }
+      .grid, .double-grid, .triple-grid, .quad-grid { display: grid; gap: 14px; }
+      .double-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .triple-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .quad-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .title { margin: 10px 0 0; font-size: clamp(34px,5vw,56px); line-height: .95; letter-spacing: -.04em; }
+      .subtitle { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 15px; }
+      .metric, .panel, .prediction-item, .chart-box { border: 1px solid rgba(22,44,38,.08); border-radius: 20px; background: rgba(255,255,255,.74); padding: 16px; }
+      .metric .value { margin-top: 6px; font-size: 28px; font-weight: 900; letter-spacing: -.04em; }
+      .metric .small { margin-top: 6px; color: var(--muted); font-size: 13px; }
+      .prediction-item .rank { display: inline-flex; min-width: 28px; min-height: 28px; align-items: center; justify-content: center; border-radius: 999px; background: var(--teal-soft); color: var(--teal); font-weight: 800; }
+      .prediction-item .value { margin-top: 10px; font-size: 36px; font-weight: 900; letter-spacing: -.04em; }
+      .prediction-item .prob { margin-top: 6px; color: var(--teal); font-weight: 700; }
+      .pill-row, .status-row { display: flex; flex-wrap: wrap; gap: 10px; }
+      .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); font-size: 12px; font-weight: 700; }
+      .pill.hit { color: var(--teal); border-color: rgba(23,107,95,.2); background: var(--teal-soft); }
+      .pill.miss { color: var(--danger); border-color: rgba(183,78,91,.2); background: var(--danger-soft); }
+      .pill.warn { color: var(--amber); border-color: rgba(185,122,33,.2); background: var(--amber-soft); }
+      .list { display: grid; gap: 10px; }
+      .item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid rgba(22,44,38,.08); border-radius: 16px; background: rgba(255,255,255,0.04); }
+      .muted { color: var(--muted); font-size: 13px; }
+      .flash { display: none; padding: 14px 16px; border-radius: 16px; font-weight: 700; }
+      .flash.show { display: block; }
+      .flash.success { background: var(--teal-soft); color: var(--teal); }
+      .flash.error { background: var(--danger-soft); color: var(--danger); }
+      .flash.info { background: rgba(23,107,95,.08); color: var(--text); }
+      form, .filters { display: grid; gap: 12px; }
+      .field-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .field-grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      label { display: grid; gap: 8px; font-size: 13px; font-weight: 700; }
+      input, textarea, select, button { font: inherit; }
+      input, textarea, select { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: var(--text); }
+      textarea { min-height: 140px; padding: 12px 14px; resize: vertical; }
+      button { min-height: 46px; padding: 0 18px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: var(--text); font-weight: 800; cursor: pointer; }
+      button.primary { background: linear-gradient(135deg, rgba(23,107,95,.18), rgba(185,122,33,.14)); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px 10px; border-bottom: 1px solid rgba(22,44,38,.08); text-align: left; font-size: 14px; vertical-align: top; }
+      th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .bar-list { display: grid; gap: 10px; }
+      .bar-row { display: grid; grid-template-columns: 70px 1fr 70px; gap: 10px; align-items: center; }
+      .bar-track { height: 12px; border-radius: 999px; background: rgba(22,44,38,.08); overflow: hidden; }
+      .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--teal), #48a38d); }
+      .bar-fill.alt { background: linear-gradient(90deg, var(--amber), #e0a14b); }
+      .chart { width: 100%; height: 180px; }
+      details summary { cursor: pointer; font-weight: 800; }
+      @media (max-width: 1200px) { .double-grid, .triple-grid, .quad-grid, .field-grid, .field-grid.three { grid-template-columns: 1fr; } }
+    
+      /* Ambient animated background blobs */
+      .ambient-blob { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.6; animation: float 20s infinite alternate linear; pointer-events: none; }
+      .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(56, 189, 248, 0.2); }
+      .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: rgba(99, 102, 241, 0.15); animation-delay: -10s; }
+      .blob-3 { top: 40%; left: 60%; width: 30vw; height: 30vw; background: rgba(168, 85, 247, 0.15); animation-direction: alternate-reverse; }
+      @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10%, 15%) scale(1.1); } }
+    
+:root[data-theme="light"] {
+  --bg: #ecf2f6; --bg2: #dfe8ef; 
+  --panel: rgba(255,255,255,.78); --panel2: rgba(255,255,255,.92);
+  --line: rgba(16,32,51,.1); --line2: rgba(16,32,51,.18); 
+  --text: #102033; --muted: #62768c;
+  --teal: #0d7a85; --teal-soft: rgba(13,122,133,.12); 
+  --amber: #c46c20; --amber-soft: rgba(196,108,32,.12);
+  --danger: #be465f; --shadow: 0 20px 60px rgba(17,35,54,.12);
+}
+
+[data-theme="light"] .ambient-blob { display: none; }
+[data-theme="light"] body::before {
+   background-image:
+     linear-gradient(rgba(16,32,51,.03) 1px, transparent 1px),
+     linear-gradient(90deg, rgba(16,32,51,.03) 1px, transparent 1px);
+}
+[data-theme="light"] .tabs-menu, 
+[data-theme="light"] .tabs-handle { background: rgba(255,255,255,0.9); border: 1px solid var(--line) !important; filter: none !important; backdrop-filter: none !important; }
+[data-theme="light"] .card, 
+[data-theme="light"] .bet-card { background: linear-gradient(180deg, var(--panel2), var(--panel)); backdrop-filter: blur(18px); }
+[data-theme="light"] .card::after, [data-theme="light"] .bet-card::after { background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 30%, transparent 70%, rgba(13,122,133,.06)); }
+[data-theme="light"] .item, 
+[data-theme="light"] .round-item, 
+[data-theme="light"] .kpi, 
+[data-theme="light"] .stat-box, 
+[data-theme="light"] .hero-metric, 
+[data-theme="light"] .prediction-focus, 
+[data-theme="light"] .dice-panel, 
+[data-theme="light"] .result-panel, 
+[data-theme="light"] .summary-panel, 
+[data-theme="light"] .analysis-panel, 
+[data-theme="light"] .bet-hero { background: rgba(255,255,255,0.62); border: 1px solid rgba(16,32,51,0.08); backdrop-filter: blur(14px); }
+[data-theme="light"] .pill, 
+[data-theme="light"] .rule-pill, 
+[data-theme="light"] .mini-link, 
+[data-theme="light"] .status-pill { background: rgba(255,255,255,0.66); color: var(--text); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link {  color: var(--text-muted); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link:hover { border-color: var(--line2); background: rgba(255,255,255,0.9); color: var(--text); }
+[data-theme="light"] .tab-link.active { color: var(--teal); border-color: rgba(13,122,133,.2); background: var(--teal-soft); box-shadow: none; }
+[data-theme="light"] .brand-badge img { box-shadow: 0 10px 24px rgba(17,35,54,.14); }
+[data-theme="light"] .brand-mark strong { background: none; -webkit-background-clip: unset; color: var(--text); }
+[data-theme="light"] .die { color: #13324d; border: 1px solid rgba(13,122,133,0.16); background: radial-gradient(circle at 25% 20%, rgba(255,255,255,0.95), transparent 28%), linear-gradient(145deg, rgba(13,122,133,0.12), rgba(196,108,32,0.12)), #fff; }
+
+
+
+    
+      .status-hit, [class*="status-hit"] { color: #10b981 !important; font-weight: 700; }
+      .status-miss, [class*="status-miss"] { color: #ef4444 !important; font-weight: 700; }
+
+    
+      .status-hit, [class*="status-hit"] { color: #10b981 !important; font-weight: 700; }
+      .status-miss, [class*="status-miss"] { color: #ef4444 !important; font-weight: 700; }
+
+    </style>
+  </head>
+  <body>
+    
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
+    <div class="app">
+      <div class="tabs-drawer">
+        <div class="tabs-menu">
+          <div class="brand-badge">
+            <img src="/brand-logo.svg" alt="Bingo18 logo" />
+            <div class="brand-mark"><strong>Bingo18</strong><span>Dự đoán Top 3 xúc xắc</span></div>
+          </div>
+          <a class="tab-link" href="/">Trang chính</a>
+          <a class="tab-link" href="/selective-v6-ai">AI độc lập V6</a>
+          <a class="tab-link" href="/selective-v9">V9 linh hoạt</a>
+          <a class="tab-link" href="/consensus-v15">Hội đồng V1-V5</a>
+          <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
+          <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
+          <a class="tab-link" href="/openai-judge">AI local/free</a>
+          <a class="tab-link active" href="/bingo18-top3">Top 3 xúc xắc</a>
+        </div>
+        <div class="tabs-handle">Menu</div>
+      </div>
+      <div class="main-column" style="display:flex; flex-direction:column; gap:18px;">
+
+      <div class="card"><div class="card-body">
+        <div class="label">Bingo18 Top 3 Predictor</div>
+        <h1 class="title">Tab web local-first cho dự đoán 3 tổng sáng nhất</h1>
+        <div class="subtitle">Tab này dùng lịch sử dài hạn + ngữ cảnh gần nhất để chấm điểm xác suất cho tổng 3..18, khóa một dự đoán đang chờ, ghi Trúng/Trượt, cập nhật state nhẹ và theo dõi hiệu quả mô hình.</div>
+        <div class="status-row" id="summaryPills" style="margin-top:16px;"></div>
+      </div></div>
+
+      <div id="flash" class="flash"></div>
+
+      <div class="quad-grid">
+        <div class="metric"><div class="label">Kỳ gần nhất</div><div class="value" id="latestPeriod">--</div><div class="small" id="latestContext">--</div></div>
+        <div class="metric"><div class="label">Hit rate toàn bộ</div><div class="value" id="overallHitRate">--</div><div class="small">Tính trên log đã resolve</div></div>
+        <div class="metric"><div class="label">Rolling 20 / 50 / 100</div><div class="value" id="rollingSummary">--</div><div class="small">Đo chất lượng gần đây</div></div>
+        <div class="metric"><div class="label">Kỳ đang chờ</div><div class="value" id="pendingPeriod">--</div><div class="small" id="pendingContext">--</div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Dự đoán hiện tại</div>
+          <h2 style="margin:8px 0 16px;">Top 3 tổng cho kỳ tiếp theo</h2>
+          <div class="triple-grid" id="top3Grid"></div>
+          <div class="panel" style="margin-top:16px;">
+            <div class="label">Mức tự tin AI</div>
+            <div id="confidenceScoreDisplay" style="margin-top:8px; font-size: 24px; font-weight: 800; letter-spacing: -0.02em;">--</div>
+          </div>
+          <div class="panel" style="margin-top:16px;">
+            <div class="label">Tư duy né số (Avoidance Engine)</div>
+            <div class="list" id="avoidanceList" style="margin-top:12px;"></div>
+          </div>
+          <div class="panel" style="margin-top:16px;">
+            <div class="label">Giải thích ngắn</div>
+            <div class="list" id="explanationList" style="margin-top:12px;"></div>
+          </div>
+        </div></div>
+
+        <div class="card"><div class="card-body">
+          <div class="label">Nhập kết quả thực tế</div>
+          <h2 style="margin:8px 0 16px;">So sánh với top 3 đang chờ</h2>
+          <form id="actualForm">
+            <div class="field-grid">
+              <label>Mã kỳ<input id="actualPeriodId" /></label>
+              <label>Ngày<input id="actualDate" /></label>
+              <label>Slot<input id="actualSlot" /></label>
+              <label>Tổng thực tế<input id="actualTotal" /></label>
+            </div>
+            <div class="field-grid three">
+              <label>Viên 1<input id="actualD1" /></label>
+              <label>Viên 2<input id="actualD2" /></label>
+              <label>Viên 3<input id="actualD3" /></label>
+            </div>
+            <div class="muted">Nếu nhập đủ 3 viên xúc xắc, hệ thống sẽ tự tính tổng. Nếu nhập lại cùng kỳ, log sẽ được update thay vì duplicate.</div>
+            <button class="primary" type="submit">Lưu kết quả thực tế</button>
+          </form>
+        </div></div>
+      </div>
+
+      <div class="card"><div class="card-body">
+        <div class="label">Lịch sử dự đoán</div>
+        <h2 style="margin:8px 0 16px;">Filter và rà log nhanh</h2>
+        <div class="filters">
+          <div class="field-grid">
+            <label>Kết quả
+              <select id="filterResult">
+                <option>Tất cả</option>
+                <option>Trúng</option>
+                <option>Trượt</option>
+                <option>Chờ kết quả</option>
+              </select>
+            </label>
+            <label>Từ ngày<input id="filterDateFrom" /></label>
+            <label>Đến ngày<input id="filterDateTo" /></label>
+            <label>Giới hạn<input id="filterLimit" value="100" /></label>
+          </div>
+          <div class="field-grid">
+            <label>Slot từ<input id="filterSlotFrom" value="1" /></label>
+            <label>Slot đến<input id="filterSlotTo" value="159" /></label>
+            <div style="display:flex;align-items:end;"><button id="reloadLogsBtn" type="button">Tải lại lịch sử</button></div>
+          </div>
+        </div>
+        <div class="muted" id="logSummary" style="margin:12px 0;"></div>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Kỳ</th><th>Ngày</th><th>Slot</th><th>Top 3</th><th>Thực tế</th><th>Kết quả</th><th>Tạo lúc</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Rolling Hit Rate</div>
+          <h2 style="margin:8px 0 16px;">20 / 50 / 100 kỳ</h2>
+          <svg class="chart" id="rollingChart"></svg>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Phân phối tổng thực tế</div>
+          <h2 style="margin:8px 0 16px;">Tần suất 3..18</h2>
+          <div class="bar-list" id="distributionBars"></div>
+        </div></div>
+      </div>
+
+      <div class="triple-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Dự đoán vs thực tế</div>
+          <h2 style="margin:8px 0 16px;">Số lần xuất hiện</h2>
+          <div class="bar-list" id="compareBars"></div>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Hiệu quả theo slot</div>
+          <h2 style="margin:8px 0 16px;">Hit rate theo slot</h2>
+          <div class="bar-list" id="slotBars"></div>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Hiệu quả theo ngữ cảnh</div>
+          <h2 style="margin:8px 0 16px;">Prev state và nhóm biên</h2>
+          <div class="bar-list" id="contextBars"></div>
+        </div></div>
+      </div>
+
+      <div class="double-grid">
+        <div class="card"><div class="card-body">
+          <div class="label">Quản lý dữ liệu</div>
+          <h2 style="margin:8px 0 16px;">Import CSV lịch sử mới</h2>
+          <label>Chọn file CSV<input id="importFile" type="file" accept=".csv" /></label>
+          <div class="muted" style="margin:8px 0 12px;">Schema tối thiểu: `date`, `id/period_id`, `result` hoặc `d1,d2,d3` hoặc `total`.</div>
+          <button id="importBtn" class="primary" type="button">Import vào dataset runtime</button>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="label">Nguồn gốc và file runtime</div>
+          <h2 style="margin:8px 0 16px;">Bootstrap / report</h2>
+          <div class="list" id="bootstrapList"></div>
+          <details style="margin-top:16px;">
+            <summary>Xem report phân tích ban đầu</summary>
+            <pre id="analysisReport" style="white-space:pre-wrap;word-break:break-word;color:var(--muted);font-size:13px;"></pre>
+          </details>
+        </div></div>
+      </div>
+          </div>
+</div>
+
+    <script>
+      const state = { dashboard: null }
+      let flashTimer = null
+      let refreshPromise = null
+      let realtimeSocket = null
+      let realtimeHeartbeat = null
+      let realtimeReconnectTimer = null
+      const fmtPercent = (value) =>
+        value == null || Number.isNaN(Number(value)) ? '--' : `${(Number(value) * 100).toFixed(2)}%`
+      const esc = (value) =>
+        String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]))
+
+      function showFlash(message, level = 'info') {
+        const flash = document.getElementById('flash')
+        if (flashTimer) window.clearTimeout(flashTimer)
+        flash.className = `flash show ${level}`
+        flash.textContent = message
+        flashTimer = window.setTimeout(() => {
+          flash.className = 'flash'
+          flash.textContent = ''
+        }, level === 'error' ? 6500 : 4200)
+      }
+
+      function renderTop3(prediction) {
+        const grid = document.getElementById('top3Grid')
+        if (!prediction) {
+          grid.innerHTML = '<div class="muted">Chưa có dự đoán đang chờ.</div>'
+          return
+        }
+        grid.innerHTML = prediction.top3.map((item, index) => `
+          <div class="prediction-item">
+            <div class="rank">#${index + 1}</div>
+            <div class="value">Tổng ${item.total}</div>
+            <div class="prob">${fmtPercent(item.prob)}</div>
+          </div>
+        `).join('')
+      }
+
+      function renderList(containerId, items, formatter, emptyText) {
+        const node = document.getElementById(containerId)
+        if (!items || !items.length) {
+          node.innerHTML = `<div class="muted">${emptyText}</div>`
+          return
+        }
+        node.innerHTML = items.map(formatter).join('')
+      }
+
+      function polylinePoints(values, width = 640, height = 180, pad = 12) {
+        if (!values.length) return ''
+        const min = Math.min(...values)
+        const max = Math.max(...values)
+        const range = max - min || 1
+        return values.map((value, index) => {
+          const x = pad + ((width - pad * 2) * index) / Math.max(1, values.length - 1)
+          const y = height - pad - ((value - min) / range) * (height - pad * 2)
+          return `${x},${y}`
+        }).join(' ')
+      }
+
+      function renderRollingChart(stats) {
+        const svg = document.getElementById('rollingChart')
+        const r20 = (stats?.rolling?.r20 || []).map((item) => Number(item.hit_rate || 0))
+        const r50 = (stats?.rolling?.r50 || []).map((item) => Number(item.hit_rate || 0))
+        const r100 = (stats?.rolling?.r100 || []).map((item) => Number(item.hit_rate || 0))
+        if (!r20.length && !r50.length && !r100.length) {
+          svg.innerHTML = '<text x="16" y="32" fill="#61746d">Chưa đủ log đã resolve để vẽ rolling chart.</text>'
+          return
+        }
+        svg.setAttribute('viewBox', '0 0 640 180')
+        svg.innerHTML = `
+          <rect x="0" y="0" width="640" height="180" rx="18" fill="rgba(255,255,255,.4)"></rect>
+          <polyline fill="none" stroke="#176b5f" stroke-width="3" points="${polylinePoints(r20)}"></polyline>
+          <polyline fill="none" stroke="#b97a21" stroke-width="3" points="${polylinePoints(r50)}"></polyline>
+          <polyline fill="none" stroke="#b74e5b" stroke-width="3" points="${polylinePoints(r100)}"></polyline>
+          <text x="16" y="24" fill="#176b5f" font-size="12">Rolling 20</text>
+          <text x="116" y="24" fill="#b97a21" font-size="12">Rolling 50</text>
+          <text x="216" y="24" fill="#b74e5b" font-size="12">Rolling 100</text>
+        `
+      }
+
+      function renderBars(containerId, rows, valueKey, alt = false, maxItems = 12, labelKey = 'total') {
+        const data = (rows || []).slice(0, maxItems)
+        const max = Math.max(1, ...data.map((row) => Number(row[valueKey] || 0)))
+        renderList(
+          containerId,
+          data,
+          (row) => `
+            <div class="bar-row">
+              <strong>${esc(row[labelKey])}</strong>
+              <div class="bar-track"><div class="bar-fill ${alt ? 'alt' : ''}" style="width:${(Number(row[valueKey] || 0) / max) * 100}%"></div></div>
+              <span>${typeof row[valueKey] === 'number' && row[valueKey] <= 1 ? fmtPercent(row[valueKey]) : esc(row[valueKey])}</span>
+            </div>
+          `,
+          'Chưa có dữ liệu.',
+        )
+      }
+
+      function renderCompareBars(rows) {
+        renderList(
+          'compareBars',
+          (rows || []).slice(0, 12),
+          (row) => `
+            <div class="item">
+              <div><strong>Tổng ${esc(row.total)}</strong><div class="muted">Thực tế ${esc(row.actual_count)} | Dự đoán ${esc(row.predicted_count)}</div></div>
+              <strong>${row.actual_count}/${row.predicted_count}</strong>
+            </div>
+          `,
+          'Chưa có dữ liệu so sánh.',
+        )
+      }
+
+      function renderContextBars(stats) {
+        const rows = [
+          ...((stats?.performance?.by_prev_state || []).map((row) => ({
+            label: `Prev state: ${row.prev_state}`,
+            hit_rate: row.hit_rate,
+            samples: row.samples,
+          }))),
+          ...((stats?.performance?.by_edge_group || []).map((row) => ({
+            label: row.group,
+            hit_rate: row.hit_rate,
+            samples: row.samples,
+          }))),
+        ]
+        renderList(
+          'contextBars',
+          rows,
+          (row) => `
+            <div class="bar-row">
+              <strong>${esc(row.label)}</strong>
+              <div class="bar-track"><div class="bar-fill alt" style="width:${Number(row.hit_rate || 0) * 100}%"></div></div>
+              <span>${fmtPercent(row.hit_rate)} | ${esc(row.samples)} mẫu</span>
+            </div>
+          `,
+          'Chưa có dữ liệu context.',
+        )
+      }
+
+      function syncActualForm(pending) {
+        const periodInput = document.getElementById('actualPeriodId')
+        const dateInput = document.getElementById('actualDate')
+        const slotInput = document.getElementById('actualSlot')
+        const totalInput = document.getElementById('actualTotal')
+        const d1Input = document.getElementById('actualD1')
+        const d2Input = document.getElementById('actualD2')
+        const d3Input = document.getElementById('actualD3')
+        const nextPredictionKey = pending?.prediction_key || ''
+        const currentPredictionKey = periodInput.dataset.predictionKey || ''
+        const shouldHydrate =
+          (!periodInput.value && !dateInput.value && !slotInput.value) ||
+          (nextPredictionKey && currentPredictionKey !== nextPredictionKey)
+
+        if (!shouldHydrate) return
+
+        periodInput.value = pending?.predicted_period_id || ''
+        dateInput.value = pending?.predicted_date || ''
+        slotInput.value = pending?.predicted_slot_in_day || ''
+        periodInput.dataset.predictionKey = nextPredictionKey
+
+        if (currentPredictionKey !== nextPredictionKey) {
+          totalInput.value = ''
+          d1Input.value = ''
+          d2Input.value = ''
+          d3Input.value = ''
+        }
+      }
+
+      async function loadLogs() {
+        const query = new URLSearchParams({
+          result: document.getElementById('filterResult').value,
+          date_from: document.getElementById('filterDateFrom').value,
+          date_to: document.getElementById('filterDateTo').value,
+          limit: document.getElementById('filterLimit').value || '100',
+          slot_from: document.getElementById('filterSlotFrom').value || '1',
+          slot_to: document.getElementById('filterSlotTo').value || '159',
+        })
+        const res = await fetch(`/api/bingo18-top3/logs?${query.toString()}`)
+        if (!res.ok) {
+          const errorPayload = await res.json().catch(() => ({}))
+          throw new Error(errorPayload.message || 'Khong tai duoc lich su Top 3.')
+        }
+        const data = await res.json()
+        document.getElementById('logSummary').textContent = `Tổng số bản ghi khớp filter: ${data.total}`
+        renderList(
+          'historyTableBody',
+          data.rows || [],
+          (row) => `
+            <tr>
+              <td>${esc(row.predicted_period_id || '--')}</td>
+              <td>${esc(row.predicted_date || '--')}</td>
+              <td>${esc(row.predicted_slot_in_day || '--')}</td>
+              <td>${esc(row.predicted_top3 || '--')}</td>
+              <td>${esc(row.actual_total || '--')}</td>
+              <td><span class="pill ${row.hit_top3 === 'Trúng' ? 'hit' : row.hit_top3 === 'Trượt' ? 'miss' : 'warn'}">${esc(row.hit_top3)}</span></td>
+              <td>${esc(row.prediction_created_at || '--')}</td>
+            </tr>
+          `,
+          '<tr><td colspan="7" class="muted">Không có log phù hợp.</td></tr>',
+        )
+      }
+
+      async function loadDashboard(reason = 'manual') {
+        const previousDashboard = state.dashboard
+        const res = await fetch('/api/bingo18-top3/dashboard')
+        if (!res.ok) {
+          const errorPayload = await res.json().catch(() => ({}))
+          throw new Error(errorPayload.message || 'Khong tai duoc dashboard Top 3.')
+        }
+        const data = await res.json()
+        state.dashboard = data
+        const latest = data.latest_row || {}
+        const pending = data.pending_prediction || {}
+        document.getElementById('latestPeriod').textContent = latest.period_id || '--'
+        document.getElementById('latestContext').textContent = latest.date ? `${latest.date} | slot ${latest.slot_in_day} | tổng ${latest.total} | ${latest.state}` : '--'
+        document.getElementById('overallHitRate').textContent = fmtPercent(data.summary?.overall_hit_rate)
+        document.getElementById('rollingSummary').textContent = [data.summary?.latest_r20, data.summary?.latest_r50, data.summary?.latest_r100].map(fmtPercent).join(' / ')
+        document.getElementById('pendingPeriod').textContent = pending.predicted_period_id || '--'
+        document.getElementById('pendingContext').textContent = pending.predicted_date ? `${pending.predicted_date} | slot ${pending.predicted_slot_in_day} | prev ${pending.prev_total} ${pending.prev_state}` : '--'
+        syncActualForm(pending)
+        const crawlerSyncParts = []
+        if (Number(data.summary?.crawler_added || 0) > 0) crawlerSyncParts.push(`+${data.summary.crawler_added}`)
+        if (Number(data.summary?.crawler_updated || 0) > 0) crawlerSyncParts.push(`~${data.summary.crawler_updated}`)
+        document.getElementById('summaryPills').innerHTML =
+          (data.bootstrap_actions || []).map((item) => `<div class="pill">${esc(item)}</div>`).join('') +
+          `<div class="pill">Sync ${esc(data.summary?.sync_mode || '--')}</div>` +
+          `<div class="pill">Crawler ${esc(data.crawler_sync?.source_available ? 'on' : 'off')}</div>` +
+          (crawlerSyncParts.length ? `<div class="pill hit">Crawler ${esc(crawlerSyncParts.join(' '))}</div>` : '')
+        renderTop3(pending)
+        
+        const confidenceScore = Number(pending.confidence_score || 0)
+        const confidenceEl = document.getElementById('confidenceScoreDisplay')
+        if (confidenceScore > 0) {
+          const color = confidenceScore >= 0.6 ? 'var(--teal)' : confidenceScore <= 0.35 ? 'var(--danger)' : 'var(--amber)'
+          confidenceEl.innerHTML = `<span style="color: ${color};">${fmtPercent(confidenceScore)}</span> <span style="font-size: 14px; font-weight: normal; color: var(--muted);">/ 100%</span>`
+        } else {
+          confidenceEl.innerHTML = '--'
+        }
+
+        renderList(
+          'avoidanceList',
+          pending.totalsToAvoid || [],
+          (item) => `
+            <div class="item">
+              <div><strong>Tổng ${esc(item.total)}</strong><div class="muted">${esc(item.reason)}</div></div>
+              <span class="pill ${item.severity === 'HIGH' ? 'miss' : item.severity === 'MEDIUM' ? 'warn' : ''}">${esc(item.severity)}</span>
+            </div>
+          `,
+          'Hệ thống không phát hiện rủi ro đặc biệt nào đáng né.'
+        )
+
+        renderList('explanationList', pending.explanation || [], (item) => `<div class="item"><div>${esc(item)}</div></div>`, 'Chưa có giải thích.')
+        renderRollingChart(data.stats)
+        renderBars('distributionBars', data.stats?.distributions?.total_distribution, 'count', false, 16)
+        renderCompareBars(data.stats?.distributions?.prediction_vs_actual)
+        renderBars('slotBars', (data.stats?.performance?.by_slot || []).slice(0, 12), 'hit_rate', false, 12, 'slot_in_day')
+        renderContextBars(data.stats)
+        renderList('bootstrapList', [
+          { label: 'Crawler', value: data.files?.crawler },
+          { label: 'History', value: data.files?.history },
+          { label: 'Log', value: data.files?.log },
+          { label: 'State', value: data.files?.state },
+          { label: 'Backups', value: data.files?.backups },
+        ], (item) => `<div class="item"><div><strong>${esc(item.label)}</strong></div><div class="muted">${esc(item.value || '--')}</div></div>`, 'Không có bootstrap info.')
+        document.getElementById('analysisReport').textContent = data.analysis_report || 'Không có report.'
+
+        if (reason === 'realtime' && previousDashboard) {
+          const previousLatest = previousDashboard.latest_row?.period_id || ''
+          const nextLatest = latest.period_id || ''
+          const previousPending = previousDashboard.pending_prediction?.predicted_period_id || ''
+          const nextPending = pending.predicted_period_id || ''
+          if (previousLatest !== nextLatest || previousPending !== nextPending) {
+            showFlash(
+              `Đã đồng bộ crawler. Kỳ gần nhất ${nextLatest || '--'}, kỳ đang chờ ${nextPending || '--'}.`,
+              'info',
+            )
+          }
+        }
+      }
+
+      function refreshAll(reason = 'manual') {
+        if (!refreshPromise) {
+          refreshPromise = Promise.all([loadDashboard(reason), loadLogs()]).finally(() => {
+            refreshPromise = null
+          })
+        }
+        return refreshPromise
+      }
+
+      function connectRealtime() {
+        if (
+          realtimeSocket &&
+          (realtimeSocket.readyState === WebSocket.OPEN ||
+            realtimeSocket.readyState === WebSocket.CONNECTING)
+        ) {
+          return
+        }
+
+        const wsProtocol = location.protocol === 'https:' ? 'wss' : 'ws'
+        realtimeSocket = new WebSocket(`${wsProtocol}://${location.host}`)
+
+        realtimeSocket.addEventListener('open', () => {
+          if (realtimeReconnectTimer) {
+            window.clearTimeout(realtimeReconnectTimer)
+            realtimeReconnectTimer = null
+          }
+          if (realtimeHeartbeat) window.clearInterval(realtimeHeartbeat)
+          realtimeHeartbeat = window.setInterval(() => {
+            if (realtimeSocket?.readyState === WebSocket.OPEN) realtimeSocket.send('ping')
+          }, 25000)
+        })
+
+        realtimeSocket.addEventListener('message', (event) => {
+          if (String(event.data || '') !== 'updated') return
+          refreshAll('realtime').catch((error) => showFlash(error.message, 'error'))
+        })
+
+        realtimeSocket.addEventListener('close', () => {
+          if (realtimeHeartbeat) {
+            window.clearInterval(realtimeHeartbeat)
+            realtimeHeartbeat = null
+          }
+          realtimeSocket = null
+          if (!realtimeReconnectTimer) {
+            realtimeReconnectTimer = window.setTimeout(() => {
+              realtimeReconnectTimer = null
+              connectRealtime()
+            }, 1500)
+          }
+        })
+
+        realtimeSocket.addEventListener('error', () => {
+          try {
+            realtimeSocket?.close()
+          } catch {
+            realtimeSocket = null
+          }
+        })
+      }
+
+      document.getElementById('reloadLogsBtn').addEventListener('click', () => {
+        loadLogs().catch((error) => showFlash(error.message, 'error'))
+      })
+
+      document.getElementById('actualForm').addEventListener('submit', async (event) => {
+        event.preventDefault()
+        const payload = {
+          period_id: document.getElementById('actualPeriodId').value,
+          date: document.getElementById('actualDate').value,
+          slot_in_day: document.getElementById('actualSlot').value,
+          total: document.getElementById('actualTotal').value,
+          d1: document.getElementById('actualD1').value,
+          d2: document.getElementById('actualD2').value,
+          d3: document.getElementById('actualD3').value,
+        }
+        try {
+          const res = await fetch('/api/bingo18-top3/actual', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.message || 'Không lưu được kết quả thực tế.')
+          showFlash(`Đã lưu kỳ ${data.actual.period_id}. Kết quả: ${data.comparison.hit_top3}. History=${data.history_action}, Log=${data.log_action}.`, data.comparison.hit_top3 === 'Trúng' ? 'success' : 'info')
+          await refreshAll('manual')
+        } catch (error) {
+          showFlash(error.message, 'error')
+        }
+      })
+
+      document.getElementById('importBtn').addEventListener('click', async () => {
+        const file = document.getElementById('importFile').files?.[0]
+        if (!file) {
+          showFlash('Hãy chọn file CSV trước khi import.', 'error')
+          return
+        }
+        try {
+          const csvContent = await file.text()
+          const res = await fetch('/api/bingo18-top3/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ csvContent }),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.message || 'Import thất bại.')
+          showFlash(`Import xong. Added=${data.summary.added}, Updated=${data.summary.updated}, Unchanged=${data.summary.unchanged}, Reconciled logs=${data.reconciled_logs}.`, 'success')
+          await refreshAll('manual')
+        } catch (error) {
+          showFlash(error.message, 'error')
+        }
+      })
+
+      connectRealtime()
+      refreshAll('initial').catch((error) => showFlash(error.message, 'error'))
+    </script>
+  </body>
+</html>

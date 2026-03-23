@@ -6,21 +6,19 @@
     <title>Bingo18 | V9 Adaptive Ledger</title>
     <style>
       :root {
-        --bg: #eef1f8;
-        --bg2: #dde2f2;
-        --panel: rgba(255, 255, 255, 0.92);
-        --line: rgba(28, 34, 60, 0.1);
-        --text: #1c223c;
-        --muted: #6d7392;
-        --indigo: #5468d8;
-        --indigo-soft: rgba(84, 104, 216, 0.12);
-        --shadow: 0 20px 60px rgba(28, 34, 60, 0.12);
-      }
+  --bg: #0f172a; --bg2: #1e1b4b; 
+  --panel: rgba(15, 23, 42, 0.45); --panel2: rgba(30, 41, 59, 0.55);
+  --line: rgba(255,255,255,0.08); --line2: rgba(255,255,255,0.15); 
+  --text: #f8fafc; --muted: #94a3b8;
+  --teal: #38bdf8; --teal-soft: rgba(56,189,248,0.15); 
+  --amber: #fbbf24; --amber-soft: rgba(251,191,36,0.15);
+  --danger: #ef4444; --shadow: 0 20px 60px rgba(0,0,0,0.4); 
+  --r1: 28px; --r2: 20px;
+  --glass-bg: rgba(30, 41, 59, 0.45);
+}
       * { box-sizing: border-box; }
       body {
-        margin: 0;
-        min-height: 100vh;
-        padding: 18px;
+        margin: 0; min-height: 100vh; padding: 0px;
         color: var(--text);
         font-family: "Segoe UI", Tahoma, Arial, sans-serif;
         background: linear-gradient(180deg, var(--bg), var(--bg2));
@@ -42,7 +40,7 @@
         transition: transform 0.24s ease;
       }
       .tabs-drawer:hover { transform: translateX(0); }
-      .tabs-handle {
+      .tabs-handle { background: rgba(15,23,42,0.7); backdrop-filter: blur(16px);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -51,7 +49,7 @@
         border: 1px solid var(--line);
         border-left: 0;
         border-radius: 0 18px 18px 0;
-        background: rgba(255, 255, 255, 0.92);
+        
         box-shadow: var(--shadow);
         color: var(--text);
         font-size: 11px;
@@ -61,7 +59,7 @@
         writing-mode: vertical-rl;
         text-orientation: mixed;
       }
-      .tabs-menu {
+      .tabs-menu { background: rgba(15,23,42,0.7); backdrop-filter: blur(16px);
         display: grid;
         gap: 10px;
         min-width: 230px;
@@ -69,7 +67,7 @@
         border: 1px solid var(--line);
         border-left: 0;
         border-radius: 0 18px 18px 0;
-        background: rgba(255, 255, 255, 0.92);
+        
         box-shadow: var(--shadow);
       }
       .brand-badge {
@@ -82,13 +80,13 @@
       }
       .brand-badge img { width: 42px; height: 42px; border-radius: 14px; }
       .brand-mark { display: grid; gap: 2px; }
-      .brand-mark strong {
+      .brand-mark strong { background: linear-gradient(to right, #fff, var(--teal)); -webkit-background-clip: text; color: transparent;
         font-size: 13px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
       .brand-mark span { font-size: 11px; color: var(--muted); }
-      .tab-link {
+      .tab-link { background: rgba(255,255,255,0.05); color: var(--text-muted); border-color: transparent;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -96,13 +94,13 @@
         padding: 0 14px;
         border-radius: 999px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.76);
+        
         color: var(--text);
         text-decoration: none;
         font-size: 12px;
         font-weight: 700;
       }
-      .tab-link.active {
+      .tab-link.active { background: rgba(56,189,248,0.15); color: #fff; border-color: rgba(56,189,248,0.4); box-shadow: inset 0 0 20px rgba(56,189,248,0.1);
         color: var(--indigo);
         border-color: rgba(84, 104, 216, 0.22);
         background: var(--indigo-soft);
@@ -191,9 +189,74 @@
       @media (max-width: 1080px) {
         .grid, .double-grid { grid-template-columns: 1fr; }
       }
+    
+      /* Ambient animated background blobs */
+      .ambient-blob { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.6; animation: float 20s infinite alternate linear; pointer-events: none; }
+      .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(56, 189, 248, 0.2); }
+      .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: rgba(99, 102, 241, 0.15); animation-delay: -10s; }
+      .blob-3 { top: 40%; left: 60%; width: 30vw; height: 30vw; background: rgba(168, 85, 247, 0.15); animation-direction: alternate-reverse; }
+      @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10%, 15%) scale(1.1); } }
+    
+:root[data-theme="light"] {
+  --bg: #ecf2f6; --bg2: #dfe8ef; 
+  --panel: rgba(255,255,255,.78); --panel2: rgba(255,255,255,.92);
+  --line: rgba(16,32,51,.1); --line2: rgba(16,32,51,.18); 
+  --text: #102033; --muted: #62768c;
+  --teal: #0d7a85; --teal-soft: rgba(13,122,133,.12); 
+  --amber: #c46c20; --amber-soft: rgba(196,108,32,.12);
+  --danger: #be465f; --shadow: 0 20px 60px rgba(17,35,54,.12);
+}
+
+[data-theme="light"] .ambient-blob { display: none; }
+[data-theme="light"] body::before {
+   background-image:
+     linear-gradient(rgba(16,32,51,.03) 1px, transparent 1px),
+     linear-gradient(90deg, rgba(16,32,51,.03) 1px, transparent 1px);
+}
+[data-theme="light"] .tabs-menu, 
+[data-theme="light"] .tabs-handle { background: rgba(255,255,255,0.9); border: 1px solid var(--line) !important; filter: none !important; backdrop-filter: none !important; }
+[data-theme="light"] .card, 
+[data-theme="light"] .bet-card { background: linear-gradient(180deg, var(--panel2), var(--panel)); backdrop-filter: blur(18px); }
+[data-theme="light"] .card::after, [data-theme="light"] .bet-card::after { background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 30%, transparent 70%, rgba(13,122,133,.06)); }
+[data-theme="light"] .item, 
+[data-theme="light"] .round-item, 
+[data-theme="light"] .kpi, 
+[data-theme="light"] .stat-box, 
+[data-theme="light"] .hero-metric, 
+[data-theme="light"] .prediction-focus, 
+[data-theme="light"] .dice-panel, 
+[data-theme="light"] .result-panel, 
+[data-theme="light"] .summary-panel, 
+[data-theme="light"] .analysis-panel, 
+[data-theme="light"] .bet-hero { background: rgba(255,255,255,0.62); border: 1px solid rgba(16,32,51,0.08); backdrop-filter: blur(14px); }
+[data-theme="light"] .pill, 
+[data-theme="light"] .rule-pill, 
+[data-theme="light"] .mini-link, 
+[data-theme="light"] .status-pill { background: rgba(255,255,255,0.66); color: var(--text); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link {  color: var(--text-muted); border: 1px solid var(--line); }
+[data-theme="light"] .tab-link:hover { border-color: var(--line2); background: rgba(255,255,255,0.9); color: var(--text); }
+[data-theme="light"] .tab-link.active { color: var(--teal); border-color: rgba(13,122,133,.2); background: var(--teal-soft); box-shadow: none; }
+[data-theme="light"] .brand-badge img { box-shadow: 0 10px 24px rgba(17,35,54,.14); }
+[data-theme="light"] .brand-mark strong { background: none; -webkit-background-clip: unset; color: var(--text); }
+[data-theme="light"] .die { color: #13324d; border: 1px solid rgba(13,122,133,0.16); background: radial-gradient(circle at 25% 20%, rgba(255,255,255,0.95), transparent 28%), linear-gradient(145deg, rgba(13,122,133,0.12), rgba(196,108,32,0.12)), #fff; }
+
+
+
+    
+      .status-hit, [class*="status-hit"] { color: #10b981 !important; font-weight: 700; }
+      .status-miss, [class*="status-miss"] { color: #ef4444 !important; font-weight: 700; }
+
+    
+      .status-hit, [class*="status-hit"] { color: #10b981 !important; font-weight: 700; }
+      .status-miss, [class*="status-miss"] { color: #ef4444 !important; font-weight: 700; }
+
     </style>
   </head>
   <body>
+    
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
     <div class="app">
       <div class="tabs-drawer">
         <div class="tabs-menu">
@@ -208,9 +271,37 @@
           <a class="tab-link" href="/consensus-v16">Hội đồng V1-V6</a>
           <a class="tab-link" href="/consensus-v16-ai">Hội đồng V1-V6 AI</a>
           <a class="tab-link" href="/openai-judge">AI local/free</a>
+          <a class="tab-link" href="/bingo18-top3">Top 3 xúc xắc</a>
+
+<button id="themeToggleBtn" style="margin-top:20px; width:100%; border-radius:12px; border:1px solid var(--line); background:var(--panel2); color:var(--text); padding:12px; cursor:pointer; font-family:inherit; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; transition: all 0.2s;">
+  <span id="themeIcon">☀️</span> <span>Giao diện Sáng/Tối</span>
+</button>
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('bingo_theme') || 'dark';
+    if(savedTheme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('themeToggleBtn');
+      const icon = document.getElementById('themeIcon');
+      if (savedTheme === 'light') icon.textContent = '🌙';
+      if(btn) {
+        btn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || 'dark';
+          const next = current === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('bingo_theme', next);
+          icon.textContent = next === 'light' ? '🌙' : '☀️';
+        });
+      }
+    });
+  })();
+</script>
+
         </div>
         <div class="tabs-handle">Menu</div>
       </div>
+      <div class="main-column" style="display:flex; flex-direction:column; gap:18px;">
 
       <div class="card"><div class="card-body">
         <div class="label">V9 Adaptive Ledger</div>
@@ -276,7 +367,8 @@
           <tbody id="recentChecksTable"></tbody>
         </table>
       </div></div>
-    </div>
+          </div>
+</div>
 
     <script>
       const percent = (value) => `${new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(Number(value || 0) * 100)}%`
@@ -431,7 +523,7 @@
                 <td>${(item.predictedTotals || []).join(', ') || '--'}</td>
                 <td>${item.actualTotal ?? '--'}</td>
                 <td>${classifyTotal(item.actualTotal)}</td>
-                <td>${item.hit ? 'Trúng' : 'Trượt'}</td>
+                <td><span class="${item.hit ? 'status-hit' : 'status-miss'}"><span class="${item.hit ? 'status-hit' : 'status-miss'}">${item.hit ? 'Trúng' : 'Trượt'}</span></span></td>
               </tr>
             `).join('')
           : '<tr><td colspan="5">Chưa đủ dữ liệu để đối chiếu theo kỳ.</td></tr>')

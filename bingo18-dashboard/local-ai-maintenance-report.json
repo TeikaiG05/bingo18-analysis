@@ -1,0 +1,4171 @@
+{
+  "generatedAt": "2026-03-22T15:59:33.858Z",
+  "dataset": {
+    "totalRounds": 67914,
+    "latestRoundId": "0158546",
+    "evalRounds": 180,
+    "minTrainRounds": 180,
+    "trainWindow": 320
+  },
+  "versions": [
+    {
+      "id": "local-baseline",
+      "label": "AI LOCAL Baseline",
+      "philosophy": "baseline doi chieu",
+      "current": {
+        "versionId": "local-baseline",
+        "versionLabel": "AI LOCAL Baseline",
+        "philosophy": "baseline doi chieu",
+        "result": "Small",
+        "topTotals": [
+          {
+            "total": 6,
+            "probability": 0.20886,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          },
+          {
+            "total": 15,
+            "probability": 0.089728,
+            "result": "Big",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "prior ly thuyet"
+            ]
+          },
+          {
+            "total": 9,
+            "probability": 0.07247,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          }
+        ],
+        "confidence": 0.781277,
+        "explanation": "baseline doi chieu; do gan cua tong; do lech so voi tan suat tu nhien; phan ung sau cua ky truoc",
+        "resultProbabilities": {
+          "Small": 0.512481,
+          "Draw": 0.159295,
+          "Big": 0.328223
+        },
+        "distribution": [
+          {
+            "total": 6,
+            "probability": 0.20886,
+            "result": "Small"
+          },
+          {
+            "total": 11,
+            "probability": 0.108498,
+            "result": "Draw"
+          },
+          {
+            "total": 15,
+            "probability": 0.089728,
+            "result": "Big"
+          },
+          {
+            "total": 8,
+            "probability": 0.08595,
+            "result": "Small"
+          },
+          {
+            "total": 9,
+            "probability": 0.07247,
+            "result": "Small"
+          },
+          {
+            "total": 14,
+            "probability": 0.062954,
+            "result": "Big"
+          },
+          {
+            "total": 5,
+            "probability": 0.053911,
+            "result": "Small"
+          },
+          {
+            "total": 12,
+            "probability": 0.051989,
+            "result": "Big"
+          },
+          {
+            "total": 7,
+            "probability": 0.051295,
+            "result": "Small"
+          },
+          {
+            "total": 10,
+            "probability": 0.050797,
+            "result": "Draw"
+          },
+          {
+            "total": 13,
+            "probability": 0.042836,
+            "result": "Big"
+          },
+          {
+            "total": 16,
+            "probability": 0.031977,
+            "result": "Big"
+          }
+        ]
+      },
+      "backtest": {
+        "sampleSize": 180,
+        "score": 0.12317,
+        "windows": {
+          "2": {
+            "window": 2,
+            "samples": 2,
+            "hits": 0,
+            "misses": 2,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 2,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 15,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.798708
+          },
+          "3": {
+            "window": 3,
+            "samples": 3,
+            "hits": 0,
+            "misses": 3,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 3,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 3
+              },
+              {
+                "total": 15,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 3,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.819737
+          },
+          "4": {
+            "window": 4,
+            "samples": 4,
+            "hits": 0,
+            "misses": 4,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 4,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 4
+              },
+              {
+                "total": 15,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.830349
+          },
+          "5": {
+            "window": 5,
+            "samples": 5,
+            "hits": 0,
+            "misses": 5,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 5,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 5
+              },
+              {
+                "total": 15,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.84028
+          },
+          "6": {
+            "window": 6,
+            "samples": 6,
+            "hits": 0,
+            "misses": 6,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.831605
+          },
+          "7": {
+            "window": 7,
+            "samples": 7,
+            "hits": 1,
+            "misses": 6,
+            "hitRate": 0.142857,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.835204
+          },
+          "8": {
+            "window": 8,
+            "samples": 8,
+            "hits": 1,
+            "misses": 7,
+            "hitRate": 0.125,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 3
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.829126
+          },
+          "9": {
+            "window": 9,
+            "samples": 9,
+            "hits": 1,
+            "misses": 8,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 8,
+                "count": 3
+              },
+              {
+                "total": 13,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.83028
+          },
+          "10": {
+            "window": 10,
+            "samples": 10,
+            "hits": 1,
+            "misses": 9,
+            "hitRate": 0.1,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 8,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.83183
+          },
+          "11": {
+            "window": 11,
+            "samples": 11,
+            "hits": 1,
+            "misses": 10,
+            "hitRate": 0.090909,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 8,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.826992
+          },
+          "12": {
+            "window": 12,
+            "samples": 12,
+            "hits": 1,
+            "misses": 11,
+            "hitRate": 0.083333,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 8,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.82714
+          },
+          "13": {
+            "window": 13,
+            "samples": 13,
+            "hits": 1,
+            "misses": 12,
+            "hitRate": 0.076923,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.822587
+          },
+          "14": {
+            "window": 14,
+            "samples": 14,
+            "hits": 1,
+            "misses": 13,
+            "hitRate": 0.071429,
+            "longestHitStreak": 1,
+            "longestMissStreak": 7,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.820279
+          },
+          "15": {
+            "window": 15,
+            "samples": 15,
+            "hits": 1,
+            "misses": 14,
+            "hitRate": 0.066667,
+            "longestHitStreak": 1,
+            "longestMissStreak": 8,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 15
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 8,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.817058
+          },
+          "16": {
+            "window": 16,
+            "samples": 16,
+            "hits": 1,
+            "misses": 15,
+            "hitRate": 0.0625,
+            "longestHitStreak": 1,
+            "longestMissStreak": 9,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 8,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.815671
+          },
+          "17": {
+            "window": 17,
+            "samples": 17,
+            "hits": 1,
+            "misses": 16,
+            "hitRate": 0.058824,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 17
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.819455
+          },
+          "18": {
+            "window": 18,
+            "samples": 18,
+            "hits": 2,
+            "misses": 16,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 18
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.821234
+          },
+          "19": {
+            "window": 19,
+            "samples": 19,
+            "hits": 3,
+            "misses": 16,
+            "hitRate": 0.157895,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 19
+              },
+              {
+                "total": 8,
+                "count": 10
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.822138
+          },
+          "20": {
+            "window": 20,
+            "samples": 20,
+            "hits": 3,
+            "misses": 17,
+            "hitRate": 0.15,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 20
+              },
+              {
+                "total": 8,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.822537
+          },
+          "21": {
+            "window": 21,
+            "samples": 21,
+            "hits": 3,
+            "misses": 18,
+            "hitRate": 0.142857,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 21
+              },
+              {
+                "total": 8,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.820994
+          },
+          "22": {
+            "window": 22,
+            "samples": 22,
+            "hits": 4,
+            "misses": 18,
+            "hitRate": 0.181818,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 22
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.823676
+          },
+          "23": {
+            "window": 23,
+            "samples": 23,
+            "hits": 4,
+            "misses": 19,
+            "hitRate": 0.173913,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 23
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.822443
+          },
+          "24": {
+            "window": 24,
+            "samples": 24,
+            "hits": 5,
+            "misses": 19,
+            "hitRate": 0.208333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 24
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.822453
+          },
+          "25": {
+            "window": 25,
+            "samples": 25,
+            "hits": 5,
+            "misses": 20,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 25
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.820052
+          },
+          "26": {
+            "window": 26,
+            "samples": 26,
+            "hits": 6,
+            "misses": 20,
+            "hitRate": 0.230769,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 26
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 7
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.822358
+          },
+          "27": {
+            "window": 27,
+            "samples": 27,
+            "hits": 6,
+            "misses": 21,
+            "hitRate": 0.222222,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 27
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 8
+              },
+              {
+                "total": 9,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.821863
+          },
+          "28": {
+            "window": 28,
+            "samples": 28,
+            "hits": 6,
+            "misses": 22,
+            "hitRate": 0.214286,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 28
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 9
+              },
+              {
+                "total": 9,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.821549
+          },
+          "29": {
+            "window": 29,
+            "samples": 29,
+            "hits": 6,
+            "misses": 23,
+            "hitRate": 0.206897,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 29
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 10
+              },
+              {
+                "total": 9,
+                "count": 8
+              }
+            ],
+            "avgConfidence": 0.821638
+          },
+          "30": {
+            "window": 30,
+            "samples": 30,
+            "hits": 6,
+            "misses": 24,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 30
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 15,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 9,
+                "count": 8
+              }
+            ],
+            "avgConfidence": 0.821964
+          }
+        }
+      }
+    },
+    {
+      "id": "local-short-pulse",
+      "label": "Short Pulse",
+      "philosophy": "thien ngan han",
+      "current": {
+        "versionId": "local-short-pulse",
+        "versionLabel": "Short Pulse",
+        "philosophy": "thien ngan han",
+        "result": "Small",
+        "topTotals": [
+          {
+            "total": 6,
+            "probability": 0.128641,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          },
+          {
+            "total": 15,
+            "probability": 0.079523,
+            "result": "Big",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "prior ly thuyet"
+            ]
+          },
+          {
+            "total": 9,
+            "probability": 0.071708,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          }
+        ],
+        "confidence": 0.562772,
+        "explanation": "thien ngan han; do gan cua tong; do lech so voi tan suat tu nhien; phan ung sau cua ky truoc",
+        "resultProbabilities": {
+          "Small": 0.469962,
+          "Draw": 0.206591,
+          "Big": 0.323446
+        },
+        "distribution": [
+          {
+            "total": 11,
+            "probability": 0.15477,
+            "result": "Draw"
+          },
+          {
+            "total": 8,
+            "probability": 0.131644,
+            "result": "Small"
+          },
+          {
+            "total": 6,
+            "probability": 0.128641,
+            "result": "Small"
+          },
+          {
+            "total": 15,
+            "probability": 0.079523,
+            "result": "Big"
+          },
+          {
+            "total": 14,
+            "probability": 0.075202,
+            "result": "Big"
+          },
+          {
+            "total": 9,
+            "probability": 0.071708,
+            "result": "Small"
+          },
+          {
+            "total": 12,
+            "probability": 0.054599,
+            "result": "Big"
+          },
+          {
+            "total": 10,
+            "probability": 0.051821,
+            "result": "Draw"
+          },
+          {
+            "total": 7,
+            "probability": 0.050377,
+            "result": "Small"
+          },
+          {
+            "total": 5,
+            "probability": 0.050077,
+            "result": "Small"
+          },
+          {
+            "total": 13,
+            "probability": 0.042398,
+            "result": "Big"
+          },
+          {
+            "total": 16,
+            "probability": 0.02858,
+            "result": "Big"
+          }
+        ]
+      },
+      "backtest": {
+        "sampleSize": 180,
+        "score": 0.126622,
+        "windows": {
+          "2": {
+            "window": 2,
+            "samples": 2,
+            "hits": 0,
+            "misses": 2,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 2,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 15,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.649869
+          },
+          "3": {
+            "window": 3,
+            "samples": 3,
+            "hits": 0,
+            "misses": 3,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 3,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 3
+              },
+              {
+                "total": 15,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.702505
+          },
+          "4": {
+            "window": 4,
+            "samples": 4,
+            "hits": 0,
+            "misses": 4,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 4,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 4
+              },
+              {
+                "total": 15,
+                "count": 4
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.72704
+          },
+          "5": {
+            "window": 5,
+            "samples": 5,
+            "hits": 0,
+            "misses": 5,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 5,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 5
+              },
+              {
+                "total": 15,
+                "count": 4
+              },
+              {
+                "total": 8,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 13,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.745347
+          },
+          "6": {
+            "window": 6,
+            "samples": 6,
+            "hits": 0,
+            "misses": 6,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 5
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 13,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.724734
+          },
+          "7": {
+            "window": 7,
+            "samples": 7,
+            "hits": 1,
+            "misses": 6,
+            "hitRate": 0.142857,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 5
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 13,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.731369
+          },
+          "8": {
+            "window": 8,
+            "samples": 8,
+            "hits": 1,
+            "misses": 7,
+            "hitRate": 0.125,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 13,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.719399
+          },
+          "9": {
+            "window": 9,
+            "samples": 9,
+            "hits": 1,
+            "misses": 8,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 13,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.719062
+          },
+          "10": {
+            "window": 10,
+            "samples": 10,
+            "hits": 1,
+            "misses": 9,
+            "hitRate": 0.1,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 5
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.717207
+          },
+          "11": {
+            "window": 11,
+            "samples": 11,
+            "hits": 1,
+            "misses": 10,
+            "hitRate": 0.090909,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.712059
+          },
+          "12": {
+            "window": 12,
+            "samples": 12,
+            "hits": 1,
+            "misses": 11,
+            "hitRate": 0.083333,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 5
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.709738
+          },
+          "13": {
+            "window": 13,
+            "samples": 13,
+            "hits": 1,
+            "misses": 12,
+            "hitRate": 0.076923,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 8,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.707932
+          },
+          "14": {
+            "window": 14,
+            "samples": 14,
+            "hits": 1,
+            "misses": 13,
+            "hitRate": 0.071429,
+            "longestHitStreak": 1,
+            "longestMissStreak": 7,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 8,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.704289
+          },
+          "15": {
+            "window": 15,
+            "samples": 15,
+            "hits": 1,
+            "misses": 14,
+            "hitRate": 0.066667,
+            "longestHitStreak": 1,
+            "longestMissStreak": 8,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 15
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 8,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.700722
+          },
+          "16": {
+            "window": 16,
+            "samples": 16,
+            "hits": 1,
+            "misses": 15,
+            "hitRate": 0.0625,
+            "longestHitStreak": 1,
+            "longestMissStreak": 9,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 16
+              },
+              {
+                "total": 8,
+                "count": 9
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.705014
+          },
+          "17": {
+            "window": 17,
+            "samples": 17,
+            "hits": 1,
+            "misses": 16,
+            "hitRate": 0.058824,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 17
+              },
+              {
+                "total": 8,
+                "count": 10
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.712705
+          },
+          "18": {
+            "window": 18,
+            "samples": 18,
+            "hits": 2,
+            "misses": 16,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 18
+              },
+              {
+                "total": 8,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.714691
+          },
+          "19": {
+            "window": 19,
+            "samples": 19,
+            "hits": 3,
+            "misses": 16,
+            "hitRate": 0.157895,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 19
+              },
+              {
+                "total": 8,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.713768
+          },
+          "20": {
+            "window": 20,
+            "samples": 20,
+            "hits": 3,
+            "misses": 17,
+            "hitRate": 0.15,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 20
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.714086
+          },
+          "21": {
+            "window": 21,
+            "samples": 21,
+            "hits": 3,
+            "misses": 18,
+            "hitRate": 0.142857,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 21
+              },
+              {
+                "total": 8,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.710163
+          },
+          "22": {
+            "window": 22,
+            "samples": 22,
+            "hits": 4,
+            "misses": 18,
+            "hitRate": 0.181818,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 22
+              },
+              {
+                "total": 8,
+                "count": 15
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.714186
+          },
+          "23": {
+            "window": 23,
+            "samples": 23,
+            "hits": 4,
+            "misses": 19,
+            "hitRate": 0.173913,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 23
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.712863
+          },
+          "24": {
+            "window": 24,
+            "samples": 24,
+            "hits": 5,
+            "misses": 19,
+            "hitRate": 0.208333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 24
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.711879
+          },
+          "25": {
+            "window": 25,
+            "samples": 25,
+            "hits": 5,
+            "misses": 20,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 25
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.708859
+          },
+          "26": {
+            "window": 26,
+            "samples": 26,
+            "hits": 6,
+            "misses": 20,
+            "hitRate": 0.230769,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 26
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 7
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.708125
+          },
+          "27": {
+            "window": 27,
+            "samples": 27,
+            "hits": 6,
+            "misses": 21,
+            "hitRate": 0.222222,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 27
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 8
+              },
+              {
+                "total": 11,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.703768
+          },
+          "28": {
+            "window": 28,
+            "samples": 28,
+            "hits": 6,
+            "misses": 22,
+            "hitRate": 0.214286,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 28
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 9
+              },
+              {
+                "total": 14,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.700086
+          },
+          "29": {
+            "window": 29,
+            "samples": 29,
+            "hits": 7,
+            "misses": 22,
+            "hitRate": 0.241379,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 29
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 10
+              },
+              {
+                "total": 14,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.699554
+          },
+          "30": {
+            "window": 30,
+            "samples": 30,
+            "hits": 7,
+            "misses": 23,
+            "hitRate": 0.233333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 30
+              },
+              {
+                "total": 8,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 11
+              },
+              {
+                "total": 14,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.6985
+          }
+        }
+      }
+    },
+    {
+      "id": "local-balanced-flow",
+      "label": "Balanced Flow",
+      "philosophy": "can bang ngan han va on dinh",
+      "current": {
+        "versionId": "local-balanced-flow",
+        "versionLabel": "Balanced Flow",
+        "philosophy": "can bang ngan han va on dinh",
+        "result": "Small",
+        "topTotals": [
+          {
+            "total": 6,
+            "probability": 0.161368,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          },
+          {
+            "total": 15,
+            "probability": 0.084329,
+            "result": "Big",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "prior ly thuyet"
+            ]
+          },
+          {
+            "total": 9,
+            "probability": 0.07137,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          }
+        ],
+        "confidence": 0.701701,
+        "explanation": "can bang ngan han va on dinh; do gan cua tong; do lech so voi tan suat tu nhien; phan ung sau cua ky truoc",
+        "resultProbabilities": {
+          "Small": 0.470863,
+          "Draw": 0.200122,
+          "Big": 0.329015
+        },
+        "distribution": [
+          {
+            "total": 6,
+            "probability": 0.161368,
+            "result": "Small"
+          },
+          {
+            "total": 11,
+            "probability": 0.147219,
+            "result": "Draw"
+          },
+          {
+            "total": 8,
+            "probability": 0.096238,
+            "result": "Small"
+          },
+          {
+            "total": 15,
+            "probability": 0.084329,
+            "result": "Big"
+          },
+          {
+            "total": 9,
+            "probability": 0.07137,
+            "result": "Small"
+          },
+          {
+            "total": 14,
+            "probability": 0.069692,
+            "result": "Big"
+          },
+          {
+            "total": 12,
+            "probability": 0.054683,
+            "result": "Big"
+          },
+          {
+            "total": 10,
+            "probability": 0.052903,
+            "result": "Draw"
+          },
+          {
+            "total": 5,
+            "probability": 0.051937,
+            "result": "Small"
+          },
+          {
+            "total": 7,
+            "probability": 0.051008,
+            "result": "Small"
+          },
+          {
+            "total": 13,
+            "probability": 0.043746,
+            "result": "Big"
+          },
+          {
+            "total": 16,
+            "probability": 0.030447,
+            "result": "Big"
+          }
+        ]
+      },
+      "backtest": {
+        "sampleSize": 180,
+        "score": 0.126622,
+        "windows": {
+          "2": {
+            "window": 2,
+            "samples": 2,
+            "hits": 0,
+            "misses": 2,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 2,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 15,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.695077
+          },
+          "3": {
+            "window": 3,
+            "samples": 3,
+            "hits": 0,
+            "misses": 3,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 3,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 3
+              },
+              {
+                "total": 15,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 3,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.739834
+          },
+          "4": {
+            "window": 4,
+            "samples": 4,
+            "hits": 0,
+            "misses": 4,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 4,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 4
+              },
+              {
+                "total": 15,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.757508
+          },
+          "5": {
+            "window": 5,
+            "samples": 5,
+            "hits": 0,
+            "misses": 5,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 5,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 5
+              },
+              {
+                "total": 15,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.771594
+          },
+          "6": {
+            "window": 6,
+            "samples": 6,
+            "hits": 0,
+            "misses": 6,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.763902
+          },
+          "7": {
+            "window": 7,
+            "samples": 7,
+            "hits": 1,
+            "misses": 6,
+            "hitRate": 0.142857,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.771876
+          },
+          "8": {
+            "window": 8,
+            "samples": 8,
+            "hits": 1,
+            "misses": 7,
+            "hitRate": 0.125,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.765984
+          },
+          "9": {
+            "window": 9,
+            "samples": 9,
+            "hits": 1,
+            "misses": 8,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 3
+              },
+              {
+                "total": 13,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.770022
+          },
+          "10": {
+            "window": 10,
+            "samples": 10,
+            "hits": 1,
+            "misses": 9,
+            "hitRate": 0.1,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.773569
+          },
+          "11": {
+            "window": 11,
+            "samples": 11,
+            "hits": 1,
+            "misses": 10,
+            "hitRate": 0.090909,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 5
+              },
+              {
+                "total": 9,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.770882
+          },
+          "12": {
+            "window": 12,
+            "samples": 12,
+            "hits": 1,
+            "misses": 11,
+            "hitRate": 0.083333,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.7718
+          },
+          "13": {
+            "window": 13,
+            "samples": 13,
+            "hits": 1,
+            "misses": 12,
+            "hitRate": 0.076923,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.768736
+          },
+          "14": {
+            "window": 14,
+            "samples": 14,
+            "hits": 1,
+            "misses": 13,
+            "hitRate": 0.071429,
+            "longestHitStreak": 1,
+            "longestMissStreak": 7,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 4
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.767598
+          },
+          "15": {
+            "window": 15,
+            "samples": 15,
+            "hits": 1,
+            "misses": 14,
+            "hitRate": 0.066667,
+            "longestHitStreak": 1,
+            "longestMissStreak": 8,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 15
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 5
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.765443
+          },
+          "16": {
+            "window": 16,
+            "samples": 16,
+            "hits": 1,
+            "misses": 15,
+            "hitRate": 0.0625,
+            "longestHitStreak": 1,
+            "longestMissStreak": 9,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 8,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.764929
+          },
+          "17": {
+            "window": 17,
+            "samples": 17,
+            "hits": 1,
+            "misses": 16,
+            "hitRate": 0.058824,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 17
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.771698
+          },
+          "18": {
+            "window": 18,
+            "samples": 18,
+            "hits": 2,
+            "misses": 16,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 18
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.773937
+          },
+          "19": {
+            "window": 19,
+            "samples": 19,
+            "hits": 3,
+            "misses": 16,
+            "hitRate": 0.157895,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 19
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.772711
+          },
+          "20": {
+            "window": 20,
+            "samples": 20,
+            "hits": 3,
+            "misses": 17,
+            "hitRate": 0.15,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 20
+              },
+              {
+                "total": 8,
+                "count": 10
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.77346
+          },
+          "21": {
+            "window": 21,
+            "samples": 21,
+            "hits": 3,
+            "misses": 18,
+            "hitRate": 0.142857,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 21
+              },
+              {
+                "total": 8,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.771494
+          },
+          "22": {
+            "window": 22,
+            "samples": 22,
+            "hits": 4,
+            "misses": 18,
+            "hitRate": 0.181818,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 22
+              },
+              {
+                "total": 8,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.775973
+          },
+          "23": {
+            "window": 23,
+            "samples": 23,
+            "hits": 4,
+            "misses": 19,
+            "hitRate": 0.173913,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 23
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.774995
+          },
+          "24": {
+            "window": 24,
+            "samples": 24,
+            "hits": 5,
+            "misses": 19,
+            "hitRate": 0.208333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 24
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.77344
+          },
+          "25": {
+            "window": 25,
+            "samples": 25,
+            "hits": 5,
+            "misses": 20,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 25
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 9,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.771137
+          },
+          "26": {
+            "window": 26,
+            "samples": 26,
+            "hits": 6,
+            "misses": 20,
+            "hitRate": 0.230769,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 26
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 7
+              },
+              {
+                "total": 9,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.773428
+          },
+          "27": {
+            "window": 27,
+            "samples": 27,
+            "hits": 6,
+            "misses": 21,
+            "hitRate": 0.222222,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 27
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 8
+              },
+              {
+                "total": 9,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.770496
+          },
+          "28": {
+            "window": 28,
+            "samples": 28,
+            "hits": 6,
+            "misses": 22,
+            "hitRate": 0.214286,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 28
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 9
+              },
+              {
+                "total": 14,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.768563
+          },
+          "29": {
+            "window": 29,
+            "samples": 29,
+            "hits": 7,
+            "misses": 22,
+            "hitRate": 0.241379,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 29
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 10
+              },
+              {
+                "total": 14,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.767123
+          },
+          "30": {
+            "window": 30,
+            "samples": 30,
+            "hits": 7,
+            "misses": 23,
+            "hitRate": 0.233333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 30
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 15,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 14,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.766268
+          }
+        }
+      }
+    },
+    {
+      "id": "local-stable-anchor",
+      "label": "Stable Anchor",
+      "philosophy": "thien on dinh trung han",
+      "current": {
+        "versionId": "local-stable-anchor",
+        "versionLabel": "Stable Anchor",
+        "philosophy": "thien on dinh trung han",
+        "result": "Small",
+        "topTotals": [
+          {
+            "total": 6,
+            "probability": 0.207322,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "prior ly thuyet"
+            ]
+          },
+          {
+            "total": 15,
+            "probability": 0.089941,
+            "result": "Big",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "prior ly thuyet"
+            ]
+          },
+          {
+            "total": 9,
+            "probability": 0.072873,
+            "result": "Small",
+            "reasons": [
+              "do gan cua tong",
+              "do lech so voi tan suat tu nhien",
+              "phan ung sau cua ky truoc"
+            ]
+          }
+        ],
+        "confidence": 0.805939,
+        "explanation": "thien on dinh trung han; do gan cua tong; do lech so voi tan suat tu nhien; prior ly thuyet",
+        "resultProbabilities": {
+          "Small": 0.50582,
+          "Draw": 0.16336,
+          "Big": 0.33082
+        },
+        "distribution": [
+          {
+            "total": 6,
+            "probability": 0.207322,
+            "result": "Small"
+          },
+          {
+            "total": 11,
+            "probability": 0.110015,
+            "result": "Draw"
+          },
+          {
+            "total": 15,
+            "probability": 0.089941,
+            "result": "Big"
+          },
+          {
+            "total": 8,
+            "probability": 0.083548,
+            "result": "Small"
+          },
+          {
+            "total": 9,
+            "probability": 0.072873,
+            "result": "Small"
+          },
+          {
+            "total": 14,
+            "probability": 0.06358,
+            "result": "Big"
+          },
+          {
+            "total": 12,
+            "probability": 0.05346,
+            "result": "Big"
+          },
+          {
+            "total": 10,
+            "probability": 0.053345,
+            "result": "Draw"
+          },
+          {
+            "total": 5,
+            "probability": 0.051896,
+            "result": "Small"
+          },
+          {
+            "total": 7,
+            "probability": 0.051047,
+            "result": "Small"
+          },
+          {
+            "total": 13,
+            "probability": 0.044855,
+            "result": "Big"
+          },
+          {
+            "total": 16,
+            "probability": 0.031438,
+            "result": "Big"
+          }
+        ]
+      },
+      "backtest": {
+        "sampleSize": 180,
+        "score": 0.12317,
+        "windows": {
+          "2": {
+            "window": 2,
+            "samples": 2,
+            "hits": 0,
+            "misses": 2,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 2,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 15,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.825221
+          },
+          "3": {
+            "window": 3,
+            "samples": 3,
+            "hits": 0,
+            "misses": 3,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 3,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 3
+              },
+              {
+                "total": 15,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 3,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.84348
+          },
+          "4": {
+            "window": 4,
+            "samples": 4,
+            "hits": 0,
+            "misses": 4,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 4,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 4
+              },
+              {
+                "total": 15,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.85261
+          },
+          "5": {
+            "window": 5,
+            "samples": 5,
+            "hits": 0,
+            "misses": 5,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 5,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 5
+              },
+              {
+                "total": 15,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 1
+              }
+            ],
+            "avgConfidence": 0.858088
+          },
+          "6": {
+            "window": 6,
+            "samples": 6,
+            "hits": 0,
+            "misses": 6,
+            "hitRate": 0,
+            "longestHitStreak": 0,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.850898
+          },
+          "7": {
+            "window": 7,
+            "samples": 7,
+            "hits": 1,
+            "misses": 6,
+            "hitRate": 0.142857,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              },
+              {
+                "total": 9,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.855055
+          },
+          "8": {
+            "window": 8,
+            "samples": 8,
+            "hits": 1,
+            "misses": 7,
+            "hitRate": 0.125,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 3
+              },
+              {
+                "total": 3,
+                "count": 2
+              },
+              {
+                "total": 8,
+                "count": 2
+              }
+            ],
+            "avgConfidence": 0.849319
+          },
+          "9": {
+            "window": 9,
+            "samples": 9,
+            "hits": 1,
+            "misses": 8,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 3
+              },
+              {
+                "total": 13,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.851261
+          },
+          "10": {
+            "window": 10,
+            "samples": 10,
+            "hits": 1,
+            "misses": 9,
+            "hitRate": 0.1,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              },
+              {
+                "total": 9,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.853302
+          },
+          "11": {
+            "window": 11,
+            "samples": 11,
+            "hits": 1,
+            "misses": 10,
+            "hitRate": 0.090909,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 13,
+                "count": 5
+              },
+              {
+                "total": 9,
+                "count": 4
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.84881
+          },
+          "12": {
+            "window": 12,
+            "samples": 12,
+            "hits": 1,
+            "misses": 11,
+            "hitRate": 0.083333,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.846978
+          },
+          "13": {
+            "window": 13,
+            "samples": 13,
+            "hits": 1,
+            "misses": 12,
+            "hitRate": 0.076923,
+            "longestHitStreak": 1,
+            "longestMissStreak": 6,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              },
+              {
+                "total": 3,
+                "count": 3
+              }
+            ],
+            "avgConfidence": 0.842597
+          },
+          "14": {
+            "window": 14,
+            "samples": 14,
+            "hits": 1,
+            "misses": 13,
+            "hitRate": 0.071429,
+            "longestHitStreak": 1,
+            "longestMissStreak": 7,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 14
+              },
+              {
+                "total": 13,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              },
+              {
+                "total": 8,
+                "count": 4
+              }
+            ],
+            "avgConfidence": 0.840611
+          },
+          "15": {
+            "window": 15,
+            "samples": 15,
+            "hits": 1,
+            "misses": 14,
+            "hitRate": 0.066667,
+            "longestHitStreak": 1,
+            "longestMissStreak": 8,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 15
+              },
+              {
+                "total": 13,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 8,
+                "count": 5
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.838576
+          },
+          "16": {
+            "window": 16,
+            "samples": 16,
+            "hits": 1,
+            "misses": 15,
+            "hitRate": 0.0625,
+            "longestHitStreak": 1,
+            "longestMissStreak": 9,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 16
+              },
+              {
+                "total": 13,
+                "count": 10
+              },
+              {
+                "total": 8,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.8374
+          },
+          "17": {
+            "window": 17,
+            "samples": 17,
+            "hits": 1,
+            "misses": 16,
+            "hitRate": 0.058824,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 17
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 8,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.839906
+          },
+          "18": {
+            "window": 18,
+            "samples": 18,
+            "hits": 2,
+            "misses": 16,
+            "hitRate": 0.111111,
+            "longestHitStreak": 1,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 18
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 8,
+                "count": 8
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.842028
+          },
+          "19": {
+            "window": 19,
+            "samples": 19,
+            "hits": 3,
+            "misses": 16,
+            "hitRate": 0.157895,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 19
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 8,
+                "count": 9
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.843317
+          },
+          "20": {
+            "window": 20,
+            "samples": 20,
+            "hits": 3,
+            "misses": 17,
+            "hitRate": 0.15,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 20
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 8,
+                "count": 10
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.843894
+          },
+          "21": {
+            "window": 21,
+            "samples": 21,
+            "hits": 3,
+            "misses": 18,
+            "hitRate": 0.142857,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 21
+              },
+              {
+                "total": 8,
+                "count": 11
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.842567
+          },
+          "22": {
+            "window": 22,
+            "samples": 22,
+            "hits": 4,
+            "misses": 18,
+            "hitRate": 0.181818,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 22
+              },
+              {
+                "total": 8,
+                "count": 12
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.844269
+          },
+          "23": {
+            "window": 23,
+            "samples": 23,
+            "hits": 4,
+            "misses": 19,
+            "hitRate": 0.173913,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 23
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 6
+              },
+              {
+                "total": 9,
+                "count": 5
+              }
+            ],
+            "avgConfidence": 0.842999
+          },
+          "24": {
+            "window": 24,
+            "samples": 24,
+            "hits": 5,
+            "misses": 19,
+            "hitRate": 0.208333,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 24
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 9,
+                "count": 6
+              },
+              {
+                "total": 15,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.843139
+          },
+          "25": {
+            "window": 25,
+            "samples": 25,
+            "hits": 5,
+            "misses": 20,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 25
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 9,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 6
+              }
+            ],
+            "avgConfidence": 0.840786
+          },
+          "26": {
+            "window": 26,
+            "samples": 26,
+            "hits": 6,
+            "misses": 20,
+            "hitRate": 0.230769,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 26
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 9,
+                "count": 7
+              },
+              {
+                "total": 15,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.842294
+          },
+          "27": {
+            "window": 27,
+            "samples": 27,
+            "hits": 6,
+            "misses": 21,
+            "hitRate": 0.222222,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 27
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 8
+              },
+              {
+                "total": 9,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.841691
+          },
+          "28": {
+            "window": 28,
+            "samples": 28,
+            "hits": 6,
+            "misses": 22,
+            "hitRate": 0.214286,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 28
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 9
+              },
+              {
+                "total": 9,
+                "count": 7
+              }
+            ],
+            "avgConfidence": 0.841277
+          },
+          "29": {
+            "window": 29,
+            "samples": 29,
+            "hits": 6,
+            "misses": 23,
+            "hitRate": 0.206897,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 29
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 10
+              },
+              {
+                "total": 14,
+                "count": 8
+              }
+            ],
+            "avgConfidence": 0.841143
+          },
+          "30": {
+            "window": 30,
+            "samples": 30,
+            "hits": 6,
+            "misses": 24,
+            "hitRate": 0.2,
+            "longestHitStreak": 2,
+            "longestMissStreak": 10,
+            "topSuggestedTotals": [
+              {
+                "total": 6,
+                "count": 30
+              },
+              {
+                "total": 8,
+                "count": 13
+              },
+              {
+                "total": 13,
+                "count": 11
+              },
+              {
+                "total": 15,
+                "count": 11
+              },
+              {
+                "total": 14,
+                "count": 8
+              }
+            ],
+            "avgConfidence": 0.84176
+          }
+        }
+      }
+    }
+  ],
+  "ranking": [
+    {
+      "id": "local-short-pulse",
+      "label": "Short Pulse",
+      "philosophy": "thien ngan han",
+      "score": 0.126622,
+      "window30HitRate": 0.233333,
+      "window30LongestMiss": 10,
+      "window30AvgConfidence": 0.6985
+    },
+    {
+      "id": "local-balanced-flow",
+      "label": "Balanced Flow",
+      "philosophy": "can bang ngan han va on dinh",
+      "score": 0.126622,
+      "window30HitRate": 0.233333,
+      "window30LongestMiss": 10,
+      "window30AvgConfidence": 0.766268
+    },
+    {
+      "id": "local-baseline",
+      "label": "AI LOCAL Baseline",
+      "philosophy": "baseline doi chieu",
+      "score": 0.12317,
+      "window30HitRate": 0.2,
+      "window30LongestMiss": 10,
+      "window30AvgConfidence": 0.821964
+    },
+    {
+      "id": "local-stable-anchor",
+      "label": "Stable Anchor",
+      "philosophy": "thien on dinh trung han",
+      "score": 0.12317,
+      "window30HitRate": 0.2,
+      "window30LongestMiss": 10,
+      "window30AvgConfidence": 0.84176
+    }
+  ],
+  "bestVersionId": "local-short-pulse"
+}

@@ -544,6 +544,7 @@ export function buildPrediction(rounds) {
         shouldBet,
         recommendedResult: topResult,
         recommendedTotals,
+        totalsToAvoid: buildAvoidanceList(roundsDesc || []),
         topProbability: roundNumber(topProbability * 100, 4),
         spread: roundNumber(spread * 100, 4),
         drawProbability: roundNumber((resultProbabilities.Draw || 0) * 100, 4),

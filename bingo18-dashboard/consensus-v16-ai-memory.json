@@ -1,192 +1,216 @@
 {
-  "createdAt": "2026-03-22T10:08:18.110Z",
-  "latestRoundId": "0158498",
+  "createdAt": "2026-03-23T13:32:17.990Z",
+  "latestRoundId": "0158691",
   "sampleSize": 7,
-  "totalHitRate": 0.2857142857142857,
+  "totalHitRate": 0.42857142857142855,
   "allTotalChecks": [
     {
-      "id": "0158498",
+      "id": "0158691",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 11,
+      "leadProbability": 30.36
+    },
+    {
+      "id": "0158690",
+      "predictedTotals": [
+        8,
+        9,
+        12
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 50.28,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158689",
       "predictedTotals": [
         9,
         12,
-        8
+        13
       ],
-      "actualTotal": 14,
-      "actualResult": "Big",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 39.93
-    },
-    {
-      "id": "0158497",
-      "predictedTotals": [
-        9,
-        8,
-        11
-      ],
-      "actualTotal": 5,
+      "actualTotal": 9,
       "actualResult": "Small",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 65.87
-    },
-    {
-      "id": "0158496",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 12,
-      "actualResult": "Big",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 25.92
-    },
-    {
-      "id": "0158495",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 5,
-      "actualResult": "Small",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 25.92
-    },
-    {
-      "id": "0158494",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 10,
-      "actualResult": "Draw",
       "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
       "leadTotal": 9,
-      "leadProbability": 25.92
+      "leadProbability": 51.77,
+      "totalsToAvoid": []
     },
     {
-      "id": "0158493",
+      "id": "0158688",
+      "predictedTotals": [
+        8,
+        9,
+        12
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 55.2,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158687",
+      "predictedTotals": [
+        9,
+        10,
+        13
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 9,
+      "leadProbability": 39.29,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158686",
       "predictedTotals": [
         9,
         8,
-        11
+        12
       ],
       "actualTotal": 8,
       "actualResult": "Small",
       "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
       "leadTotal": 9,
-      "leadProbability": 74.19
+      "leadProbability": 49.76,
+      "totalsToAvoid": []
     },
     {
-      "id": "0158492",
+      "id": "0158685",
       "predictedTotals": [
-        9,
-        11,
+        8,
+        12,
         10
       ],
-      "actualTotal": 7,
+      "actualTotal": 9,
       "actualResult": "Small",
       "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 32.94
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 27.8,
+      "totalsToAvoid": []
     }
   ],
   "recentTotalChecks": [
     {
-      "id": "0158498",
+      "id": "0158691",
+      "predictedTotals": [
+        11,
+        10,
+        9
+      ],
+      "actualTotal": 6,
+      "actualResult": "Small",
+      "hit": false,
+      "leadTotal": 11,
+      "leadProbability": 30.36
+    },
+    {
+      "id": "0158690",
+      "predictedTotals": [
+        8,
+        9,
+        12
+      ],
+      "actualTotal": 13,
+      "actualResult": "Big",
+      "hit": false,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 50.28,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158689",
       "predictedTotals": [
         9,
         12,
-        8
+        13
       ],
-      "actualTotal": 14,
-      "actualResult": "Big",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 39.93
-    },
-    {
-      "id": "0158497",
-      "predictedTotals": [
-        9,
-        8,
-        11
-      ],
-      "actualTotal": 5,
+      "actualTotal": 9,
       "actualResult": "Small",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 65.87
-    },
-    {
-      "id": "0158496",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 12,
-      "actualResult": "Big",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 25.92
-    },
-    {
-      "id": "0158495",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 5,
-      "actualResult": "Small",
-      "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 25.92
-    },
-    {
-      "id": "0158494",
-      "predictedTotals": [
-        9,
-        11,
-        10
-      ],
-      "actualTotal": 10,
-      "actualResult": "Draw",
       "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
       "leadTotal": 9,
-      "leadProbability": 25.92
+      "leadProbability": 51.77,
+      "totalsToAvoid": []
     },
     {
-      "id": "0158493",
+      "id": "0158688",
+      "predictedTotals": [
+        8,
+        9,
+        12
+      ],
+      "actualTotal": 11,
+      "actualResult": "Draw",
+      "hit": false,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 55.2,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158687",
+      "predictedTotals": [
+        9,
+        10,
+        13
+      ],
+      "actualTotal": 9,
+      "actualResult": "Small",
+      "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 9,
+      "leadProbability": 39.29,
+      "totalsToAvoid": []
+    },
+    {
+      "id": "0158686",
       "predictedTotals": [
         9,
         8,
-        11
+        12
       ],
       "actualTotal": 8,
       "actualResult": "Small",
       "hit": true,
+      "councilDecision": "ABSTAIN_VETO",
       "leadTotal": 9,
-      "leadProbability": 74.19
+      "leadProbability": 49.76,
+      "totalsToAvoid": []
     },
     {
-      "id": "0158492",
+      "id": "0158685",
       "predictedTotals": [
-        9,
-        11,
+        8,
+        12,
         10
       ],
-      "actualTotal": 7,
+      "actualTotal": 9,
       "actualResult": "Small",
       "hit": false,
-      "leadTotal": 9,
-      "leadProbability": 32.94
+      "councilDecision": "ABSTAIN_VETO",
+      "leadTotal": 8,
+      "leadProbability": 27.8,
+      "totalsToAvoid": []
     }
   ]
 }
